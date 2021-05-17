@@ -1,0 +1,191 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@*Initially Table and button loading*@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="form-group">
+                    <h3 class="card-title">Display Employee Details</h3>
+                </div>
+            </div>
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Branch</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <select class="form-control" id="BranchforSearch"></select>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Name</label>
+                            <div class="col-md-12 col-sm-12 ">
+                                <input type="text" id="NameforSearch" class="form-control" placeholder="Enter Name">
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <div style="float:right">
+                                <button type="button" id="btnSearch" class="btn btn-secondary"><i class="fa fa-search"></i> Search</button>
+                                <button type="button" id="btnAdd" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer table-responsive">
+                <table id="example1" class="table table-bordered table-striped tblEmployee">
+                    <thead>
+                        <tr>
+                            <th>Membership Id</th>
+                            <th>First Name</th>
+                            <th>Last Name</th>
+                            <th>Phone No</th>
+                            <th>Age</th>
+                            <th>BMI</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyid">
+                    </tbody>
+
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+
+@* Add new Member Popup *@
+<div id="EmpModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="myModalLabel">Member Details</h4>
+                <button type="button" class="close" data-dismiss="modal">
+                    <span aria-hidden="true">×</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                <div class="x_panel">
+                    <div class="x_content">
+                        <form id="formUser" class="form-horizontal form-label-left" enctype="multipart/form-data">
+                            <input type="hidden" value="0" id="MembershipId" />
+
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3">First Name</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" required id="Fname" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Last Name</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" id="Lname" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Sex</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <select class="form-control" id="Sex"></select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">NIC No</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" id="Nic" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Address</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <textarea id="Address" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Contact No</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" id="ContactNo" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Branch</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <select class="form-control" id="Branch"></select>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">User Type</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <select class="form-control" id="UserType"></select>
+                                </div>
+                            </div>
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3">Morning InTime</label>
+
+                                    <div class="input-group date col-md-3 col-sm-3" id="timepicker" data-target-input="nearest">
+                                        <input type="text" id="MorningIn" class="form-control datetimepicker-input" data-target="#timepicker" />
+                                        <div class="input-group-append" data-target="#timepicker" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+
+                                    <label class="control-label col-md-3 col-sm-3" style="text-align:center">Morning OutTime</label>
+
+                                    <div class="input-group date col-md-3 col-sm-3" id="timepicker1" data-target-input="nearest">
+                                        <input type="text" id="MorningOut" class="form-control datetimepicker-input" data-target="#timepicker1" />
+                                        <div class="input-group-append" data-target="#timepicker1" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="bootstrap-timepicker">
+                                <div class="form-group row">
+                                    <label class="control-label col-md-3 col-sm-3">Evening InTime</label>
+
+                                    <div class="input-group date col-md-3 col-sm-3" id="timepicker2" data-target-input="nearest">
+                                        <input type="text" id="EveningIn" class="form-control datetimepicker-input" data-target="#timepicker2" />
+                                        <div class="input-group-append" data-target="#timepicker2" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+
+                                    <label class="control-label col-md-3 col-sm-3" style="text-align:center">Evening OutTime</label>
+
+                                    <div class="input-group date col-md-3 col-sm-3" id="timepicker3" data-target-input="nearest">
+                                        <input type="text" id="EveningOut" class="form-control datetimepicker-input" data-target="#timepicker3" />
+                                        <div class="input-group-append" data-target="#timepicker3" data-toggle="datetimepicker">
+                                            <div class="input-group-text"><i class="far fa-clock"></i></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="Status" value="true">
+                                <label class="control-label" for="Status">Active</label>
+                            </div>
+
+                            <div class="ln_solid"></div>
+                            <div class="form-group">
+                                <div style="float:right">
+                                    <button type="button" id="btnAddEmployee" class="btn btn-success">Save</button>
+                                    <button type="button" id="btnCancel" class="btn btn-warning">Cancel</button>
+                                </div>
+                            </div>
+
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

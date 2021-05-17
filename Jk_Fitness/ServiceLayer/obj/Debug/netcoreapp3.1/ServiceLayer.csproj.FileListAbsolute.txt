@@ -1,0 +1,15 @@
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\bin\Debug\netcoreapp3.1\ServiceLayer.deps.json
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\bin\Debug\netcoreapp3.1\ServiceLayer.runtimeconfig.json
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\bin\Debug\netcoreapp3.1\ServiceLayer.runtimeconfig.dev.json
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\bin\Debug\netcoreapp3.1\ServiceLayer.dll
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\bin\Debug\netcoreapp3.1\ServiceLayer.pdb
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\bin\Debug\netcoreapp3.1\DataLayer.dll
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\bin\Debug\netcoreapp3.1\DataLayer.pdb
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.csprojAssemblyReference.cache
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.AssemblyInfoInputs.cache
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.AssemblyInfo.cs
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.csproj.CoreCompileInputs.cache
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.csproj.CopyComplete
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.dll
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.pdb
+E:\Gym_Project\Version 2.0\Jk_Fitness\ServiceLayer\obj\Debug\netcoreapp3.1\ServiceLayer.genruntimeconfig.cache
