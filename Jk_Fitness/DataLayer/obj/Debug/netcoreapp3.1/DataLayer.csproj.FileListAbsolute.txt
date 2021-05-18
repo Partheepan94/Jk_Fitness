@@ -10,3 +10,14 @@ E:\Gym_Project\Version 2.0\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLaye
 E:\Gym_Project\Version 2.0\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.pdb
 E:\Gym_Project\Version 2.0\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.genruntimeconfig.cache
 E:\Gym_Project\Version 2.0\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csprojAssemblyReference.cache
+D:\My Projects\Project\Jk_Fitness\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.deps.json
+D:\My Projects\Project\Jk_Fitness\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.runtimeconfig.json
+D:\My Projects\Project\Jk_Fitness\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.runtimeconfig.dev.json
+D:\My Projects\Project\Jk_Fitness\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.dll
+D:\My Projects\Project\Jk_Fitness\DataLayer\bin\Debug\netcoreapp3.1\DataLayer.pdb
+D:\My Projects\Project\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfoInputs.cache
+D:\My Projects\Project\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.AssemblyInfo.cs
+D:\My Projects\Project\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.csproj.CoreCompileInputs.cache
+D:\My Projects\Project\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.dll
+D:\My Projects\Project\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.pdb
+D:\My Projects\Project\Jk_Fitness\DataLayer\obj\Debug\netcoreapp3.1\DataLayer.genruntimeconfig.cache

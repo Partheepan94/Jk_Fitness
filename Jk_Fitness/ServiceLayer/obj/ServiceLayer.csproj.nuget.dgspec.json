@@ -1,31 +1,36 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {}
+    "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {}
   },
   "projects": {
-    "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+    "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
-        "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
-        "outputPath": "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\DataLayer\\obj\\",
+        "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+        "packagesPath": "C:\\Users\\n.manchunathan\\.nuget\\packages\\",
+        "outputPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\n.manchunathan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.sana-commerce.com/AddonsDev/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {}
           }
         },
@@ -36,7 +41,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -68,35 +74,40 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
+    "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
+        "projectUniqueName": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
         "projectName": "ServiceLayer",
-        "projectPath": "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
-        "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
-        "outputPath": "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\ServiceLayer\\obj\\",
+        "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
+        "packagesPath": "C:\\Users\\n.manchunathan\\.nuget\\packages\\",
+        "outputPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
+        ],
         "configFilePaths": [
-          "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\n.manchunathan\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
-          "netcoreapp3.1"
+          "net5.0"
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+          "http://nuget.sana-commerce.com/AddonsDev/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
-          "netcoreapp3.1": {
+          "net5.0": {
+            "targetAlias": "net5.0",
             "projectReferences": {
-              "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "E:\\Gym_Project\\Version 2.0\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
+              "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -108,7 +119,8 @@
         }
       },
       "frameworks": {
-        "netcoreapp3.1": {
+        "net5.0": {
+          "targetAlias": "net5.0",
           "dependencies": {
             "Microsoft.EntityFrameworkCore": {
               "target": "Package",
@@ -136,7 +148,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\3.1.408\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
         }
       }
     }
