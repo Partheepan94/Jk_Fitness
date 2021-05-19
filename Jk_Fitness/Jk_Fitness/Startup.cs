@@ -11,6 +11,7 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using ServiceLayer;
+using ServiceLayer.Email;
 
 namespace Jk_Fitness
 {
@@ -31,6 +32,9 @@ namespace Jk_Fitness
             services.AddScoped(typeof(UnitOfWork));
             //services.AddScoped(typeof(GenericRepository<>));
             services.AddScoped(typeof(EmployeeService));
+
+            services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
+            services.AddTransient<IMailService, MailService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

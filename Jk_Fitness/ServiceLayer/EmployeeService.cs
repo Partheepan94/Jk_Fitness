@@ -1,9 +1,10 @@
 ﻿using DataLayer;
+using ServiceLayer.Email;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
 
 namespace ServiceLayer
 {
@@ -11,9 +12,12 @@ namespace ServiceLayer
     {
         private readonly UnitOfWork uow;
         WebResponce webResponce = null;
-        public EmployeeService(UnitOfWork uow)
+        private readonly IMailService mailService;
+
+        public EmployeeService(UnitOfWork uow, IMailService mailService)
         {
             this.uow = uow;
+            this.mailService = mailService;
         }
        
         public WebResponce ListBranches()
@@ -105,10 +109,21 @@ namespace ServiceLayer
                 employee.PhoneNo = employee.PhoneNo.Trim();
                 employee.Branch = employee.Branch.Trim();
                 employee.UserType = employee.UserType.Trim();
+
+                employee.Password = passwordGenerator();
+                employee.IsFirstTime = true;
+
                 employee.CreatedDate = DateTime.Now;
                 employee.CreatedBy = "Parthi";
                 uow.EmployeeRepository.Insert(employee);
                 uow.Save();
+
+                var request = new MailRequest();
+                request.ToEmail = employee.Email;
+                request.Subject = "Test Email";
+                request.Body = "Email testing purpose Body";
+                mailService.SendEmailAsync(request);
+
                 webResponce = new WebResponce()
                 {
                     Code = 1,
@@ -125,7 +140,7 @@ namespace ServiceLayer
                 };
             }
             return webResponce;
-        }
+        }        
 
         public WebResponce ListEmployeeDetails()
         {
@@ -317,7 +332,50 @@ namespace ServiceLayer
             }
             return webResponce;
         }
+        public string passwordGenerator()
+        {
+            string allowedChars = "";
 
+            allowedChars = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,";
+
+            allowedChars += "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
+
+            allowedChars += "1,2,3,4,5,6,7,8,9,0,!,@,#,$,%,&,?";
+
+            char[] sep = { ',' };
+
+            string[] arr = allowedChars.Split(sep);
+
+            string passwordString = "";
+
+            string temp = "";
+
+            Random rand = new Random();
+
+            for (int i = 0; i < 10; i++)
+
+            {
+
+                temp = arr[rand.Next(0, arr.Length)];
+
+                passwordString += temp;
+
+            }
+
+            return passwordString;
+        }
+
+        //protected async Task SendMail(MailRequest request)
+        //{
+        //    try
+        //    {
+        //        mailService.SendEmailAsync(request);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        throw;
+        //    }
+        //}
 
     }
 }
