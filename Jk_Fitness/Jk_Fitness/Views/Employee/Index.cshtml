@@ -65,7 +65,7 @@
     <!-- /.col -->
 </div>
 
-@* Add new Employee Popup *@
+@* Add new Employee and EDIT Employee Popup *@
 <div id="EmpModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
@@ -449,6 +449,7 @@
                         title: 'Oops...',
                         text: 'Something went wrong!',
                     });
+                    ListEmployeeDetails();
                     Clear();
                 }
             },
@@ -657,5 +658,12 @@
         $('#EveningOut').val('');
         $('#Status').prop('checked', true);
     }
+
+    $('#btnCancel').click(function () {
+        $('#EmpModal').modal('toggle');
+        ListEmployeeDetails();
+        Clear();
+    });
+
 
 </script>

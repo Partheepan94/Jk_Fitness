@@ -1,23 +1,20 @@
 {
   "format": 1,
   "restore": {
-    "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj": {}
+    "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj": {}
   },
   "projects": {
-    "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+    "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
-        "packagesPath": "C:\\Users\\n.manchunathan\\.nuget\\packages\\",
-        "outputPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\obj\\",
+        "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+        "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
+        "outputPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\n.manchunathan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -25,7 +22,6 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget.sana-commerce.com/AddonsDev/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -74,24 +70,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj": {
+    "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+        "projectUniqueName": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
         "projectName": "Jk_Fitness",
-        "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
-        "packagesPath": "C:\\Users\\n.manchunathan\\.nuget\\packages\\",
-        "outputPath": "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\obj\\",
+        "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+        "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
+        "outputPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\n.manchunathan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -99,18 +92,17 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget.sana-commerce.com/AddonsDev/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
+              "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
               },
-              "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
-                "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
+              "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
+                "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
               }
             }
           }
@@ -154,24 +146,21 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     },
-    "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
+    "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
+        "projectUniqueName": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
         "projectName": "ServiceLayer",
-        "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
-        "packagesPath": "C:\\Users\\n.manchunathan\\.nuget\\packages\\",
-        "outputPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\obj\\",
+        "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
+        "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
+        "outputPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-        ],
         "configFilePaths": [
-          "C:\\Users\\n.manchunathan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
@@ -179,15 +168,14 @@
         ],
         "sources": {
           "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-          "http://nuget.sana-commerce.com/AddonsDev/": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
           "net5.0": {
             "targetAlias": "net5.0",
             "projectReferences": {
-              "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
-                "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
+              "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+                "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
               }
             }
           }
@@ -202,6 +190,10 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "dependencies": {
+            "IdentityModel": {
+              "target": "Package",
+              "version": "[5.1.0, )"
+            },
             "MailKit": {
               "target": "Package",
               "version": "[2.12.0, )"
@@ -236,7 +228,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
         }
       }
     }

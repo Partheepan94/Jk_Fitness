@@ -1,8 +1,10 @@
 ﻿using DataLayer;
 using ServiceLayer.Email;
+using ServiceLayer.Password;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -91,13 +93,14 @@ namespace ServiceLayer
         {
             try
             {
+                PasswordGenerate password = new();
                 var empl = uow.DbContext.Employees.Where(x=>x.Branch== employee.Branch.Trim()).OrderBy(x=>x.EmployeeId).Select(x=>x.EmployeeId).LastOrDefault();
                 var branchCode = uow.DbContext.Branches.Where(x=>x.BranchName == employee.Branch.Trim()).Select(i=>i.BranchCode).FirstOrDefault();
                 if (empl != null)
                 {
                     double subs = double.Parse(empl.Split(' ')[1]);
                     double val = subs+ (double)0.0001;
-                    employee.EmployeeId = branchCode.Split(' ')[0]+ " " + val.ToString();
+                    employee.EmployeeId = branchCode.Split(' ')[0]+ " " + String.Format("{0:0.0000}", val);
                 }
                 else {
                     employee.EmployeeId = branchCode + "0001";
@@ -115,13 +118,15 @@ namespace ServiceLayer
 
                 employee.CreatedDate = DateTime.Now;
                 employee.CreatedBy = "Parthi";
+                employee.Password= password.Generate();
+                employee.IsFirstTime = true;
                 uow.EmployeeRepository.Insert(employee);
                 uow.Save();
 
                 var request = new MailRequest();
                 request.ToEmail = employee.Email;
-                request.Subject = "Test Email";
-                request.Body = "Email testing purpose Body";
+                request.Subject = "Password";
+                request.Body = "Use this Password While Login system: "+ employee.Password;
                 mailService.SendEmailAsync(request);
 
                 webResponce = new WebResponce()

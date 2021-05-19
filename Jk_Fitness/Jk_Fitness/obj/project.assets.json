@@ -11,6 +11,19 @@
           "lib/netstandard2.0/Humanizer.dll": {}
         }
       },
+      "IdentityModel/5.1.0": {
+        "type": "package",
+        "dependencies": {
+          "System.Text.Encodings.Web": "5.0.1",
+          "System.Text.Json": "5.0.1"
+        },
+        "compile": {
+          "lib/net5.0/IdentityModel.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/IdentityModel.dll": {}
+        }
+      },
       "MailKit/2.12.0": {
         "type": "package",
         "dependencies": {
@@ -1901,13 +1914,22 @@
           "ref/netstandard1.3/_._": {}
         }
       },
-      "System.Text.Encodings.Web/4.5.0": {
+      "System.Text.Encodings.Web/5.0.1": {
         "type": "package",
         "compile": {
-          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {}
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
         },
         "runtime": {
-          "lib/netstandard2.0/System.Text.Encodings.Web.dll": {}
+          "lib/netcoreapp3.0/System.Text.Encodings.Web.dll": {}
+        }
+      },
+      "System.Text.Json/5.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
+        },
+        "runtime": {
+          "lib/netcoreapp3.0/System.Text.Json.dll": {}
         }
       },
       "System.Text.RegularExpressions/4.3.0": {
@@ -2090,6 +2112,7 @@
         "framework": ".NETCoreApp,Version=v5.0",
         "dependencies": {
           "DataLayer": "1.0.0",
+          "IdentityModel": "5.1.0",
           "MailKit": "2.12.0",
           "Microsoft.EntityFrameworkCore": "5.0.6",
           "MimeKit": "2.12.0"
@@ -2118,6 +2141,30 @@
         "lib/netstandard2.0/Humanizer.dll",
         "lib/netstandard2.0/Humanizer.xml",
         "logo.png"
+      ]
+    },
+    "IdentityModel/5.1.0": {
+      "sha512": "Gcv4YYXncvUvTNLF8lDJyItZzaEDFcEi3geMDtylGcl/Rx90vcV7Kv3yAofktJBW7GvmIjQgC8LtUq0s9XQT2w==",
+      "type": "package",
+      "path": "identitymodel/5.1.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "icon.jpg",
+        "identitymodel.5.1.0.nupkg.sha512",
+        "identitymodel.nuspec",
+        "lib/net461/IdentityModel.dll",
+        "lib/net461/IdentityModel.pdb",
+        "lib/net461/IdentityModel.xml",
+        "lib/net472/IdentityModel.dll",
+        "lib/net472/IdentityModel.pdb",
+        "lib/net472/IdentityModel.xml",
+        "lib/net5.0/IdentityModel.dll",
+        "lib/net5.0/IdentityModel.pdb",
+        "lib/net5.0/IdentityModel.xml",
+        "lib/netstandard2.0/IdentityModel.dll",
+        "lib/netstandard2.0/IdentityModel.pdb",
+        "lib/netstandard2.0/IdentityModel.xml"
       ]
     },
     "MailKit/2.12.0": {
@@ -6158,11 +6205,12 @@
       ]
     },
     "System.Runtime.Serialization.Formatters/4.3.0": {
-      "sha512": "F9U+5EseHCwayekNQ+Xve3nPQExYDQOYuvLGLPb6HkaIeYAOL7ALh9YIjGECyEKdB8dftgUkCerRU2o9K8tyIA==",
+      "sha512": "KT591AkTNFOTbhZlaeMVvfax3RqhH1EJlcwF50Wm7sfnBLuHiOeZRRKrr1ns3NESkM20KPZ5Ol/ueMq5vg4QoQ==",
       "type": "package",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6864,21 +6912,50 @@
         "system.text.encoding.extensions.nuspec"
       ]
     },
-    "System.Text.Encodings.Web/4.5.0": {
-      "sha512": "Xg4G4Indi4dqP1iuAiMSwpiWS54ZghzR644OtsRCm/m/lBMG8dUBhLVN7hLm8NNrNTR+iGbshCPTwrvxZPlm4g==",
+    "System.Text.Encodings.Web/5.0.1": {
+      "sha512": "KmJ+CJXizDofbq6mpqDoRRLcxgOd2z9X3XoFNULSbvbqVRZkFX3istvr+MUjL6Zw1RT+RNdoI4GYidIINtgvqQ==",
       "type": "package",
-      "path": "system.text.encodings.web/4.5.0",
+      "path": "system.text.encodings.web/5.0.1",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
+        "Icon.png",
         "LICENSE.TXT",
         "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Encodings.Web.dll",
+        "lib/net461/System.Text.Encodings.Web.xml",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.dll",
+        "lib/netcoreapp3.0/System.Text.Encodings.Web.xml",
         "lib/netstandard1.0/System.Text.Encodings.Web.dll",
         "lib/netstandard1.0/System.Text.Encodings.Web.xml",
         "lib/netstandard2.0/System.Text.Encodings.Web.dll",
         "lib/netstandard2.0/System.Text.Encodings.Web.xml",
-        "system.text.encodings.web.4.5.0.nupkg.sha512",
+        "lib/netstandard2.1/System.Text.Encodings.Web.dll",
+        "lib/netstandard2.1/System.Text.Encodings.Web.xml",
+        "system.text.encodings.web.5.0.1.nupkg.sha512",
         "system.text.encodings.web.nuspec",
+        "useSharedDesignerContext.txt",
+        "version.txt"
+      ]
+    },
+    "System.Text.Json/5.0.1": {
+      "sha512": "/UM3UK1dXKl8Ybysg/21gM4S8DJgkR+yLU8JwqCVbuNqQNImelntgYFAN5QxR8sJJ1kMx//hOUdf0lltosi8cQ==",
+      "type": "package",
+      "path": "system.text.json/5.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "Icon.png",
+        "LICENSE.TXT",
+        "THIRD-PARTY-NOTICES.TXT",
+        "lib/net461/System.Text.Json.dll",
+        "lib/net461/System.Text.Json.xml",
+        "lib/netcoreapp3.0/System.Text.Json.dll",
+        "lib/netcoreapp3.0/System.Text.Json.xml",
+        "lib/netstandard2.0/System.Text.Json.dll",
+        "lib/netstandard2.0/System.Text.Json.xml",
+        "system.text.json.5.0.1.nupkg.sha512",
+        "system.text.json.nuspec",
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
@@ -7436,23 +7513,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\n.manchunathan\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\UIser\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+      "projectUniqueName": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
       "projectName": "Jk_Fitness",
-      "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
-      "packagesPath": "C:\\Users\\n.manchunathan\\.nuget\\packages\\",
-      "outputPath": "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\obj\\",
+      "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+      "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
+      "outputPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\n.manchunathan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -7460,18 +7533,17 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.sana-commerce.com/AddonsDev/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
+            "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
             },
-            "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
-              "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
+            "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
+              "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
             }
           }
         }
@@ -7515,7 +7587,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }
