@@ -120,8 +120,18 @@ namespace ServiceLayer
 
                 var request = new MailRequest();
                 request.ToEmail = employee.Email;
-                request.Subject = "Test Email";
-                request.Body = "Email testing purpose Body";
+                request.Subject = "New Office Account";
+
+                StringBuilder body = new StringBuilder();
+
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + employee.FirstName + ",</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>You can now login at JK Fitness Backoffice web application.</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Username: " + employee.Email + "</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Password: " + employee.Password + "</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group </ p > ");
+
+                request.Body = body.ToString();
+
                 mailService.SendEmailAsync(request);
 
                 webResponce = new WebResponce()
