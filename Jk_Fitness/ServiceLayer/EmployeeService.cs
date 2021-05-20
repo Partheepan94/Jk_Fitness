@@ -94,6 +94,7 @@ namespace ServiceLayer
             try
             {
                 PasswordGenerate password = new();
+                var EmpPwd = password.Generate();
                 var empl = uow.DbContext.Employees.Where(x=>x.Branch== employee.Branch.Trim()).OrderBy(x=>x.EmployeeId).Select(x=>x.EmployeeId).LastOrDefault();
                 var branchCode = uow.DbContext.Branches.Where(x=>x.BranchName == employee.Branch.Trim()).Select(i=>i.BranchCode).FirstOrDefault();
                 if (empl != null)
@@ -106,19 +107,16 @@ namespace ServiceLayer
                     employee.EmployeeId = branchCode + "0001";
                 }
 
+                employee.Salutation = employee.Salutation.Trim();
                 employee.FirstName = employee.FirstName.Trim();
                 employee.LastName = employee.LastName.Trim();
                 employee.Email = employee.Email.Trim();
                 employee.PhoneNo = employee.PhoneNo.Trim();
                 employee.Branch = employee.Branch.Trim();
                 employee.UserType = employee.UserType.Trim();
-
-                employee.Password = passwordGenerator();
-                employee.IsFirstTime = true;
-
                 employee.CreatedDate = DateTime.Now;
                 employee.CreatedBy = "Parthi";
-                employee.Password= password.Generate();
+                employee.Password = Crypto.Hash(EmpPwd);
                 employee.IsFirstTime = true;
                 uow.EmployeeRepository.Insert(employee);
                 uow.Save();
@@ -126,7 +124,7 @@ namespace ServiceLayer
                 var request = new MailRequest();
                 request.ToEmail = employee.Email;
                 request.Subject = "Password";
-                request.Body = "Use this Password While Login system: "+ employee.Password;
+                request.Body = "Use this Password While Login system: "+ EmpPwd;
                 mailService.SendEmailAsync(request);
 
                 webResponce = new WebResponce()
@@ -337,38 +335,83 @@ namespace ServiceLayer
             }
             return webResponce;
         }
-        public string passwordGenerator()
+
+        public WebResponce ListLogInInfo(Employee employee)
         {
-            string allowedChars = "";
-
-            allowedChars = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,";
-
-            allowedChars += "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
-
-            allowedChars += "1,2,3,4,5,6,7,8,9,0,!,@,#,$,%,&,?";
-
-            char[] sep = { ',' };
-
-            string[] arr = allowedChars.Split(sep);
-
-            string passwordString = "";
-
-            string temp = "";
-
-            Random rand = new Random();
-
-            for (int i = 0; i < 10; i++)
-
+            try
             {
-
-                temp = arr[rand.Next(0, arr.Length)];
-
-                passwordString += temp;
-
+                var Empl = uow.DbContext.Employees.Where(x => x.Email == employee.Email.Trim()).FirstOrDefault();
+                if (Empl != null)
+                {
+                    if (string.Compare(Crypto.Hash(employee.Password.Trim()), Empl.Password) == 0)
+                    {
+                        webResponce = new WebResponce()
+                        {
+                            Code = 1,
+                            Message = "Success",
+                            Data = Empl
+                        };
+                    }
+                    else {
+                        webResponce = new WebResponce()
+                        {
+                            Code = 0,
+                            Message = "Invalid",
+                        };
+                    }                   
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Invalid"
+                    };
+                }
             }
-
-            return passwordString;
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
         }
+
+        //public string passwordGenerator()
+        //{
+        //    string allowedChars = "";
+
+        //    allowedChars = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,";
+
+        //    allowedChars += "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
+
+        //    allowedChars += "1,2,3,4,5,6,7,8,9,0,!,@,#,$,%,&,?";
+
+        //    char[] sep = { ',' };
+
+        //    string[] arr = allowedChars.Split(sep);
+
+        //    string passwordString = "";
+
+        //    string temp = "";
+
+        //    Random rand = new Random();
+
+        //    for (int i = 0; i < 10; i++)
+
+        //    {
+
+        //        temp = arr[rand.Next(0, arr.Length)];
+
+        //        passwordString += temp;
+
+        //    }
+
+        //    return passwordString;
+        //}
 
         //protected async Task SendMail(MailRequest request)
         //{

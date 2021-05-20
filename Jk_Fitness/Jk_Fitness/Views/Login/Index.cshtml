@@ -38,7 +38,7 @@
                     </div>
                 </div>
                 <div class="col-4">
-                    <button type="button" class="btn btn-primary btn-block">Sign In</button>
+                    <button type="button" id="SignIn" class="btn btn-primary btn-block">Sign In</button>
                 </div>
             </div>
         </form>
@@ -47,8 +47,56 @@
 
 <script type="text/javascript">
 
-    $('#formId').click(function () {
-        window.location.replace('@Url.Action("Index", "Home")');
+    $('#SignIn').click(function () {
+
+        var username = $('#UsrName').val();
+        var password = $('#Pasword').val();
+
+        if (username.trim() == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill out UserName Field!',
+            });
+        }
+        else if (password.trim() == "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill out PassWord Field!',
+            });
+        }
+        else {
+            $.ajax({
+                type: 'POST',
+                url:'@Url.Action("ValidateLogin", "Login")',
+                dataType: 'json',
+                data: '{"Email":" ' + username + ' ","Password":" ' + password + ' "}',
+                contentType: 'application/json; charset=utf-8',
+                success: function (response) {
+
+                    var myData = jQuery.parseJSON(JSON.stringify(response));
+                    if (myData.code == "1") {
+                        window.location.replace('@Url.Action("Index", "Home")');
+                    } else if (myData.code == "0" && myData.message =="Invalid") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Invalid Login Credentials!',
+                        });
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Something went wrong!',
+                        });
+                    }
+                },
+                error: function (jqXHR, exception) {
+                }
+            });
+        }
+        
     });
 
 </script>
