@@ -1,10 +1,11 @@
 {
   "version": 2,
-  "dgSpecHash": "hm03O5lVSghMt7qw++ZemrQ60rcbhSPSlu2yjopMY3pjc0ujMh1qze3YVxoYs0e9FLCOphJC+jGLRwaxZrRnlw==",
+  "dgSpecHash": "xv6QZyR0a7O5FiiPo/pxCUp5pzHX3YbP+6qDurz9clwcqNzb/bOqIfYATRxXpRJisyrVBjgGb9p4Qw9oFhbPgw==",
   "success": true,
   "projectFilePath": "D:\\My Projects\\Project\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
+    "C:\\Users\\n.manchunathan\\.nuget\\packages\\identitymodel\\5.1.0\\identitymodel.5.1.0.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\mailkit\\2.12.0\\mailkit.2.12.0.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\microsoft.aspnetcore.html.abstractions\\2.2.0\\microsoft.aspnetcore.html.abstractions.2.2.0.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\microsoft.aspnetcore.razor\\2.2.0\\microsoft.aspnetcore.razor.2.2.0.nupkg.sha512",
@@ -123,7 +124,8 @@
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.text.encoding\\4.3.0\\system.text.encoding.4.3.0.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.text.encoding.codepages\\4.7.0\\system.text.encoding.codepages.4.7.0.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.text.encoding.extensions\\4.3.0\\system.text.encoding.extensions.4.3.0.nupkg.sha512",
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder\\system.text.encodings.web\\4.5.0\\system.text.encodings.web.4.5.0.nupkg.sha512",
+    "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.text.encodings.web\\5.0.1\\system.text.encodings.web.5.0.1.nupkg.sha512",
+    "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.text.json\\5.0.1\\system.text.json.5.0.1.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.text.regularexpressions\\4.3.0\\system.text.regularexpressions.4.3.0.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.threading\\4.3.0\\system.threading.4.3.0.nupkg.sha512",
     "C:\\Users\\n.manchunathan\\.nuget\\packages\\system.threading.tasks\\4.3.0\\system.threading.tasks.4.3.0.nupkg.sha512",
