@@ -130,7 +130,7 @@ namespace ServiceLayer
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + employee.FirstName + ",</p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>You can now login at JK Fitness Backoffice web application.</p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Username: " + employee.Email + "</p>");
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Password: " + employee.Password + "</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Password: " + EmpPwd + "</p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group </ p > ");
 
                 request.Body = body.ToString();
@@ -230,10 +230,10 @@ namespace ServiceLayer
                 var Empl = uow.DbContext.Employees.Where(x => x.EmployeeId==employee.EmployeeId.Trim()).FirstOrDefault();
                 if (Empl != null)
                 {
-                    Empl.Salutation = employee.Salutation;
+                    Empl.Salutation = employee.Salutation.Trim();
                     Empl.FirstName = employee.FirstName.Trim();
                     Empl.LastName = employee.LastName.Trim();
-                    Empl.Address = employee.Address;
+                    Empl.Address = employee.Address.Trim();
                     Empl.Email = employee.Email.Trim();
                     Empl.PhoneNo = employee.PhoneNo.Trim();
                     Empl.Branch = employee.Branch.Trim();
@@ -344,95 +344,6 @@ namespace ServiceLayer
             }
             return webResponce;
         }
-
-        public WebResponce ListLogInInfo(Employee employee)
-        {
-            try
-            {
-                var Empl = uow.DbContext.Employees.Where(x => x.Email == employee.Email.Trim()).FirstOrDefault();
-                if (Empl != null)
-                {
-                    if (string.Compare(Crypto.Hash(employee.Password.Trim()), Empl.Password) == 0)
-                    {
-                        webResponce = new WebResponce()
-                        {
-                            Code = 1,
-                            Message = "Success",
-                            Data = Empl
-                        };
-                    }
-                    else {
-                        webResponce = new WebResponce()
-                        {
-                            Code = 0,
-                            Message = "Invalid",
-                        };
-                    }                   
-                }
-                else
-                {
-                    webResponce = new WebResponce()
-                    {
-                        Code = 0,
-                        Message = "Invalid"
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                webResponce = new WebResponce()
-                {
-                    Code = -1,
-                    Message = ex.Message.ToString()
-                };
-            }
-            return webResponce;
-        }
-
-        //public string passwordGenerator()
-        //{
-        //    string allowedChars = "";
-
-        //    allowedChars = "a,b,c,d,e,f,g,h,i,j,k,l,m,n,o,p,q,r,s,t,u,v,w,x,y,z,";
-
-        //    allowedChars += "A,B,C,D,E,F,G,H,I,J,K,L,M,N,O,P,Q,R,S,T,U,V,W,X,Y,Z,";
-
-        //    allowedChars += "1,2,3,4,5,6,7,8,9,0,!,@,#,$,%,&,?";
-
-        //    char[] sep = { ',' };
-
-        //    string[] arr = allowedChars.Split(sep);
-
-        //    string passwordString = "";
-
-        //    string temp = "";
-
-        //    Random rand = new Random();
-
-        //    for (int i = 0; i < 10; i++)
-
-        //    {
-
-        //        temp = arr[rand.Next(0, arr.Length)];
-
-        //        passwordString += temp;
-
-        //    }
-
-        //    return passwordString;
-        //}
-
-        //protected async Task SendMail(MailRequest request)
-        //{
-        //    try
-        //    {
-        //        mailService.SendEmailAsync(request);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        throw;
-        //    }
-        //}
 
     }
 }

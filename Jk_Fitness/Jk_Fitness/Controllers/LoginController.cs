@@ -10,11 +10,11 @@ namespace Jk_Fitness.Controllers
 {
     public class LoginController : Controller
     {
-        private readonly EmployeeService employee;
+        private readonly LogInService logInService;
         WebResponce webResponce = null;
-        public LoginController(EmployeeService employee)
+        public LoginController(LogInService logInService)
         {
-            this.employee = employee;
+            this.logInService = logInService;
         }
         public IActionResult Index()
         {
@@ -24,7 +24,21 @@ namespace Jk_Fitness.Controllers
         [HttpPost]
         public ActionResult<WebResponce> ValidateLogIn([FromBody] Employee employe)
         {
-            webResponce = employee.ListLogInInfo(employe);
+            webResponce = logInService.ListLogInInfo(employe);
+            return webResponce;
+        }
+
+        [HttpPost]
+        public ActionResult<WebResponce> ConfirmPassword([FromBody] Employee employe)
+        {
+            webResponce = logInService.ConfirmPassword(employe);
+            return webResponce;
+        }
+
+        [HttpPost]
+        public ActionResult<WebResponce> UpdatePassword([FromBody] Employee employe)
+        {
+            webResponce = logInService.UpdatePassword(employe);
             return webResponce;
         }
     }

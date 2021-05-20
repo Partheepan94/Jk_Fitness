@@ -71,7 +71,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" id="myModalLabel">Employee Details</h4>
-                <button type="button" class="close" data-dismiss="modal">
+                <button type="button" class="close" data-dismiss="modal" onclick="Cancel()">
                     <span aria-hidden="true">×</span>
                 </button>
             </div>
@@ -179,7 +179,7 @@
                             <div class="form-group">
                                 <div style="float:right">
                                     <button type="button" id="btnAddEmployee" class="btn btn-success">Save</button>
-                                    <button type="button" id="btnCancel" class="btn btn-warning">Cancel</button>
+                                    <button type="button" onclick="Cancel()" class="btn btn-warning">Cancel</button>
                                 </div>
                             </div>
 
@@ -659,11 +659,11 @@
         $('#Status').prop('checked', true);
     }
 
-    $('#btnCancel').click(function () {
+    function Cancel() {
         $('#EmpModal').modal('toggle');
         ListEmployeeDetails();
         Clear();
-    });
+    }
 
 
 </script>

@@ -32,7 +32,7 @@ namespace Jk_Fitness
             services.AddScoped(typeof(UnitOfWork));
             //services.AddScoped(typeof(GenericRepository<>));
             services.AddScoped(typeof(EmployeeService));
-
+            services.AddScoped(typeof(LogInService));
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
         }
