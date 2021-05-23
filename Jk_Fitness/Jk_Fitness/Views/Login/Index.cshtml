@@ -43,6 +43,11 @@
             </div>
         </form>
     </div>
+    <input type="hidden" id="ValidateLogin" value="@Url.Action("ValidateLogin", "Login")" />
+    <input type="hidden" id="ConfirmPassword" value="@Url.Action("ConfirmPassword", "Login")" />
+    <input type="hidden" id="UpdatePassword" value="@Url.Action("UpdatePassword", "Login")" />
+    <input type="hidden" id="SearchEmployees" value="@Url.Action("SearchEmployees", "Employee")" />
+    <input type="hidden" id="HomePath" value="@Url.Action("Index", "Home")" />
 </div>
 
 <div id="ResetPasswordModel" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
@@ -74,7 +79,7 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">ConfirmPassword</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="password" id="ConfirmPassword" class="form-control">
+                                    <input type="password" id="ConfirmPasswordTxt" class="form-control">
                                 </div>
                             </div>
                             <div class="ln_solid"></div>
@@ -91,148 +96,4 @@
         </div>
     </div>
 </div>
-
-
-<script type="text/javascript">
-
-    $('#SignIn').click(function () {
-
-        var username = $('#UsrName').val();
-        var password = $('#Pasword').val();
-
-        if (username.trim() == "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please fill out UserName Field!',
-            });
-        }
-        else if (password.trim() == "") {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Please fill out PassWord Field!',
-            });
-        }
-        else {
-            $.ajax({
-                type: 'POST',
-                url:'@Url.Action("ValidateLogin", "Login")',
-                dataType: 'json',
-                data: '{"Email":" ' + username + ' ","Password":" ' + password + ' "}',
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-
-                    var myData = jQuery.parseJSON(JSON.stringify(response));
-                    if (myData.code == "1") {
-                        var Result = myData.data;
-                        if (Result.isFirstTime) {
-                            $('#ResetPasswordModel').modal('show');
-                            $("#EmployeeId").val(Result['employeeId']);
-                        }
-                        else {
-                            window.location.replace('@Url.Action("Index", "Home")');
-                        }
-                    } else if (myData.code == "0" && myData.message =="Invalid") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Invalid Login Credentials!',
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        });
-                    }
-                },
-                error: function (jqXHR, exception) {
-                }
-            });
-        }
-
-    });
-
-    $('#btnPwdUpdate').click(function () {
-        var EmpID = $('#EmployeeId').val();
-        var CurPwd = $('#CurPassword').val();
-        var Pwd = $('#Password').val();
-        var ConPwd = $('#ConfirmPassword').val();
-
-        if (Pwd.trim() == ConPwd.trim()) {
-
-                $.ajax({
-                type: 'POST',
-                url:'@Url.Action("ConfirmPassword", "Login")',
-                dataType: 'json',
-                data: '{"EmployeeId":" ' + EmpID + ' ","Password":" ' + CurPwd + ' "}',
-                contentType: 'application/json; charset=utf-8',
-                success: function (response) {
-
-                    var myData = jQuery.parseJSON(JSON.stringify(response));
-                    if (myData.code == "1") {
-
-                        $.ajax({
-                        type: 'POST',
-                        url:'@Url.Action("UpdatePassword", "Login")',
-                        dataType: 'json',
-                        data: '{"EmployeeId":" ' + EmpID + ' ","Password":" ' + Pwd + ' "}',
-                        contentType: 'application/json; charset=utf-8',
-                        success: function (response) {
-                            var myData = jQuery.parseJSON(JSON.stringify(response));
-                            if (myData.code = "1") {
-                                Swal.fire({
-                                    icon: 'success',
-                                    title: 'Updated!',
-                                    text: 'Successfully Password Updated!',
-                                });
-                                window.location.replace('@Url.Action("Index", "Home")');
-                            }
-                            else {
-                                Swal.fire({
-                                    icon: 'error',
-                                    title: 'Oops...',
-                                    text: 'Update Failed!',
-                                });
-                            }
-                        },
-                        error: function (jqXHR, exception) {
-                        }
-                        });
-
-
-                    } else if (myData.code == "0" && myData.message =="Invalid") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Invalid Login Credentials!',
-                        });
-                    } else {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Something went wrong!',
-                        });
-                    }
-                },
-                error: function (jqXHR, exception) {
-                }
-            });
-
-
-        } else {
-            Swal.fire({
-                icon: 'error',
-                title: 'Oops...',
-                text: 'Password Does not Match!',
-            });
-        }
-    });
-
-    function Cancel() {
-        $('#ResetPasswordModel').modal('show');
-        window.location.replace('@Url.Action("Index", "Home")');
-    }
-
-</script>
+<script src="~/js/page.login.js"></script>
