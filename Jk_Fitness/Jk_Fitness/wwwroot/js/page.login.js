@@ -18,6 +18,8 @@
         });
     }
     else {
+        $("#wait").css("display", "block");
+        $("#SignIn").attr("disabled", true);
         $.ajax({
             type: 'POST',
             url: $("#ValidateLogin").val(),
@@ -25,7 +27,8 @@
             data: '{"Email":" ' + username + ' ","Password":" ' + password + ' "}',
             contentType: 'application/json; charset=utf-8',
             success: function (response) {
-
+                $("#wait").css("display", "none");
+                $("#SignIn").attr("disabled", false);
                 var myData = jQuery.parseJSON(JSON.stringify(response));
                 if (myData.code == "1") {
                     var Result = myData.data;
@@ -34,7 +37,7 @@
                         $("#EmployeeId").val(Result['employeeId']);
                     }
                     else {
-                        window.location.replace('@Url.Action("Index", "Home")');
+                        window.location.replace($("#HomePath").val());
                     }
                 } else if (myData.code == "0" && myData.message == "Invalid") {
                     Swal.fire({

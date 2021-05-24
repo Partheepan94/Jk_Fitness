@@ -180,7 +180,7 @@ $('#btnAddEmployee').click(function () {
     var Active = $('#Status').prop('checked') ? "true" : "false";
     var filter = /^[0][0-9]{9}$/;
 
-
+    var Mailregex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
     var data = '{"EmployeeId": "' + EmployeeId +
         ' ","Salutation": "' + Salutation +
@@ -204,11 +204,17 @@ $('#btnAddEmployee').click(function () {
             text: 'Empty Value Can not be Allow!',
         });
     }
-    else if (!filter.test(ContactNo)) {
+    else if (!Mailregex.test(Email)) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
-            text: 'Invalid Mobile No!',
+            text: 'Please enter a vaild email address!',
+        });
+    } else if (!filter.test(ContactNo)) {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Please enter a vaild Phone No!',
         });
     } else if (Salutation == 0 || Branch == 0 || UserType == 0) {
         Swal.fire({
@@ -217,7 +223,8 @@ $('#btnAddEmployee').click(function () {
             text: 'Please Select a Value!',
         });
     } else {
-
+        $("#wait").css("display", "block");
+        $("#btnAddEmployee").attr("disabled", true);
         if (EmployeeId == "0" || EmployeeId == "") {
 
             $.ajax({
@@ -228,6 +235,8 @@ $('#btnAddEmployee').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
+                    $("#wait").css("display", "none");
+                    $("#btnAddEmployee").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
                             position: 'center',
@@ -263,6 +272,8 @@ $('#btnAddEmployee').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
+                    $("#wait").css("display", "none");
+                    $("#btnAddEmployee").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
                             position: 'center',
@@ -425,7 +436,7 @@ $('#btnSearch').click(function () {
 
     $.ajax({
         type: 'POST',
-        url: $("SearchEmployees").val(),
+        url: $("#SearchEmployees").val(),
         dataType: 'json',
         data: '{"FirstName": "' + FName + '","Branch": "' + Branch + '"}',
         contentType: 'application/json; charset=utf-8',
