@@ -67,7 +67,8 @@ $('#btnPwdUpdate').click(function () {
     var ConPwd = $('#ConfirmPasswordTxt').val();
 
     if (Pwd.trim() == ConPwd.trim()) {
-
+        $("#Modelwait").css("display", "block");
+        $("#btnPwdUpdate").attr("disabled", true);
         $.ajax({
             type: 'POST',
             url: $("#ConfirmPassword").val(),
@@ -87,6 +88,8 @@ $('#btnPwdUpdate').click(function () {
                         contentType: 'application/json; charset=utf-8',
                         success: function (response) {
                             var myData = jQuery.parseJSON(JSON.stringify(response));
+                            $("#Modelwait").css("display", "none");
+                            $("#btnPwdUpdate").attr("disabled", false);
                             if (myData.code = "1") {
                                 Swal.fire({
                                     icon: 'success',
@@ -137,6 +140,6 @@ $('#btnPwdUpdate').click(function () {
 });
 
 function Cancel() {
-    $('#ResetPasswordModel').modal('show');
+    $('#ResetPasswordModel').modal('toggle');
     window.location.replace($("#HomePath").val());
 }

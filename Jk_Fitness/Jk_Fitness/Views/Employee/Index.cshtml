@@ -1,4 +1,4 @@
-﻿
+﻿@using Microsoft.AspNetCore.Http;
 @{
     ViewData["Title"] = "Employee Details";
     Layout = "~/Views/Shared/_Layout.cshtml";
@@ -63,13 +63,14 @@
     </div>
     <!-- /.col -->
     <input type="hidden" id="GetEmployeeDetailsPath" value="@Url.Action("GetEmployeeDetails","Employee")" />
-    <input type="hidden" id="GetBranchDetails" value="@Url.Action("GetBranchDetails", "Employee")"/>
+    <input type="hidden" id="GetBranchDetails" value="@Url.Action("GetBranchDetails", "Employee")" />
     <input type="hidden" id="GetUserTypeDetails" value="@Url.Action("GetUserTypeDetails", "Employee")" />
     <input type="hidden" id="SaveEmployees" value="@Url.Action("SaveEmployees", "Employee")" />
     <input type="hidden" id="UpdateEmployees" value="@Url.Action("UpdateEmployees", "Employee")" />
     <input type="hidden" id="GetEmployeeById" value="@Url.Action("GetEmployeeById", "Employee")" />
     <input type="hidden" id="DeleteEmployees" value="@Url.Action("DeleteEmployees", "Employee")" />
     <input type="hidden" id="SearchEmployees" value="@Url.Action("SearchEmployees", "Employee")" />
+    <input type="hidden" id="SeassionEmail" value="@Context.Session.GetString("Email")" />
 </div>
 
 @* Add new Employee and EDIT Employee Popup *@
@@ -98,8 +99,8 @@
                                 <div class="col-md-9 col-sm-9">
                                     <input type="text" required id="Fname" class="form-control">
                                     @*<span class="error" style="color: red">
-                    Empty fiels Required
-                </span>*@
+                                            Empty fiels Required
+                                        </span>*@
                                 </div>
                             </div>
                             <div class="form-group row ">

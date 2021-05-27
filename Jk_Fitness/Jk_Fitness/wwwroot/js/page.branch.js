@@ -1,11 +1,12 @@
 ﻿$(document).ready(function () {
     ListBranchDetails();
-
 });
 
 $('#btnAdd').click(function () {
     $('#BranchModal').modal('show');
     $("#BranchField").css("display", "none");
+    $("#InRangefrom").attr("disabled", false);
+    $("#InRangeTo").attr("disabled", false);
 });
 
 
@@ -209,6 +210,8 @@ function ListBranchDetails() {
 function EditBranch(Id) {
     $('#BranchModal').modal('show');
     $("#BranchField").css("display", "flex");
+    $("#InRangefrom").attr("disabled", true);
+    $("#InRangeTo").attr("disabled", true);
     $.ajax({
         type: 'POST',
         url: $("#GetBranchById").val(),
@@ -330,7 +333,10 @@ $('#btnSearch').click(function () {
                     tr.push("<td>" + ResList[i].membershipInitialRangeFrom + " - " + ResList[i].membershipInitialRangeTo + "</td>");;
                     tr.push("<td>" + ResList[i].membershipActiveMonthRange + "</td>");;
                     tr.push("<td><button onclick=\"EditBranch('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    if (ResList[i].isDeleteble == true)
+                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    else
+                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     tr.push('</tr>');
                 }
 

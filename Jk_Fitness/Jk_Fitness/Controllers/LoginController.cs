@@ -31,7 +31,8 @@ namespace Jk_Fitness.Controllers
             if(webResponce.Code == 1)
             {
                 HttpContext.Session.SetString("UserId", ((Employee)webResponce.Data).EmployeeId);
-
+                HttpContext.Session.SetString("FirstName", ((Employee)webResponce.Data).FirstName);
+                HttpContext.Session.SetString("Email", ((Employee)webResponce.Data).Email);
             }
             return webResponce;
         }
@@ -49,6 +50,30 @@ namespace Jk_Fitness.Controllers
             employe.ModifiedBy = HttpContext.Session.GetString("UserId");
             webResponce = logInService.UpdatePassword(employe);
             return webResponce;
+        }
+
+        [HttpGet]
+        public ActionResult<WebResponce> SignOutLogin()
+        {
+            try
+            {
+                HttpContext.Session.Clear();
+                webResponce = new WebResponce()
+                {
+                    Code = 1,
+                    Message = "Success"
+                };
+                return webResponce;
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+                return webResponce;
+            }
         }
     }
 }

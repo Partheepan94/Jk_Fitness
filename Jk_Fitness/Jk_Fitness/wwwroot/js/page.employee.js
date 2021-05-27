@@ -27,9 +27,15 @@ $('#btnAdd').click(function () {
     LoadUserTypes();
     LoadSalutation();
     $("#Branch").attr("disabled", false);
+    $("#Email").attr("disabled", false);
+    $('#MorningIn').val('12:00 AM');
+    $('#MorningOut').val('11:59 AM');
+    $('#EveningIn').val('12:00 PM');
+    $('#EveningOut').val('11:59 PM');
 });
 
 function ListEmployeeDetails() {
+    var CurEmail = $('#SeassionEmail').val();
     $("#wait").css("display", "block");
     $.ajax({
         type: 'GET',
@@ -51,7 +57,11 @@ function ListEmployeeDetails() {
                     tr.push("<td>" + EmpList[i].userType + "</td>");;
                     tr.push("<td>" + EmpList[i].active + "</td>");;
                     tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    if (CurEmail == EmpList[i].email)
+                        tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    else
+                        tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+
                     tr.push('</tr>');
                 }
 
@@ -250,13 +260,18 @@ $('#btnAddEmployee').click(function () {
                         $('#EmpModal').modal('toggle');
                         ListEmployeeDetails();
                         Clear();
+                    } else if (myData.code == "0") {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Email Duplicated!',
+                        });
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        Clear();
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -313,6 +328,7 @@ function EditEmployee(Id) {
     LoadUserTypes();
     LoadSalutation();
     $("#Branch").attr("disabled", true);
+    $("#Email").attr("disabled", true);
     $.ajax({
         type: 'POST',
         url: $("#GetEmployeeById").val(),
@@ -434,6 +450,7 @@ function LoadBranchesforSearch() {
 }
 
 $('#btnSearch').click(function () {
+    var CurEmail = $('#SeassionEmail').val();
     $("#wait").css("display", "block");
     var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();
@@ -459,7 +476,11 @@ $('#btnSearch').click(function () {
                     tr.push("<td>" + EmpList[i].userType + "</td>");;
                     tr.push("<td>" + EmpList[i].active + "</td>");;
                     tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    if (CurEmail == EmpList[i].email)
+                        tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    else
+                        tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+
                     tr.push('</tr>');
                 }
 
