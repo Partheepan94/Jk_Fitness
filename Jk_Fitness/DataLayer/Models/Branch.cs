@@ -13,8 +13,9 @@ namespace DataLayer
         public int Id { get; set; }
         public string BranchCode { get; set; }
         public string BranchName { get; set; }
-        public string MembershipIdRange { get;set;}
-        public string ActiveMonthrange { get; set; }
+        public int MembershipInitialRangeFrom { get;set;}
+        public int MembershipInitialRangeTo { get; set; }
+        public int MembershipActiveMonthRange { get; set; }
         public string CreatedBy { get; set; }
         public DateTime CreatedDate { get; set; }
         public string ModifiedBy { get; set; }

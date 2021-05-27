@@ -104,7 +104,7 @@ namespace ServiceLayer
                     employee.EmployeeId = branchCode.Split(' ')[0]+ " " + String.Format("{0:0.0000}", val);
                 }
                 else {
-                    employee.EmployeeId = branchCode + "0001";
+                    employee.EmployeeId = branchCode + "001";
                 }
 
                 employee.Salutation = employee.Salutation.Trim();
