@@ -12,7 +12,8 @@ namespace ServiceLayer
         private readonly UnitOfWork uow;
         WebResponce webResponce = null;
 
-        public SettingsService(UnitOfWork uow) {
+        public SettingsService(UnitOfWork uow)
+        {
             this.uow = uow;
         }
 
@@ -27,12 +28,13 @@ namespace ServiceLayer
                     double val = subs + (double)1;
                     branch.BranchCode = BranchCode.Split(' ')[0] + " " + String.Format("{0:0.0}", val);
                 }
-                else {
+                else
+                {
                     branch.BranchCode = "JKF 1.0";
                 }
                 branch.BranchName = branch.BranchName.Trim();
                 branch.CreatedDate = DateTime.Now;
-                branch.CreatedBy = "Parthi";
+                branch.CreatedBy = branch.CreatedBy;
                 uow.BranchRepository.Insert(branch);
                 uow.Save();
 
@@ -58,14 +60,21 @@ namespace ServiceLayer
         {
             try
             {
-                List<Branch> branch = uow.BranchRepository.GetAll().ToList();
-                if (branch != null && branch.Count > 0)
+                List<Branch> branches = uow.BranchRepository.GetAll().ToList();
+
+                if (branches != null && branches.Count > 0)
                 {
+                    List<Employee> employees = uow.EmployeeRepository.GetAll().ToList();
+                    foreach (var branch in branches)
+                    {
+                        branch.IsDeleteble = (employees.Where(x => x.Branch == branch.BranchName).Count() > 0) ? false : true;
+                    }
+
                     webResponce = new WebResponce()
                     {
                         Code = 1,
                         Message = "Success",
-                        Data = branch
+                        Data = branches
                     };
                 }
                 else
@@ -134,9 +143,9 @@ namespace ServiceLayer
                     Brch.MembershipInitialRangeFrom = branch.MembershipInitialRangeFrom;
                     Brch.MembershipInitialRangeTo = branch.MembershipInitialRangeTo;
                     Brch.MembershipActiveMonthRange = branch.MembershipActiveMonthRange;
-                    
+
                     Brch.ModifiedDate = DateTime.Now;
-                    Brch.ModifiedBy = "Parthi";
+                    Brch.ModifiedBy = branch.ModifiedBy;
                     uow.BranchRepository.Update(Brch);
                     uow.Save();
 

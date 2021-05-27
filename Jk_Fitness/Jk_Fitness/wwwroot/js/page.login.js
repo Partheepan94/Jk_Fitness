@@ -93,7 +93,7 @@ $('#btnPwdUpdate').click(function () {
                                     title: 'Updated!',
                                     text: 'Successfully Password Updated!',
                                 });
-                                window.location.replace('@Url.Action("Index", "Home")');
+                                window.location.replace($("#HomePath").val());
                             }
                             else {
                                 Swal.fire({

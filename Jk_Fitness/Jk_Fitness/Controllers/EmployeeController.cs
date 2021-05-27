@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 
@@ -70,6 +71,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
+                employe.CreatedBy = HttpContext.Session.GetString("UserId");
                 webResponce = employee.SaveEmployees(employe);
                 return webResponce;
             }
@@ -127,6 +129,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
+                employe.ModifiedBy = HttpContext.Session.GetString("UserId");
                 webResponce = employee.UpdateEmployees(employe);
                 return webResponce;
             }

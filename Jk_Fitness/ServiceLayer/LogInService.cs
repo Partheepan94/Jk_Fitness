@@ -117,7 +117,7 @@ namespace ServiceLayer
                     Empl.Password = Crypto.Hash(employee.Password.Trim());
                     Empl.IsFirstTime = false;
                     Empl.ModifiedDate = DateTime.Now;
-                    Empl.ModifiedBy = "Parthi";
+                    Empl.ModifiedBy = employee.ModifiedBy;
                     uow.EmployeeRepository.Update(Empl);
                     uow.Save();
                     webResponce = new WebResponce()

@@ -115,7 +115,7 @@ namespace ServiceLayer
                 employee.Branch = employee.Branch.Trim();
                 employee.UserType = employee.UserType.Trim();
                 employee.CreatedDate = DateTime.Now;
-                employee.CreatedBy = "Parthi";
+                employee.CreatedBy = employee.CreatedBy;
                 employee.Password = Crypto.Hash(EmpPwd);
                 employee.IsFirstTime = true;
                 uow.EmployeeRepository.Insert(employee);
@@ -244,7 +244,7 @@ namespace ServiceLayer
                     Empl.EveningInTime = employee.EveningInTime;
                     Empl.EveningOutTime = employee.EveningOutTime;
                     Empl.ModifiedDate = DateTime.Now;
-                    Empl.ModifiedBy = "Parthi";
+                    Empl.ModifiedBy = employee.ModifiedBy;
                     uow.EmployeeRepository.Update(Empl);
                     uow.Save();
 

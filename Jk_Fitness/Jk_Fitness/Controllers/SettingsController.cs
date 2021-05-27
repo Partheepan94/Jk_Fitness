@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using System;
@@ -31,6 +32,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
+                branch.CreatedBy = HttpContext.Session.GetString("UserId");
                 webResponce = Setting.SaveBranch(branch);
                 return webResponce;
             }
@@ -89,6 +91,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
+                branch.ModifiedBy = HttpContext.Session.GetString("UserId");
                 webResponce = Setting.UpdateBranch(branch);
                 return webResponce;
             }
