@@ -26,10 +26,11 @@ $('#btnAdd').click(function () {
     LoadBranches();
     LoadUserTypes();
     LoadSalutation();
+    $("#Branch").attr("disabled", false);
 });
 
 function ListEmployeeDetails() {
-
+    $("#wait").css("display", "block");
     $.ajax({
         type: 'GET',
         url: $("#GetEmployeeDetailsPath").val(),
@@ -37,6 +38,7 @@ function ListEmployeeDetails() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
+            $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var EmpList = myData.data;
                 var tr = [];
@@ -223,7 +225,7 @@ $('#btnAddEmployee').click(function () {
             text: 'Please Select a Value!',
         });
     } else {
-        $("#wait").css("display", "block");
+        $("#waitform").css("display", "block");
         $("#btnAddEmployee").attr("disabled", true);
         if (EmployeeId == "0" || EmployeeId == "") {
 
@@ -235,7 +237,7 @@ $('#btnAddEmployee').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#wait").css("display", "none");
+                    $("#waitform").css("display", "none");
                     $("#btnAddEmployee").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -272,7 +274,7 @@ $('#btnAddEmployee').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#wait").css("display", "none");
+                    $("#waitform").css("display", "none");
                     $("#btnAddEmployee").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -310,7 +312,7 @@ function EditEmployee(Id) {
     LoadBranches();
     LoadUserTypes();
     LoadSalutation();
-
+    $("#Branch").attr("disabled", true);
     $.ajax({
         type: 'POST',
         url: $("#GetEmployeeById").val(),
@@ -363,7 +365,7 @@ function DeleteEmployee(Id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.value) {
-
+            $("#wait").css("display", "block");
             $.ajax({
                 type: 'POST',
                 url: $("#DeleteEmployees").val(),
@@ -371,6 +373,7 @@ function DeleteEmployee(Id) {
                 data: '{"EmployeeId": "' + Id + '"}',
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
+                    $("#wait").css("display", "none");
                     var myData = jQuery.parseJSON(JSON.stringify(response));
                     if (myData.code == "1") {
                         Swal.fire({
@@ -431,6 +434,7 @@ function LoadBranchesforSearch() {
 }
 
 $('#btnSearch').click(function () {
+    $("#wait").css("display", "block");
     var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();
 
@@ -442,6 +446,7 @@ $('#btnSearch').click(function () {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
+            $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var EmpList = myData.data;
                 var tr = [];
