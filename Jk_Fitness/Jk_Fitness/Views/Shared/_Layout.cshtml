@@ -25,6 +25,7 @@
     <link rel="stylesheet" href="~/plugins/daterangepicker/daterangepicker.css">
     <!-- summernote -->
     <link rel="stylesheet" href="~/plugins/summernote/summernote-bs4.min.css">
+    <link href="~/css/custom.css" rel="stylesheet" />
     <!-- jQuery -->
     <script src="~/plugins/jquery/jquery.js"></script>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@9.5.3/dist/sweetalert2.min.css">
@@ -113,6 +114,18 @@
                                     <a href="@Url.Action("Branch", "Settings")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Branch</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("ExpensesType", "Settings")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Expense Types</p>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("MembershipType", "Settings")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Membership Types</p>
                                     </a>
                                 </li>
                             </ul>

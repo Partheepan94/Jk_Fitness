@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using DataLayer.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
@@ -17,11 +18,8 @@ namespace Jk_Fitness.Controllers
         public SettingsController(SettingsService Setting) {
             this.Setting = Setting;
         }
-        public IActionResult Index()
-        {
-            return View();
-        }
 
+        #region - Branch
         public IActionResult Branch()
         {
             return View();
@@ -143,6 +141,240 @@ namespace Jk_Fitness.Controllers
                 return webResponce;
             }
         }
+        #endregion
 
+        #region Expenses Types
+        public IActionResult ExpensesType()
+        {
+            return View();
+        }
+        [HttpGet]
+        public WebResponce GetExpensesDetails()
+        {
+            try
+            {
+                webResponce = Setting.ListExpensesDetails();
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce SaveExpensesType([FromBody] ExpensesTypes expenseType)
+        {
+            try
+            {
+                expenseType.CreatedBy = HttpContext.Session.GetString("UserId");
+                webResponce = Setting.SaveExpensesType(expenseType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce DeleteExpenseType([FromBody] ExpensesTypes expenseType)
+        {
+            try
+            {
+                webResponce = Setting.DeleteExpeseType(expenseType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce GetExpenseTypeById([FromBody] ExpensesTypes expenseType)
+        {
+            try
+            {
+                webResponce = Setting.GetExpenseTypeById(expenseType.Id);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce UpdateExpenseType([FromBody] ExpensesTypes expenseType)
+        {
+            try
+            {
+                expenseType.ModifiedBy = HttpContext.Session.GetString("UserId");
+                webResponce = Setting.UpdateExpenseType(expenseType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce SearchExpensesType([FromBody] ExpensesTypes expenseType)
+        {
+            try
+            {
+                webResponce = Setting.SearchExpenseTypes(expenseType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        #endregion
+
+        #region Memebership Types
+        public IActionResult MembershipType()
+        {
+            return View();
+        }
+        [HttpGet]
+        public WebResponce GetMembershipTypeDetails()
+        {
+            try
+            {
+                webResponce = Setting.ListMembershipTypesDetails();
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce SaveMembershipType([FromBody] MembershipTypes membershipType)
+        {
+            try
+            {
+                membershipType.CreatedBy = HttpContext.Session.GetString("UserId");
+                webResponce = Setting.SaveMembershipType(membershipType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce DeleteMembershipType([FromBody] MembershipTypes membershipType)
+        {
+            try
+            {
+                webResponce = Setting.DeleteMembershipType(membershipType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce GetMembershipTypeById([FromBody] MembershipTypes membershipType)
+        {
+            try
+            {
+                webResponce = Setting.GetMembershipTypeById(membershipType.Id);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce UpdateMembershipType([FromBody] MembershipTypes membershipType)
+        {
+            try
+            {
+                membershipType.ModifiedBy = HttpContext.Session.GetString("UserId");
+                webResponce = Setting.UpdateMembershipType(membershipType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        [HttpPost]
+        public WebResponce SearchMembershipType([FromBody] MembershipTypes membershipType)
+        {
+            try
+            {
+                webResponce = Setting.SearchMembershipType(membershipType);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        #endregion
     }
 }

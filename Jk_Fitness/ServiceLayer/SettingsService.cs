@@ -1,4 +1,5 @@
 ﻿using DataLayer;
+using DataLayer.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace ServiceLayer
         {
             this.uow = uow;
         }
-
+        #region Branch
         public WebResponce SaveBranch(Branch branch)
         {
             try
@@ -215,14 +216,20 @@ namespace ServiceLayer
         {
             try
             {
-                List<Branch> Brch = uow.DbContext.Branches.Where(x => x.BranchCode.Contains(branch.BranchCode) && x.BranchName.Contains(branch.BranchName)).ToList();
-                if (Brch != null && Brch.Count > 0)
+                List<Branch> Branches = uow.DbContext.Branches.Where(x => x.BranchCode.Contains(branch.BranchCode) && x.BranchName.Contains(branch.BranchName)).ToList();
+                if (Branches != null && Branches.Count > 0)
                 {
+                    List<Employee> employees = uow.EmployeeRepository.GetAll().ToList();
+                    foreach (var bran in Branches)
+                    {
+                        bran.IsDeleteble = (employees.Where(x => x.Branch == bran.BranchName).Count() > 0) ? false : true;
+                    }
+
                     webResponce = new WebResponce()
                     {
                         Code = 1,
                         Message = "Success",
-                        Data = Brch
+                        Data = Branches
                     };
                 }
                 else
@@ -244,6 +251,450 @@ namespace ServiceLayer
             }
             return webResponce;
         }
+        #endregion
+
+        #region ExpensesTypes
+        public WebResponce ListExpensesDetails()
+        {
+            try
+            {
+                List<ExpensesTypes> expenses = uow.ExpensesTypeRepository.GetAll().ToList();
+
+                if (expenses != null && expenses.Count > 0)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = expenses
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce SaveExpensesType(ExpensesTypes expenseType)
+        {
+            try
+            {
+                var ExpenseCode = uow.DbContext.ExpensesTypes.OrderBy(x => x.Id).Select(x => x.ExpenseCode).LastOrDefault();
+                if (ExpenseCode != null)
+                {
+                    int subs = int.Parse(ExpenseCode.Split('-')[1]);
+                    int val = subs + 1;
+                    expenseType.ExpenseCode = ExpenseCode.Split('-')[0] + "-" + val;
+                }
+                else
+                {
+                    expenseType.ExpenseCode = "Exp-1";
+                }
+                expenseType.ExpenseName = expenseType.ExpenseName.Trim();
+                expenseType.CreatedDate = DateTime.Now;
+                expenseType.CreatedBy = expenseType.CreatedBy;
+                uow.ExpensesTypeRepository.Insert(expenseType);
+                uow.Save();
+
+                webResponce = new WebResponce()
+                {
+                    Code = 1,
+                    Message = "Success",
+                    Data = expenseType
+                };
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce DeleteExpeseType(ExpensesTypes expenseType)
+        {
+            try
+            {
+                var expense = uow.DbContext.ExpensesTypes.Where(x => x.Id == expenseType.Id).FirstOrDefault();
+                if (expense != null)
+                {
+                    uow.ExpensesTypeRepository.Delete(expense);
+                    uow.Save();
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success"
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce GetExpenseTypeById(int Id)
+        {
+            try
+            {
+                var expenseType = uow.ExpensesTypeRepository.GetByID(Id);
+                if (expenseType != null)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = expenseType
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+                return webResponce;
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+                return webResponce;
+            }
+        }
+        public WebResponce UpdateExpenseType(ExpensesTypes expenseType)
+        {
+            try
+            {
+                var expense = uow.DbContext.ExpensesTypes.Where(x => x.Id == expenseType.Id).FirstOrDefault();
+                if (expense != null)
+                {
+                    expense.ExpenseName = expenseType.ExpenseName.Trim();
+                    expense.IsEnable = expenseType.IsEnable;
+
+                    expense.ModifiedDate = DateTime.Now;
+                    expense.ModifiedBy = expenseType.ModifiedBy;
+                    uow.ExpensesTypeRepository.Update(expense);
+                    uow.Save();
+
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce SearchExpenseTypes(ExpensesTypes types)
+        {
+            try
+            {
+                List<ExpensesTypes> Expenses = uow.DbContext.ExpensesTypes.Where(x => x.ExpenseCode.Contains(types.ExpenseCode) && x.ExpenseName.Contains(types.ExpenseName)).ToList();
+                if (Expenses != null && Expenses.Count > 0)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = Expenses
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+        #endregion
+
+        #region MembershipTypes
+        public WebResponce ListMembershipTypesDetails()
+        {
+            try
+            {
+                List<MembershipTypes> memberships = uow.MembershipTypesRepository.GetAll().ToList();
+
+                if (memberships != null && memberships.Count > 0)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = memberships
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce SaveMembershipType(MembershipTypes membershipType)
+        {
+            try
+            {
+                var membershipCode = uow.DbContext.MembershipTypes.OrderBy(x => x.Id).Select(x => x.MembershipCode).LastOrDefault();
+                if (membershipCode != null)
+                {
+                    int subs = int.Parse(membershipCode.Split('-')[1]);
+                    int val = subs + 1;
+                    membershipType.MembershipCode = membershipCode.Split('-')[0] + "-" + val;
+                }
+                else
+                {
+                    membershipType.MembershipCode = "Mem-1";
+                }
+                membershipType.MembershipName = membershipType.MembershipName.Trim();
+                membershipType.CreatedDate = DateTime.Now;
+                membershipType.CreatedBy = membershipType.CreatedBy;
+                uow.MembershipTypesRepository.Insert(membershipType);
+                uow.Save();
+
+                webResponce = new WebResponce()
+                {
+                    Code = 1,
+                    Message = "Success",
+                    Data = membershipType
+                };
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce DeleteMembershipType(MembershipTypes membershipType)
+        {
+            try
+            {
+                var membership = uow.DbContext.MembershipTypes.Where(x => x.Id == membershipType.Id).FirstOrDefault();
+                if (membership != null)
+                {
+                    uow.MembershipTypesRepository.Delete(membership);
+                    uow.Save();
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success"
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce GetMembershipTypeById(int Id)
+        {
+            try
+            {
+                var membershipType = uow.MembershipTypesRepository.GetByID(Id);
+                if (membershipType != null)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = membershipType
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+                return webResponce;
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+                return webResponce;
+            }
+        }
+        public WebResponce UpdateMembershipType(MembershipTypes membershipType)
+        {
+            try
+            {
+                var membership = uow.DbContext.MembershipTypes.Where(x => x.Id == membershipType.Id).FirstOrDefault();
+                if (membership != null)
+                {
+                    membership.MembershipName = membershipType.MembershipName.Trim();
+                    membership.MembershipAmount = membershipType.MembershipAmount;
+                    membership.IsEnable = membershipType.IsEnable;
+
+                    membership.ModifiedDate = DateTime.Now;
+                    membership.ModifiedBy = membershipType.ModifiedBy;
+                    uow.MembershipTypesRepository.Update(membership);
+                    uow.Save();
+
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce SearchMembershipType(MembershipTypes types)
+        {
+            try
+            {
+                List<MembershipTypes> memberships = uow.DbContext.MembershipTypes.Where(x => x.MembershipCode.Contains(types.MembershipCode) && x.MembershipName.Contains(types.MembershipName)).ToList();
+                if (memberships != null && memberships.Count > 0)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = memberships
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+        #endregion
 
 
     }

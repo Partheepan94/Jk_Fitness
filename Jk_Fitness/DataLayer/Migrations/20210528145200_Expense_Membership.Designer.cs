@@ -4,14 +4,16 @@ using DataLayer;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 namespace DataLayer.Migrations
 {
     [DbContext(typeof(DatabaseContext))]
-    partial class DatabaseContextModelSnapshot : ModelSnapshot
+    [Migration("20210528145200_Expense_Membership")]
+    partial class Expense_Membership
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -150,9 +152,6 @@ namespace DataLayer.Migrations
                     b.Property<bool>("IsDeleteble")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("IsEnable")
-                        .HasColumnType("bit");
-
                     b.Property<string>("ModifiedBy")
                         .HasColumnType("nvarchar(max)");
 
@@ -179,12 +178,6 @@ namespace DataLayer.Migrations
 
                     b.Property<bool>("IsDeleteble")
                         .HasColumnType("bit");
-
-                    b.Property<bool>("IsEnable")
-                        .HasColumnType("bit");
-
-                    b.Property<decimal>("MembershipAmount")
-                        .HasColumnType("decimal(18,2)");
 
                     b.Property<string>("MembershipCode")
                         .HasColumnType("nvarchar(max)");

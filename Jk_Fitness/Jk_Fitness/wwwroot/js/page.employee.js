@@ -68,11 +68,8 @@ function ListEmployeeDetails() {
                 $("#tbodyid").empty();
                 $('.tblEmployee').append($(tr.join('')));
             } else if (myData.code == "0") {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'No data Found!',
-                });
+                $("#noRecords").css("display", "block");
+                $("#tblEmployee").css("display", "none");
 
                 var tr = [];
                 $("#tbodyid").empty();
@@ -470,11 +467,14 @@ $('#btnSearch').click(function () {
                 for (var i = 0; i < EmpList.length; i++) {
                     tr.push('<tr>');
                     tr.push("<td>" + EmpList[i].employeeId + "</td>");
-                    tr.push("<td>" + EmpList[i].firstName + "</td>");;
-                    tr.push("<td>" + EmpList[i].lastName + "</td>");;
-                    tr.push("<td>" + EmpList[i].branch + "</td>");;
-                    tr.push("<td>" + EmpList[i].userType + "</td>");;
-                    tr.push("<td>" + EmpList[i].active + "</td>");;
+                    tr.push("<td>" + EmpList[i].firstName + "</td>");
+                    tr.push("<td>" + EmpList[i].lastName + "</td>");
+                    tr.push("<td>" + EmpList[i].branch + "</td>");
+                    tr.push("<td>" + EmpList[i].userType + "</td>");
+                    if (EmpList[i].active == true)
+                        tr.push("<td><strong style=\"color:green\">Active</strong></td>");
+                    else
+                        tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");                   
                     tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
                     if (CurEmail == EmpList[i].email)
                         tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
@@ -487,11 +487,8 @@ $('#btnSearch').click(function () {
                 $("#tbodyid").empty();
                 $('.tblEmployee').append($(tr.join('')));
             } else if (myData.code == "0") {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'No data Found!',
-                });
+                $("#noRecords").css("display", "block");
+                $("#tblEmployee").css("display", "none");
 
                 var tr = [];
                 $("#tbodyid").empty();
