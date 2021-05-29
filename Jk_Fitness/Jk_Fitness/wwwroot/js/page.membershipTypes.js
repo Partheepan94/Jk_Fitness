@@ -1,75 +1,37 @@
 ﻿$(document).ready(function () {
-    ListBranchDetails();
+    ListMembershipDetails();
 });
 
-$('#btnAdd').click(function () {
-    $('#BranchModal').modal('show');
-    $("#BranchField").css("display", "none");
-    $("#InRangefrom").attr("disabled", false);
-    $("#InRangeTo").attr("disabled", false);
-});
-
-
-$('#InRangefrom').bind('keyup', function () {
-    var RangeFrom = $('#InRangefrom').val();
+$('#MemAmount').bind('keyup', function () {
+    var RangeFrom = $('#MemAmount').val();
     if ($.isNumeric(RangeFrom)) {
         $("#Rfrm").css("display", "none");
         $("#btnAddBranch").attr("disabled", false);
     }
     else {
         $("#Rfrm").css("display", "flex");
-        $("#btnAddBranch").attr("disabled", true);
+        $("#btnAddMembership").attr("disabled", true);
     }
 });
 
-$('#InRangeTo').bind('keyup', function () {
-    var RangeTo = $('#InRangeTo').val();
-    if ($.isNumeric(RangeTo)) {
-        $("#Rto").css("display", "none");
-        $("#btnAddBranch").attr("disabled", false);
-    }
-    else {
-        $("#Rto").css("display", "flex");
-        $("#btnAddBranch").attr("disabled", true);
-    }
+$('#btnAdd').click(function () {
+    $('#MembershipTypeModal').modal('show');
+    $("#MembershipField").css("display", "none");
 });
 
-$('#MonthRange').bind('keyup', function () {
-    var MonthRange = $('#MonthRange').val();
-    if ($.isNumeric(MonthRange)) {
-        if (MonthRange > 12) {
-            $("#ValidRange").css("display", "flex");
-            $("#mRange").css("display", "none");
-            $("#btnAddBranch").attr("disabled", true);
-        }
-        else {
-            $("#mRange").css("display", "none");
-            $("#ValidRange").css("display", "none");
-            $("#btnAddBranch").attr("disabled", false);
-        }
-    }
-    else if (!$.isNumeric(MonthRange)) {
-        $("#mRange").css("display", "flex");
-        $("#ValidRange").css("display", "none");
-        $("#btnAddBranch").attr("disabled", true);
-    }
-});
-
-$('#btnAddBranch').click(function () {
-    var Id = $('#BranchId').val();
-    var BranchName = $('#Bname').val();
-    var RangeFrom = $('#InRangefrom').val();
-    var RangeTo = $('#InRangeTo').val();
-    var MonthRange = $('#MonthRange').val();
+$('#btnAddMembership').click(function () {
+    var Id = $('#MembershipId').val();
+    var MembershipName = $('#Mname').val();
+    var MemAmount = $('#MemAmount').val();
+    var IsEnable = $('#Enabled').prop('checked') ? "true" : "false";
 
    
     var data = '{"Id": ' + Id +
-        ' ,"BranchName":" ' + BranchName +
-        ' " ,"MembershipInitialRangeFrom": ' + RangeFrom +
-        ' ,"MembershipInitialRangeTo": ' + RangeTo +
-        ' ,"MembershipActiveMonthRange": ' + MonthRange + '}';
+        ' ,"MembershipName":"' + MembershipName + 
+        ' ","IsEnable": ' + IsEnable +
+        ' ,"MembershipAmount": ' + MemAmount +'}';
 
-    if (!$('#Bname').val() || !$('#InRangefrom').val() || !$('#InRangeTo').val() || !$('#MonthRange').val()) {
+    if (!$('#Mname').val() || !$('#MemAmount').val()) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -78,19 +40,19 @@ $('#btnAddBranch').click(function () {
     }
     else {
         $("#waitform").css("display", "block");
-        $("#btnAddBranch").attr("disabled", true);
+        $("#btnAddMembership").attr("disabled", true);
         if (Id == "" || Id == "0") {
 
             $.ajax({
                 type: 'POST',
-                url: $("#SaveBranch").val(),
+                url: $("#SaveMembershipType").val(),
                 dataType: 'json',
                 data: data,
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
                     $("#waitform").css("display", "none");
-                    $("#btnAddBranch").attr("disabled", false);
+                    $("#btnAddMembership").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
                             position: 'center',
@@ -99,8 +61,8 @@ $('#btnAddBranch').click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('#BranchModal').modal('toggle');
-                        ListBranchDetails();
+                        $('#MembershipTypeModal').modal('toggle');
+                        ListMembershipDetails();
                         Clear();
                     } else {
                         Swal.fire({
@@ -119,14 +81,14 @@ $('#btnAddBranch').click(function () {
 
             $.ajax({
                 type: 'POST',
-                url: $("#Updatebranch").val(),
+                url: $("#UpdateMembershipType").val(),
                 dataType: 'json',
                 data: data,
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
                     $("#waitform").css("display", "none");
-                    $("#btnAddBranch").attr("disabled", false);
+                    $("#btnAddMembership").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
                             position: 'center',
@@ -135,8 +97,8 @@ $('#btnAddBranch').click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('#BranchModal').modal('toggle');
-                        ListBranchDetails();
+                        $('#MembershipTypeModal').modal('toggle');
+                        ListMembershipDetails();
                         Clear();
                     } else {
                         Swal.fire({
@@ -144,7 +106,7 @@ $('#btnAddBranch').click(function () {
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        ListBranchDetails();
+                        ListMembershipDetails();
                         Clear();
                     }
                 },
@@ -155,11 +117,11 @@ $('#btnAddBranch').click(function () {
     }
 });
 
-function ListBranchDetails() {
+function ListMembershipDetails() {
     $("#wait").css("display", "block");
     $.ajax({
         type: 'GET',
-        url: $("#GetBranchDetails").val(),
+        url: $("#GetMembershipTypeDetails").val(),
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
@@ -170,26 +132,26 @@ function ListBranchDetails() {
                 var tr = [];
                 for (var i = 0; i < ResList.length; i++) {
                     tr.push('<tr>');
-                    tr.push("<td>" + ResList[i].branchCode + "</td>");
-                    tr.push("<td>" + ResList[i].branchName + "</td>");
-                    tr.push("<td>" + ResList[i].membershipInitialRangeFrom + " - " + ResList[i].membershipInitialRangeTo +"</td>");
-                    tr.push("<td>" + ResList[i].membershipActiveMonthRange + "</td>");
-                    tr.push("<td><button onclick=\"EditBranch('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    if (ResList[i].isDeleteble == true)
-                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    tr.push("<td>" + ResList[i].membershipCode + "</td>");
+                    tr.push("<td>" + ResList[i].membershipName + "</td>");
+                    tr.push("<td>" + ResList[i].membershipAmount.toFixed(2) + "</td>");
+                    if (ResList[i].isEnable == true)
+                        tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
                     else
-                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                        tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
+                    tr.push("<td><button onclick=\"EditMembershipType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+                    tr.push("<td><button onclick=\"DeleteMembershipType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     tr.push('</tr>');
                 }
 
                 $("#tbodyid").empty();
-                $('.tblBranch').append($(tr.join('')));
+                $('.tblMembershipTypes').append($(tr.join('')));
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
-                $("#tblBranch").css("display", "none");
+                $("#tblMembershipTypes").css("display", "none");
                 var tr = [];
                 $("#tbodyid").empty();
-                $('.tblBranch').append($(tr.join('')));                
+                $('.tblMembershipTypes').append($(tr.join('')));
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -203,14 +165,12 @@ function ListBranchDetails() {
     });
 }
 
-function EditBranch(Id) {
-    $('#BranchModal').modal('show');
-    $("#BranchField").css("display", "flex");
-    $("#InRangefrom").attr("disabled", true);
-    $("#InRangeTo").attr("disabled", true);
+function EditMembershipType(Id) {
+    $('#MembershipTypeModal').modal('show');
+    $("#MembershipField").css("display", "flex");
     $.ajax({
         type: 'POST',
-        url: $("#GetBranchById").val(),
+        url: $("#GetMembershipTypeById").val(),
         dataType: 'json',
         data: '{"Id": "' + Id + '"}',
         contentType: 'application/json; charset=utf-8',
@@ -218,13 +178,12 @@ function EditBranch(Id) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
             if (myData.code == "1") {
                 var Result = myData.data;
-                $("#BranchId").val(Result['id']);
-                $("#Bcode").val(Result['branchCode']);
-                $("#Bname").val(Result['branchName']);
-                $("#InRangefrom").val(Result['membershipInitialRangeFrom']);
-                $("#InRangeTo").val(Result['membershipInitialRangeTo']);
-                $("#MonthRange").val(Result['membershipActiveMonthRange']);
-                
+                $("#MembershipId").val(Result['id']);
+                $("#Mcode").val(Result['membershipCode']);
+                $("#Mname").val(Result['membershipName']);
+                $("#MemAmount").val(Result['membershipAmount'].toFixed(2));
+                $("#Enabled").prop("checked", Result.isEnable)
+
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -241,8 +200,7 @@ function EditBranch(Id) {
 
 }
 
-
-function DeleteBranch(Id) {
+function DeleteMembershipType(Id) {
 
     Swal.fire({
         title: 'Are you sure?',
@@ -257,7 +215,7 @@ function DeleteBranch(Id) {
             $("#wait").css("display", "block");
             $.ajax({
                 type: 'POST',
-                url: $("#DeleteBranch").val(),
+                url: $("#DeleteMembershipType").val(),
                 dataType: 'json',
                 data: '{"Id": "' + Id + '"}',
                 contentType: 'application/json; charset=utf-8',
@@ -270,7 +228,7 @@ function DeleteBranch(Id) {
                             text: 'Your record has been deleted.',
                             icon: 'success',
                         });
-                        ListBranchDetails();
+                        ListMembershipDetails();
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -291,30 +249,29 @@ function DeleteBranch(Id) {
 
 
 function Clear() {
-    $('#BranchId').val('0');
-    $('#Bcode').val('');
-    $('#Bname').val('');
-    $('#InRangefrom').val('');
-    $('#InRangeTo').val('');
-    $('#MonthRange').val('');
+    $('#MembershipId').val('0');
+    $('#Mcode').val('');
+    $('#Mname').val('');
+    $('#MemAmount').val('');
+    $('#Status').prop('checked', true);
 }
 
 function Cancel() {
-    $('#BranchModal').modal('toggle');
-    ListBranchDetails();
+    $('#MembershipTypeModal').modal('toggle');
+    ListMembershipDetails();
     Clear();
 }
 
 $('#btnSearch').click(function () {
     $("#wait").css("display", "block");
-    var BrName = $('#BranchName').val();
-    var BrCode = $('#BranchCode').val();
+    var MemName = $('#MembershipName').val();
+    var MemCode = $('#MembershipCode').val();
 
     $.ajax({
         type: 'POST',
-        url: $("#SearchBranch").val(),
+        url: $("#SearchMembershipType").val(),
         dataType: 'json',
-        data: '{"BranchCode": "' + BrCode + '","BranchName": "' + BrName + '"}',
+        data: '{"MembershipCode": "' + MemCode + '","MembershipName": "' + MemName + '"}',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
@@ -324,26 +281,26 @@ $('#btnSearch').click(function () {
                 var tr = [];
                 for (var i = 0; i < ResList.length; i++) {
                     tr.push('<tr>');
-                    tr.push("<td>" + ResList[i].branchCode + "</td>");
-                    tr.push("<td>" + ResList[i].branchName + "</td>");;
-                    tr.push("<td>" + ResList[i].membershipInitialRangeFrom + " - " + ResList[i].membershipInitialRangeTo + "</td>");;
-                    tr.push("<td>" + ResList[i].membershipActiveMonthRange + "</td>");;
-                    tr.push("<td><button onclick=\"EditBranch('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    if (ResList[i].isDeleteble == true)
-                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    tr.push("<td>" + ResList[i].membershipCode + "</td>");
+                    tr.push("<td>" + ResList[i].membershipName + "</td>");
+                    tr.push("<td>" + ResList[i].membershipAmount.toFixed(2) + "</td>");
+                    if (ResList[i].isEnable == true)
+                        tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
                     else
-                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                        tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
+                    tr.push("<td><button onclick=\"EditMembershipType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+                    tr.push("<td><button onclick=\"DeleteMembershipType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     tr.push('</tr>');
                 }
 
                 $("#tbodyid").empty();
-                $('.tblBranch').append($(tr.join('')));
+                $('.tblMembershipTypes').append($(tr.join('')));
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
-                $("#tblBranch").css("display", "none");
+                $("#tblMembershipTypes").css("display", "none");
                 var tr = [];
                 $("#tbodyid").empty();
-                $('.tblBranch').append($(tr.join('')));
+                $('.tblMembershipTypes').append($(tr.join('')));
             } else {
                 Swal.fire({
                     icon: 'error',

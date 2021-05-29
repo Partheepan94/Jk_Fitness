@@ -39,7 +39,7 @@
                 </div>
             </div>
             <div class="card-footer table-responsive">
-                <table id="example1" class="table table-bordered table-striped tblEmployee">
+                <table id="tblEmployee" class="table table-bordered table-striped tblEmployee">
                     <thead>
                         <tr>
                             <th>Employee Id</th>
@@ -47,17 +47,19 @@
                             <th>Last Name</th>
                             <th>Branch</th>
                             <th>User Type</th>
-                            <th>Active</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Status</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
                     </tbody>
-
                 </table>
+                <div class="msg-block" id="noRecords">
+                    <label>No Records found.</label>
+                </div>
             </div>
-            <div id="wait" style="display:none;position:fixed;top:50%;left:50%;padding:2px;"><img src="~/dist/img/Loading.gif" width="70" height="70" /><br></div>
+            <div id="wait" class="loading-gif"><img src="~/dist/img/Loading.gif" width="70" height="70" /><br></div>
         </div>
         <!-- /.card -->
     </div>

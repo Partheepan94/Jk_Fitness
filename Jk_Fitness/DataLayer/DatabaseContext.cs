@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using DataLayer.Models;
+using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.Text;
@@ -19,5 +20,7 @@ namespace DataLayer
         public DbSet<Employee> Employees { get; set; }
         public DbSet<Branch> Branches { get; set; }
         public DbSet<UserType> UserTypes { get; set; }
+        public DbSet<ExpensesTypes> ExpensesTypes { get; set; }
+        public DbSet<MembershipTypes> MembershipTypes { get; set; }
     }
 }

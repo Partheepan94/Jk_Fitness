@@ -1,4 +1,5 @@
-﻿using System;
+﻿using DataLayer.Models;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -16,6 +17,8 @@ namespace DataLayer
         private GenericRepository<Branch> branchRepository;
         private GenericRepository<UserType> userTypeRepository;
         private GenericRepository<Employee> employeeRepository;
+        private GenericRepository<ExpensesTypes> expensesTypeRepository;
+        private GenericRepository<MembershipTypes> membershipTypesRepository;
 
         public GenericRepository<Branch> BranchRepository
         {
@@ -68,6 +71,45 @@ namespace DataLayer
                         this.employeeRepository = new GenericRepository<Employee>(context);
                     }
                     return employeeRepository;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                    throw;
+                }
+            }
+        }
+
+        public GenericRepository<ExpensesTypes> ExpensesTypeRepository
+        {
+            get
+            {
+                try
+                {
+                    if (this.expensesTypeRepository == null)
+                    {
+                        this.expensesTypeRepository = new GenericRepository<ExpensesTypes>(context);
+                    }
+                    return expensesTypeRepository;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                    throw;
+                }
+            }
+        }
+        public GenericRepository<MembershipTypes> MembershipTypesRepository
+        {
+            get
+            {
+                try
+                {
+                    if (this.membershipTypesRepository == null)
+                    {
+                        this.membershipTypesRepository = new GenericRepository<MembershipTypes>(context);
+                    }
+                    return membershipTypesRepository;
                 }
                 catch (Exception ex)
                 {
