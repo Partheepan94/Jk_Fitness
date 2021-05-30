@@ -184,6 +184,8 @@ function ListBranchDetails() {
 
                 $("#tbodyid").empty();
                 $('.tblBranch').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblBranch").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblBranch").css("display", "none");
@@ -338,6 +340,8 @@ $('#btnSearch').click(function () {
 
                 $("#tbodyid").empty();
                 $('.tblBranch').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblBranch").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblBranch").css("display", "none");

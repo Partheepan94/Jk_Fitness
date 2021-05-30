@@ -6,7 +6,7 @@ $('#MemAmount').bind('keyup', function () {
     var RangeFrom = $('#MemAmount').val();
     if ($.isNumeric(RangeFrom)) {
         $("#Rfrm").css("display", "none");
-        $("#btnAddBranch").attr("disabled", false);
+        $("#btnAddMembership").attr("disabled", false);
     }
     else {
         $("#Rfrm").css("display", "flex");
@@ -146,6 +146,8 @@ function ListMembershipDetails() {
 
                 $("#tbodyid").empty();
                 $('.tblMembershipTypes').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblMembershipTypes").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblMembershipTypes").css("display", "none");
@@ -295,6 +297,8 @@ $('#btnSearch').click(function () {
 
                 $("#tbodyid").empty();
                 $('.tblMembershipTypes').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblMembershipTypes").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblMembershipTypes").css("display", "none");

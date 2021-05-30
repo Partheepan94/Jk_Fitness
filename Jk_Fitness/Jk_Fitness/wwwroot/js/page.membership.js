@@ -340,6 +340,8 @@ function ListMemberDetails() {
 
                 $("#tbodyid").empty();
                 $('.tblMember').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblMember").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblMember").css("display", "none");
@@ -532,6 +534,8 @@ $('#btnSearch').click(function () {
 
                 $("#tbodyid").empty();
                 $('.tblMember').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblMember").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblMember").css("display", "none");

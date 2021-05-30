@@ -67,6 +67,8 @@ function ListEmployeeDetails() {
 
                 $("#tbodyid").empty();
                 $('.tblEmployee').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblEmployee").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblEmployee").css("display", "none");
@@ -486,6 +488,8 @@ $('#btnSearch').click(function () {
 
                 $("#tbodyid").empty();
                 $('.tblEmployee').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblEmployee").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblEmployee").css("display", "none");

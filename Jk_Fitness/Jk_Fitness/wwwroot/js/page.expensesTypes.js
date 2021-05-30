@@ -131,6 +131,8 @@ function ListExpensesDetails() {
 
                 $("#tbodyid").empty();
                 $('.tblExpenseTypes').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblExpenseTypes").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblExpenseTypes").css("display", "none");
@@ -277,6 +279,8 @@ $('#btnSearch').click(function () {
 
                 $("#tbodyid").empty();
                 $('.tblExpenseTypes').append($(tr.join('')));
+                $("#noRecords").css("display", "none");
+                $("#tblExpenseTypes").css("display", "table");
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblExpenseTypes").css("display", "none");
