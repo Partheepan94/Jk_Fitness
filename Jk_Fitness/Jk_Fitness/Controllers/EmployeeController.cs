@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 
 namespace Jk_Fitness.Controllers
 {
+    [Authorize]
     public class EmployeeController : Controller
     {
 
@@ -71,7 +73,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                employe.CreatedBy = HttpContext.Session.GetString("UserId");
+                employe.CreatedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = employee.SaveEmployees(employe);
                 return webResponce;
             }
@@ -129,7 +131,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                employe.ModifiedBy = HttpContext.Session.GetString("UserId");
+                employe.ModifiedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = employee.UpdateEmployees(employe);
                 return webResponce;
             }

@@ -40,26 +40,40 @@
                 </div>
             </div>
             <div class="card-footer table-responsive">
-                <table id="example1" class="table table-bordered table-striped tblEmployee">
+                <table id="example1" class="table table-bordered table-striped tblMember">
                     <thead>
                         <tr>
-                            <th>Membership Id</th>
+
                             <th>First Name</th>
                             <th>Last Name</th>
                             <th>Phone No</th>
                             <th>Age</th>
                             <th>BMI</th>
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th>Branch</th>
+                            <th></th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
                     </tbody>
-
                 </table>
+                <div class="msg-block" id="noRecords">
+                    <label>No Records found.</label>
+                </div>
             </div>
+            <div id="wait" class="loading-gif"><img src="~/dist/img/Loading.gif" width="70" height="70" /><br></div>
         </div>
     </div>
+    <input type="hidden" id="GetBranchDetails" value="@Url.Action("GetBranchDetails", "Employee")" />
+    <input type="hidden" id="SaveMembers" value="@Url.Action("SaveMember", "Membership")" />
+    <input type="hidden" id="GetMembershipTypeDetails" value="@Url.Action("GetMembershipTypeDetails", "Settings")" />
+    <input type="hidden" id="GetMembershipTypeById" value="@Url.Action("GetMembershipTypeById", "Settings")" />
+    <input type="hidden" id="GetMemberDetails" value="@Url.Action("GetMemberDetails", "Membership")" />
+    <input type="hidden" id="GetMemberShipById" value="@Url.Action("GetMemberShipById", "Membership")" />
+    <input type="hidden" id="UpdateMemberShip" value="@Url.Action("UpdateMemberShip", "Membership")" />
+    <input type="hidden" id="DeleteMemberShip" value="@Url.Action("DeleteMemberShip", "Membership")" />
+    <input type="hidden" id="SearchMembers" value="@Url.Action("SearchMembers", "Membership")" />
+
 </div>
 
 @* Add new Member Popup *@
@@ -67,7 +81,7 @@
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title" id="myModalLabel">Member Details</h4>
+                <h4 class="modal-title" id="myModalLabel">Members Details</h4>
                 <button type="button" class="close" data-dismiss="modal">
                     <span aria-hidden="true">×</span>
                 </button>
@@ -91,9 +105,9 @@
                                 </div>
                             </div>
                             <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3 ">Sex</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Gender</label>
                                 <div class="col-md-9 col-sm-9">
-                                    <select class="form-control" id="Sex"></select>
+                                    <select class="form-control" id="Gender"></select>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -103,11 +117,12 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Address</label>
-                                <div class="col-md-9 col-sm-9">
-                                    <textarea id="Address" class="form-control"></textarea>
+                                <label class="control-label col-md-3 col-sm-3 ">Branch</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <select class="form-control" id="Branch"></select>
                                 </div>
                             </div>
+
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Contact No</label>
                                 <div class="col-md-9 col-sm-9 ">
@@ -115,10 +130,10 @@
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Date of Birth</label>
-                                <div class="input-group date col-md-9 col-sm-9" id="fromdate1" data-target-input="nearest">
-                                    <input type="text" id="Fdate" class="form-control datetimepicker-input" data-target="#fromdate1" />
-                                    <div class="input-group-append" data-target="#fromdate1" data-toggle="datetimepicker">
+                                <label class="control-label col-md-3 col-sm-3 ">Date of birth</label>
+                                <div class="input-group date col-md-9 col-sm-9" id="fromdate" data-target-input="nearest">
+                                    <input type="text" id="DOB" class="form-control datetimepicker-input" data-target="#fromdate" />
+                                    <div class="input-group-append" data-target="#fromdate" data-toggle="datetimepicker">
                                         <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                                     </div>
                                 </div>
@@ -126,29 +141,35 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Email</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="ContactNo" class="form-control">
+                                    <input type="text" id="Email" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Age</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="ContactNo" class="form-control">
+                                    <input type="text" id="Age" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Height</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="Height" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3 ">Weight</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="Weight" class="form-control">
+                                    <input type="text" id="Height" class="form-control" placeholder="Height In Meters">
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Physical abd Medical Condition</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Weight</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" id="Weight" class="form-control" placeholder="Weight In kilograms">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Address</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <textarea id="Address" class="form-control"></textarea>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Physical and Medical Condition</label>
                                 <div class="col-md-9 col-sm-9">
                                     <textarea id="PMCondition" class="form-control"></textarea>
                                 </div>
@@ -162,46 +183,53 @@
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Membership Package</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="Package" class="form-control">
+                                    <select class="form-control" id="Package" onchange="LoadMemberShipAmount()"></select>
                                 </div>
                             </div>
-                            <div class="form-group row ">
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Joining Date</label>
+                                <div class="input-group date col-md-9 col-sm-9" id="Jdate" data-target-input="nearest">
+                                    <input type="text" id="JoinDate" class="form-control datetimepicker-input" data-target="#Jdate" />
+                                    <div class="input-group-append" data-target="#Jdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Payment</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="Payment" class="form-control">
+                                <div class="col-md-3 col-sm-3">
+                                    <input type="text" id="Payment" class="form-control" disabled>
                                 </div>
-                            </div>
-                            <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Introduced By</label>
-                                <div class="col-md-9 col-sm-9 ">
+                                <div class="col-md-3 col-sm-3">
                                     <input type="text" id="Introduce" class="form-control">
                                 </div>
                             </div>
                             <div class="row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Emergency Contact</label>
-
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3">Contact No</label>
                                 <div class="col-md-3 col-sm-3">
-                                    <input type="text" id="NameforSearch" class="form-control">
+                                    <input type="text" id="EmergencyTP" class="form-control">
                                 </div>
-                                <label class="control-label col-md-3 col-sm-3" style="text-align:center">Relationship</label>
+                                <label class="control-label col-md-3 col-sm-3">Relationship</label>
                                 <div class="col-md-3 col-sm-3">
-                                    <input type="text" id="NameforSearch" class="form-control">
+                                    <input type="text" id="Relation" class="form-control">
                                 </div>
                             </div>
-
-
-
+                            <div class="form-check">
+                                <input type="checkbox" class="form-check-input" id="Status" value="true">
+                                <label class="control-label" for="Status">Active</label>
+                            </div>
                             <div class="ln_solid"></div>
                             <div class="form-group">
                                 <div style="float:right">
-                                    <button type="button" id="btnAddEmployee" class="btn btn-success">Save</button>
-                                    <button type="button" id="btnCancel" class="btn btn-warning">Cancel</button>
+                                    <button type="button" id="btnAddMember" class="btn btn-success">Save</button>
+                                    <button type="button" onclick="Cancel()" class="btn btn-warning">Cancel</button>
                                 </div>
                             </div>
-
+                            <div id="waitform" style="display:none;position:fixed;top:50%;left:50%;padding:2px;"><img src="~/dist/img/Loading.gif" width="70" height="70" /><br></div>
                         </form>
                     </div>
                 </div>
@@ -209,13 +237,4 @@
         </div>
     </div>
 </div>
-
-<script type="text/javascript">
-
-    $('#btnAdd').click(function () {
-        $('#MemberModal').modal('show');
-
-    });
-
-</script>
-
+<script src="~/js/page.membership.js"></script>

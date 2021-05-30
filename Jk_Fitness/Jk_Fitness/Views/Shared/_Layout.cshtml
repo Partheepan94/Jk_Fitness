@@ -46,7 +46,7 @@
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
                         @*<img src="~/dist/img/user2-160x160.jpg" alt="User Image" class="img-size-32 mr-3 img-circle">*@
-                        @Context.Session.GetString("FirstName") <b class="caret"></b>
+                        @User.Identity.Name <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>

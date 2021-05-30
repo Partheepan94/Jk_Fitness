@@ -295,12 +295,14 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\scopedcss\b
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Jk_Fitness.TagHelpers.input.cache
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Jk_Fitness.TagHelpers.output.cache
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Jk_Fitness.RazorCoreGenerate.cache
-E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Employee\AddEmployee.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Employee\Index.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Login\Index.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Membership\Index.cshtml.g.cs
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Settings\Branch.cshtml.g.cs
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Settings\ExpensesType.cshtml.g.cs
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Settings\MembershipType.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Shared\_Layout_Login.cshtml.g.cs

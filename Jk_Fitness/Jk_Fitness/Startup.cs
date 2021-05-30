@@ -34,12 +34,19 @@ namespace Jk_Fitness
             services.AddScoped(typeof(EmployeeService));
             services.AddScoped(typeof(LogInService));
             services.AddScoped(typeof(SettingsService));
+            services.AddScoped(typeof(MemberShipService));
             services.Configure<MailSettings>(Configuration.GetSection("MailSettings"));
             services.AddTransient<IMailService, MailService>();
-            services.AddSession(options => {
-                options.IdleTimeout = TimeSpan.FromMinutes(100);
-            });
-            //services.AddSession();
+            //services.AddSession(options => {
+            //    options.IdleTimeout = TimeSpan.FromMinutes(100);
+            //});
+            ////services.AddSession();
+            services.AddAuthentication("CookieAuth")
+               .AddCookie("CookieAuth", config =>
+               {
+                   config.Cookie.Name = "Jkfitness.Cookie";
+                   config.LoginPath = "/Login/Index";
+               });
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -60,9 +67,9 @@ namespace Jk_Fitness
 
             app.UseRouting();
 
+            app.UseAuthentication();
+            
             app.UseAuthorization();
-
-            app.UseSession();
 
             app.UseEndpoints(endpoints =>
             {

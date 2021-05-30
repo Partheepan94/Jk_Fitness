@@ -2437,7 +2437,7 @@
       ]
     },
     "Newtonsoft.Json/10.0.1": {
-      "sha512": "iG3MVdDmfpkxY19r4pDutmpraRhrvhSMZr6jHgcgx9Na9RdahlsOpOD3HIX+Q37FH971mLPQJ7JxPQ1iYdetig==",
+      "sha512": "ebWzW9j2nwxQeBo59As2TYn7nYr9BHicqqCwHOD1Vdo+50HBtLPuqdiCYJcLdTRknpYis/DSEOQz5KmZxwrIAg==",
       "type": "package",
       "path": "newtonsoft.json/10.0.1",
       "hasTools": true,
@@ -4850,11 +4850,12 @@
       ]
     },
     "System.Runtime.Serialization.Formatters/4.3.0": {
-      "sha512": "F9U+5EseHCwayekNQ+Xve3nPQExYDQOYuvLGLPb6HkaIeYAOL7ALh9YIjGECyEKdB8dftgUkCerRU2o9K8tyIA==",
+      "sha512": "KT591AkTNFOTbhZlaeMVvfax3RqhH1EJlcwF50Wm7sfnBLuHiOeZRRKrr1ns3NESkM20KPZ5Ol/ueMq5vg4QoQ==",
       "type": "package",
       "path": "system.runtime.serialization.formatters/4.3.0",
       "files": [
         ".nupkg.metadata",
+        ".signature.p7s",
         "ThirdPartyNotices.txt",
         "dotnet_library_license.txt",
         "lib/MonoAndroid10/_._",
@@ -6122,23 +6123,19 @@
     ]
   },
   "packageFolders": {
-    "C:\\Users\\n.manchunathan\\.nuget\\packages\\": {},
-    "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder": {}
+    "C:\\Users\\UIser\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
+      "projectUniqueName": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
       "projectName": "ServiceLayer",
-      "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
-      "packagesPath": "C:\\Users\\n.manchunathan\\.nuget\\packages\\",
-      "outputPath": "D:\\My Projects\\Project\\Jk_Fitness\\ServiceLayer\\obj\\",
+      "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj",
+      "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
+      "outputPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
-      ],
       "configFilePaths": [
-        "C:\\Users\\n.manchunathan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
@@ -6146,15 +6143,14 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
-        "http://nuget.sana-commerce.com/AddonsDev/": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "D:\\My Projects\\Project\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
+            "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
             }
           }
         }
@@ -6207,7 +6203,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.101\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

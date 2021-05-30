@@ -8,6 +8,8 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Http;
 using System.Text.Json;
 using System.Runtime.Serialization;
+using System.Security.Claims;
+using Microsoft.AspNetCore.Authentication;
 
 namespace Jk_Fitness.Controllers
 {
@@ -30,9 +32,14 @@ namespace Jk_Fitness.Controllers
             webResponce = logInService.ListLogInInfo(employe);
             if(webResponce.Code == 1)
             {
-                HttpContext.Session.SetString("UserId", ((Employee)webResponce.Data).EmployeeId);
-                HttpContext.Session.SetString("FirstName", ((Employee)webResponce.Data).FirstName);
-                HttpContext.Session.SetString("Email", ((Employee)webResponce.Data).Email);
+                var JkfitnessClaims = new List<Claim>() {
+                new Claim(ClaimTypes.Name,((Employee)webResponce.Data).FirstName),
+                new Claim("Email",((Employee)webResponce.Data).Email),
+                new Claim("EmployeeId",((Employee)webResponce.Data).EmployeeId)
+                };
+                var JkfitnessIdentity = new ClaimsIdentity(JkfitnessClaims, "Jkfitness Identity");
+                var UserPrincipal = new ClaimsPrincipal(new[] { JkfitnessIdentity });
+                HttpContext.SignInAsync(UserPrincipal);
             }
             return webResponce;
         }
@@ -47,7 +54,7 @@ namespace Jk_Fitness.Controllers
         [HttpPost]
         public ActionResult<WebResponce> UpdatePassword([FromBody] Employee employe)
         {
-            employe.ModifiedBy = HttpContext.Session.GetString("UserId");
+            employe.ModifiedBy = User.FindFirst("EmployeeId").Value;
             webResponce = logInService.UpdatePassword(employe);
             return webResponce;
         }
@@ -57,7 +64,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                HttpContext.Session.Clear();
+                HttpContext.SignOutAsync();
                 webResponce = new WebResponce()
                 {
                     Code = 1,

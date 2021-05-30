@@ -1,5 +1,6 @@
 ﻿using DataLayer;
 using DataLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
@@ -10,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace Jk_Fitness.Controllers
 {
+    [Authorize]
     public class SettingsController : Controller
     {
         private readonly SettingsService Setting;
@@ -30,7 +32,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                branch.CreatedBy = HttpContext.Session.GetString("UserId");
+                branch.CreatedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.SaveBranch(branch);
                 return webResponce;
             }
@@ -89,7 +91,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                branch.ModifiedBy = HttpContext.Session.GetString("UserId");
+                branch.ModifiedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.UpdateBranch(branch);
                 return webResponce;
             }
@@ -171,7 +173,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                expenseType.CreatedBy = HttpContext.Session.GetString("UserId");
+                expenseType.CreatedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.SaveExpensesType(expenseType);
                 return webResponce;
             }
@@ -226,7 +228,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                expenseType.ModifiedBy = HttpContext.Session.GetString("UserId");
+                expenseType.ModifiedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.UpdateExpenseType(expenseType);
                 return webResponce;
             }
@@ -288,7 +290,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                membershipType.CreatedBy = HttpContext.Session.GetString("UserId");
+                membershipType.CreatedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.SaveMembershipType(membershipType);
                 return webResponce;
             }
@@ -343,7 +345,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                membershipType.ModifiedBy = HttpContext.Session.GetString("UserId");
+                membershipType.ModifiedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.UpdateMembershipType(membershipType);
                 return webResponce;
             }

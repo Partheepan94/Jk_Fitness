@@ -22,5 +22,6 @@ namespace DataLayer
         public DbSet<UserType> UserTypes { get; set; }
         public DbSet<ExpensesTypes> ExpensesTypes { get; set; }
         public DbSet<MembershipTypes> MembershipTypes { get; set; }
+        public DbSet<MemberShip> MemberShips { get; set; }
     }
 }
