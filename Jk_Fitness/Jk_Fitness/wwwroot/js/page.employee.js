@@ -189,7 +189,7 @@ $('#btnAddEmployee').click(function () {
     var EveningIn = $('#EveningIn').val();
     var EveningOut = $('#EveningOut').val();
     var Active = $('#Status').prop('checked') ? "true" : "false";
-    var filter = /^[0][0-9]{9}$/;
+    var filter = /^[0]?[0-9]{9}$/;
 
     var Mailregex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 

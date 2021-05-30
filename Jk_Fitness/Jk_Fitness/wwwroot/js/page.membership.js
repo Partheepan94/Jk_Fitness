@@ -8,6 +8,11 @@ $('#btnAdd').click(function () {
     LoadBranches();
     LoadGender();
     LoadMemberShipType();
+
+    var CurDate = new Date();
+    CurDate = String(CurDate.getMonth() + 1).padStart(2, '0') + '/' + String(CurDate.getDate()).padStart(2, '0') + '/' + CurDate.getFullYear();
+    $("#DOB").val(CurDate);
+    $("#JoinDate").val(CurDate);
 });
 
 $(function () {
@@ -162,18 +167,37 @@ $('#btnAddMember').click(function () {
     var Age = $('#Age').val();
     var Height = $('#Height').val();
     var Weight = $('#Weight').val();
-    var Address = $('#Address').val();
-    var PMCondition = $('#PMCondition').val();
-    var Training = $('#Training').val();
+    var BMI = $('#BMI').val();
+    var Address1 = $('#Address1').val();
+    var Address2 = $('#Address2').val();
     var Package = $('#Package').val();
     var Joindate = new Date($('#JoinDate').val());
     var Payment = $('#Payment').val();
     var Introduce = $('#Introduce').val();
     var EmergencyTP = $('#EmergencyTP').val();
     var Relation = $('#Relation').val();
+    var Smoking = $('#Smoking').prop('checked') ? "true" : "false";
+    var Discomfort = $('#Discomfort').prop('checked') ? "true" : "false";
+    var Herina = $('#Herina').prop('checked') ? "true" : "false";
+    var Diabets = $('#Diabets').prop('checked') ? "true" : "false";
+    var Pain = $('#Pain').prop('checked') ? "true" : "false";
+    var Complaint = $('#Complaint').prop('checked') ? "true" : "false";
+    var Trace = $('#Trace').prop('checked') ? "true" : "false";
+    var Doctors = $('#Doctors').prop('checked') ? "true" : "false";
+    var Cholesterol = $('#Cholesterol').prop('checked') ? "true" : "false";
+    var Pregnant = $('#Pregnant').prop('checked') ? "true" : "false";
+    var Aliments = $('#Aliments').prop('checked') ? "true" : "false";
+    var Surgery = $('#Surgery').prop('checked') ? "true" : "false";
+    var Pressure = $('#Pressure').prop('checked') ? "true" : "false";
+    var Incorrigible = $('#Incorrigible').prop('checked') ? "true" : "false";
+    var Musele = $('#Musele').prop('checked') ? "true" : "false";
+    var Fat = $('#Fat').prop('checked') ? "true" : "false";
+    var Body = $('#Body').prop('checked') ? "true" : "false";
+    var Fitness = $('#Fitness').prop('checked') ? "true" : "false";
+    var Athletics = $('#Athletics').prop('checked') ? "true" : "false";
     var Active = $('#Status').prop('checked') ? "true" : "false";
 
-    var filter = /^[0][0-9]{9}$/;
+    var filter = /^[0]?[0-9]{9}$/;
 
     var Mailregex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
 
@@ -182,7 +206,8 @@ $('#btnAddMember').click(function () {
         ' " ,"LastName":" ' + latName +
         ' " ,"Gender":" ' + Gender +
         ' ","NIC":" ' + Nic +
-        ' " ,"Address":" ' + Address +
+        ' " ,"Address1":" ' + Address1 +
+        ' ","Address2":" ' + Address2 +
         ' ","ContactNo":" ' + ContactNo +
         ' ","DateofBirth": ' + JSON.stringify(DOB) +
         ' ,"Email":" ' + Email +
@@ -190,17 +215,35 @@ $('#btnAddMember').click(function () {
         ' ","Age": ' + Age +
         ',"Height": ' + Height +
         ',"Weight": ' + Weight +
-        ',"PhysicalCondition": "' + PMCondition +
-        '","TrainingPurpose": "' + Training +
-        '","MemberPackage": ' + Package +
+        ',"BMI": ' + BMI +
+        ',"MemberPackage": ' + Package +
         ',"Payment": ' + Payment +
         ',"EmergencyContactNo": "' + EmergencyTP +
         '","RelationShip": "' + Relation +
         '","IntroducedBy": "' + Introduce +
         '","Active": ' + Active +
-        ',"JoinDate": ' + JSON.stringify(Joindate) + '}';
+        ',"JoinDate": ' + JSON.stringify(Joindate) +
+        ',"Smoking": ' + Smoking +
+        ',"Discomfort": ' + Discomfort +
+        ',"Cholesterol": ' + Cholesterol +
+        ',"Herina": ' + Herina +
+        ',"Diabets": ' + Diabets +
+        ',"Pain": ' + Pain +
+        ',"Complaint": ' + Complaint +
+        ',"Incorrigible": ' + Incorrigible +
+        ',"Doctors": ' + Doctors +
+        ',"Aliments": ' + Aliments +
+        ',"Surgery": ' + Surgery +
+        ',"Pressure": ' + Pressure +
+        ',"Trace": ' + Trace +
+        ',"Pregnant": ' + Pregnant +
+        ',"Musele": ' + Musele +
+        ',"Fat": ' + Fat +
+        ',"Body": ' + Body +
+        ',"Fitness": ' + Fitness +
+        ',"Athletics": ' + Athletics + '}';
 
-    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#DOB').val() || !$('#Age').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Address').val() || !$('#PMCondition').val() || !$('#Training').val() || !$('#JoinDate').val()) {
+    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#DOB').val() || !$('#Age').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Address1').val() || !$('#Address2').val() ||  !$('#JoinDate').val()) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -212,7 +255,7 @@ $('#btnAddMember').click(function () {
             title: 'Oops...',
             text: 'Please enter a vaild email address!',
         });
-    } else if (!filter.test(ContactNo.trim()) || !filter.test(EmergencyTP.trim())) {
+    } else if (!filter.test(ContactNo.trim())) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -378,6 +421,14 @@ function EditMember(Id) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
             if (myData.code == "1") {
                 var Result = myData.data;
+
+                if (Result.gender == "Female") {
+                    $("#Frule").css("display", "flex");
+                }
+                else {
+                    $("#Frule").css("display", "none");
+                }
+
                 $("#MembershipId").val(Result['memberId']);
                 $("#Fname").val(Result['firstName']);
                 $("#Lname").val(Result['lastName']);
@@ -389,14 +440,33 @@ function EditMember(Id) {
                 $("#Age").val(Result['age']);
                 $("#Height").val(Result['height']);
                 $("#Weight").val(Result['weight']);
-                $("#Address").val(Result['address']);
-                $("#PMCondition").val(Result['physicalCondition']);
-                $("#Training").val(Result['trainingPurpose']);
+                $("#BMI").val(Result['bmi']);
+                $("#Address1").val(Result['address1']);
+                $("#Address2").val(Result['address2']);
+                $("#Payment").val(Result['payment']);
                 $("#Package").val(Result['memberPackage']);
                 $("#Introduce").val(Result['introducedBy']);
                 $("#EmergencyTP").val(Result['emergencyContactNo']);
                 $("#Relation").val(Result['relationShip']);
-                $("#Payment").val(Result['payment']);
+                $("#Smoking").prop("checked", Result.smoking)
+                $("#Discomfort").prop("checked", Result.discomfort)
+                $("#Herina").prop("checked", Result.herina)
+                $("#Diabets").prop("checked", Result.diabets)
+                $("#Pain").prop("checked", Result.pain)
+                $("#Complaint").prop("checked", Result.complaint)
+                $("#Trace").prop("checked", Result.trace)
+                $("#Doctors").prop("checked", Result.doctors)
+                $("#Cholesterol").prop("checked", Result.cholesterol)
+                $("#Pregnant").prop("checked", Result.pregnant)
+                $("#Aliments").prop("checked", Result.aliments)
+                $("#Surgery").prop("checked", Result.surgery)
+                $("#Pressure").prop("checked", Result.pressure)
+                $("#Incorrigible").prop("checked", Result.incorrigible)
+                $("#Musele").prop("checked", Result.musele)
+                $("#Fat").prop("checked", Result.fat)
+                $("#Body").prop("checked", Result.body)
+                $("#Fitness").prop("checked", Result.fitness)
+                $("#Athletics").prop("checked", Result.athletics)
                 $("#Status").prop("checked", Result.active)
 
                 var DOB = new Date(Result.dateofBirth);
@@ -557,6 +627,66 @@ $('#btnSearch').click(function () {
     });
 });
 
+$('#Height').bind('keyup', function () {
+    var Height = $('#Height').val();
+    var Weight = $('#Weight').val();
+
+    if ($.isNumeric(Height)) {
+        if (Weight != "") {
+            var Bmi = Weight / Math.pow((Height / 100), 2);
+            $('#BMI').val(Bmi.toFixed(2));
+            
+        }
+        $("#HAlert").css("display", "none");
+        $("#btnAddMember").attr("disabled", false);
+    }
+    else {
+        $("#HAlert").css("display", "flex");
+        $("#btnAddMember").attr("disabled", true);
+    }
+});
+
+$('#Weight').bind('keyup', function () {
+    var Height = $('#Height').val();
+    var Weight = $('#Weight').val();
+
+    if ($.isNumeric(Weight)) {
+        if (Height != "") {
+            var Bmi = Weight / Math.pow((Height / 100),2);
+            $('#BMI').val(Bmi.toFixed(2));
+            
+        }
+        $("#WAlert").css("display", "none");
+        $("#btnAddMember").attr("disabled", false);
+    }
+    else {
+        $("#WAlert").css("display", "flex");
+        $("#btnAddMember").attr("disabled", true);
+    }
+});
+
+$('#EmergencyTP').bind('keyup', function () {
+    var EmergencyTP = $('#EmergencyTP').val();
+    var filter = /^[0]?[0-9]{9}$/;
+    if (filter.test(EmergencyTP.trim())) {
+        $("#ContactAlert").css("display", "none");
+        $("#btnAddMember").attr("disabled", false);
+    }
+    else {
+        $("#ContactAlert").css("display", "flex");
+        $("#btnAddMember").attr("disabled", true);
+    }
+});
+
+function LoadFemaleRule() {
+    var Gender = $('#Gender').val().trim();
+    if (Gender == "Female") {
+        $("#Frule").css("display", "flex");
+    }
+    else {
+        $("#Frule").css("display", "none");
+    }
+}
 
 function Clear() {
     $('#MembershipId').val('');
@@ -571,19 +701,38 @@ function Clear() {
     $('#Age').val('');
     $('#Height').val('');
     $('#Weight').val('');
-    $('#Address').val('');
-    $('#PMCondition').val('');
-    $('#Training').val('');
+    $("#BMI").val('');
+    $("#Address1").val('');
+    $("#Address2").val('');
     $('#Package').val('');
     $('#Introduce').val('');
     $('#EmergencyTP').val('');
     $('#Relation').val('');
     $("#Payment").val('');
     $('#Status').prop('checked', true);
+    $("#Smoking").prop("checked", false)
+    $("#Discomfort").prop("checked", false)
+    $("#Herina").prop("checked", false)
+    $("#Diabets").prop("checked", false)
+    $("#Pain").prop("checked", false)
+    $("#Complaint").prop("checked", false)
+    $("#Trace").prop("checked", false)
+    $("#Doctors").prop("checked", false)
+    $("#Cholesterol").prop("checked", false)
+    $("#Pregnant").prop("checked", false)
+    $("#Aliments").prop("checked", false)
+    $("#Surgery").prop("checked", false)
+    $("#Pressure").prop("checked", false)
+    $("#Incorrigible").prop("checked", false)
+    $("#Musele").prop("checked", false)
+    $("#Fat").prop("checked", false)
+    $("#Body").prop("checked", false)
+    $("#Fitness").prop("checked", false)
+    $("#Athletics").prop("checked", false)
 }
 
 function Cancel() {
     $('#MemberModal').modal('toggle');
-    //ListEmployeeDetails();
+    ListMemberDetails();
     Clear();
 }
