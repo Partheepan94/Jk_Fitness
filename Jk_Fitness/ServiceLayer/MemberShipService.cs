@@ -34,8 +34,6 @@ namespace ServiceLayer
                     int InitialRange = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim()).Select(x => x.MembershipInitialRangeFrom).FirstOrDefault();
                     Member.MemberId = InitialRange + 1;
                 }
-                
-                Member.BMI= Math.Round((decimal)((double)Member.Weight / Math.Pow((double)Member.Height, 2)), 2);
                
                 Member.FirstName = Member.FirstName.Trim();
                 Member.LastName = Member.LastName.Trim();
@@ -158,7 +156,8 @@ namespace ServiceLayer
                     Mem.LastName = member.LastName.Trim();
                     Mem.Gender = member.Gender.Trim();
                     Mem.NIC = member.NIC.Trim();
-                    Mem.Address = member.Address.Trim();
+                    Mem.Address1 = member.Address1.Trim();
+                    Mem.Address2 = member.Address2.Trim();
                     Mem.ContactNo = member.ContactNo.Trim();
                     Mem.DateofBirth = member.DateofBirth;
                     Mem.Email = member.Email.Trim();
@@ -166,14 +165,32 @@ namespace ServiceLayer
                     Mem.Age = member.Age;
                     Mem.Height = member.Height;
                     Mem.Weight = member.Weight;
-                    Mem.BMI= Math.Round((decimal)((double)member.Weight / Math.Pow((double)member.Height, 2)), 2);
-                    Mem.PhysicalCondition = member.PhysicalCondition.Trim();
-                    Mem.TrainingPurpose = member.TrainingPurpose.Trim();
+                    Mem.BMI = member.BMI;
+                    Mem.MemberPackage = member.MemberPackage;
                     Mem.Payment = member.Payment;
                     Mem.EmergencyContactNo = member.EmergencyContactNo.Trim();
                     Mem.RelationShip = member.RelationShip.Trim();
                     Mem.IntroducedBy = member.IntroducedBy.Trim();
                     Mem.Active = member.Active;
+                    Mem.Smoking = member.Smoking;
+                    Mem.Discomfort = member.Discomfort;
+                    Mem.Cholesterol = member.Cholesterol;
+                    Mem.Herina = member.Herina;
+                    Mem.Diabets = member.Diabets;
+                    Mem.Pain = member.Pain;
+                    Mem.Complaint = member.Complaint;
+                    Mem.Incorrigible = member.Incorrigible;
+                    Mem.Doctors = member.Doctors;
+                    Mem.Pregnant = member.Pregnant;
+                    Mem.Aliments = member.Aliments;
+                    Mem.Surgery = member.Surgery;
+                    Mem.Pressure = member.Pressure;
+                    Mem.Trace = member.Trace;
+                    Mem.Musele = member.Musele;
+                    Mem.Fat = member.Fat;
+                    Mem.Body = member.Body;
+                    Mem.Fitness = member.Fitness;
+                    Mem.Athletics = member.Athletics;
                     Mem.JoinDate = member.JoinDate;
                     
                     Mem.ModifiedDate = DateTime.Now;
