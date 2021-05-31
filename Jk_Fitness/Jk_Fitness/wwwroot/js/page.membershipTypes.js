@@ -2,6 +2,29 @@
     ListMembershipDetails();
 });
 
+function LoadMonths() {
+    $('#Months').find('option').remove().end();
+    Salutation = $('#Months');
+    var SalutationList = [
+        { Id: 1, Name: "1" },
+        { Id: 2, Name: "2" },
+        { Id: 3, Name: "3" },
+        { Id: 4, Name: "4" },
+        { Id: 5, Name: "5" },
+        { Id: 6, Name: "6" },
+        { Id: 7, Name: "7" },
+        { Id: 8, Name: "8" },
+        { Id: 9, Name: "9" },
+        { Id: 10, Name: "10" },
+        { Id: 11, Name: "11" },
+        { Id: 12, Name: "12" }
+    ];
+    Salutation.append($("<option/>").val(0).text("-Select Months-"))
+    $.each(SalutationList, function () {
+        Salutation.append($("<option/>").val(this.Id).text(this.Name));
+    });
+}
+
 $('#MemAmount').bind('keyup', function () {
     var RangeFrom = $('#MemAmount').val();
     if ($.isNumeric(RangeFrom)) {
@@ -17,11 +40,13 @@ $('#MemAmount').bind('keyup', function () {
 $('#btnAdd').click(function () {
     $('#MembershipTypeModal').modal('show');
     $("#MembershipField").css("display", "none");
+    LoadMonths();
 });
 
 $('#btnAddMembership').click(function () {
     var Id = $('#MembershipId').val();
     var MembershipName = $('#Mname').val();
+    var Months = $('#Months').val();
     var MemAmount = $('#MemAmount').val();
     var IsEnable = $('#Enabled').prop('checked') ? "true" : "false";
 
@@ -29,9 +54,9 @@ $('#btnAddMembership').click(function () {
     var data = '{"Id": ' + Id +
         ' ,"MembershipName":"' + MembershipName + 
         ' ","IsEnable": ' + IsEnable +
-        ' ,"MembershipAmount": ' + MemAmount +'}';
+        ' ,"MembershipAmount": ' + MemAmount + ' ,"MonthsPerPackage": ' + Months +'}';
 
-    if (!$('#Mname').val() || !$('#MemAmount').val()) {
+    if (!$('#Mname').val() || !$('#MemAmount').val() || Months == 0 ) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -134,6 +159,7 @@ function ListMembershipDetails() {
                     tr.push('<tr>');
                     tr.push("<td>" + ResList[i].membershipCode + "</td>");
                     tr.push("<td>" + ResList[i].membershipName + "</td>");
+                    tr.push("<td>" + ResList[i].monthsPerPackage + "</td>");
                     tr.push("<td>" + ResList[i].membershipAmount.toFixed(2) + "</td>");
                     if (ResList[i].isEnable == true)
                         tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
@@ -170,6 +196,7 @@ function ListMembershipDetails() {
 function EditMembershipType(Id) {
     $('#MembershipTypeModal').modal('show');
     $("#MembershipField").css("display", "flex");
+    LoadMonths();
     $.ajax({
         type: 'POST',
         url: $("#GetMembershipTypeById").val(),
@@ -183,6 +210,7 @@ function EditMembershipType(Id) {
                 $("#MembershipId").val(Result['id']);
                 $("#Mcode").val(Result['membershipCode']);
                 $("#Mname").val(Result['membershipName']);
+                $("#Months").val(Result['monthsPerPackage']);
                 $("#MemAmount").val(Result['membershipAmount'].toFixed(2));
                 $("#Enabled").prop("checked", Result.isEnable)
 
@@ -254,6 +282,7 @@ function Clear() {
     $('#MembershipId').val('0');
     $('#Mcode').val('');
     $('#Mname').val('');
+    $('#Months').val('');
     $('#MemAmount').val('');
     $('#Status').prop('checked', true);
 }
@@ -285,6 +314,7 @@ $('#btnSearch').click(function () {
                     tr.push('<tr>');
                     tr.push("<td>" + ResList[i].membershipCode + "</td>");
                     tr.push("<td>" + ResList[i].membershipName + "</td>");
+                    tr.push("<td>" + ResList[i].monthsPerPackage + "</td>");
                     tr.push("<td>" + ResList[i].membershipAmount.toFixed(2) + "</td>");
                     if (ResList[i].isEnable == true)
                         tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");

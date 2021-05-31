@@ -164,7 +164,7 @@ function LoadSalutation() {
         { Id: 3, Name: "Ms" },
         { Id: 4, Name: "Miss" },
         { Id: 5, Name: "Dr" },
-        { Id: 5, Name: "Professor" }
+        { Id: 6, Name: "Professor" }
     ];
     Salutation.append($("<option/>").val(0).text("-Select Salutation-"))
     $.each(SalutationList, function () {

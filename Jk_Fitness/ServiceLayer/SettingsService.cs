@@ -628,6 +628,7 @@ namespace ServiceLayer
                     membership.MembershipName = membershipType.MembershipName.Trim();
                     membership.MembershipAmount = membershipType.MembershipAmount;
                     membership.IsEnable = membershipType.IsEnable;
+                    membership.MonthsPerPackage = membershipType.MonthsPerPackage;
 
                     membership.ModifiedDate = DateTime.Now;
                     membership.ModifiedBy = membershipType.ModifiedBy;

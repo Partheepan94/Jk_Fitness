@@ -26,6 +26,8 @@ namespace ServiceLayer
             try
             {
                 var MemId = uow.DbContext.MemberShips.Where(x => x.Branch == Member.Branch.Trim()).OrderBy(x => x.MemberId).Select(x => x.MemberId).LastOrDefault();
+                var PackageDetails = uow.MembershipTypesRepository.GetByID(Member.MemberPackage);
+
                 if (MemId != 0)
                 {
                     Member.MemberId = (int)MemId + 1;
@@ -52,7 +54,8 @@ namespace ServiceLayer
                 StringBuilder body = new StringBuilder();
 
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + Member.FirstName + ",</p>");
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to Jkfitness Center.</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness!.</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package:" + PackageDetails.MembershipName + "</p>Package Amount: &nbsp;" + PackageDetails.MembershipAmount + "<br /><br />");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group </ p > ");
 
                 request.Body = body.ToString();
@@ -166,7 +169,29 @@ namespace ServiceLayer
                     Mem.Height = member.Height;
                     Mem.Weight = member.Weight;
                     Mem.BMI = member.BMI;
-                    Mem.MemberPackage = member.MemberPackage;
+
+                    if(Mem.MemberPackage != member.MemberPackage)
+                    {
+                        Mem.MemberPackage = member.MemberPackage;
+                        var PackageDetails = uow.MembershipTypesRepository.GetByID(member.MemberPackage);
+
+                        var request = new MailRequest();
+                        request.ToEmail = Mem.Email;
+                        request.Subject = "Membership Package Change";
+
+                        StringBuilder body = new StringBuilder();
+
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + Mem.FirstName + ",</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your package got change successfully!.</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package:" + PackageDetails.MembershipName + "</p>Package Amount: &nbsp;" + PackageDetails.MembershipAmount + "<br /><br />");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group </ p > ");
+
+                        request.Body = body.ToString();
+                        mailService.SendEmailAsync(request);
+
+                    }
+
+                    
                     Mem.Payment = member.Payment;
                     Mem.EmergencyContactNo = member.EmergencyContactNo.Trim();
                     Mem.RelationShip = member.RelationShip.Trim();
