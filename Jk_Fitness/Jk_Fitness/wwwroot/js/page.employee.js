@@ -35,7 +35,7 @@ $('#btnAdd').click(function () {
 });
 
 function ListEmployeeDetails() {
-    var CurEmail = $('#SeassionEmail').val();
+    var CurEmail = "Admin@jkfitness.lk";
     $("#wait").css("display", "block");
     $.ajax({
         type: 'GET',
@@ -452,7 +452,7 @@ function LoadBranchesforSearch() {
 }
 
 $('#btnSearch').click(function () {
-    var CurEmail = $('#SeassionEmail').val();
+    var CurEmail = "Admin@jkfitness.lk";
     $("#wait").css("display", "block");
     var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();

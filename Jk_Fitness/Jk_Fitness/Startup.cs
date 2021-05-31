@@ -46,6 +46,7 @@ namespace Jk_Fitness
                {
                    config.Cookie.Name = "Jkfitness.Cookie";
                    config.LoginPath = "/Login/Index";
+                   config.ExpireTimeSpan = TimeSpan.FromMinutes(10);
                });
         }
 
