@@ -55,7 +55,10 @@ function ListEmployeeDetails() {
                     tr.push("<td>" + EmpList[i].lastName + "</td>");;
                     tr.push("<td>" + EmpList[i].branch + "</td>");;
                     tr.push("<td>" + EmpList[i].userType + "</td>");;
-                    tr.push("<td>" + EmpList[i].active + "</td>");;
+                    if (EmpList[i].active == true)
+                        tr.push("<td><strong style=\"color:green\">Active</strong></td>");
+                    else
+                        tr.push("<td><strong style=\"color:red\">Deactive</strong></td>"); 
                     tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
                     if (CurEmail == EmpList[i].email)
                         tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
