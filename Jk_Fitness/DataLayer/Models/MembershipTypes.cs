@@ -22,5 +22,6 @@ namespace DataLayer.Models
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
         public decimal MembershipAmount { get; set; }
+        public int MonthsPerPackage { get; set; }
     }
 }
