@@ -38,6 +38,8 @@ $('#MemAmount').bind('keyup', function () {
 });
 
 $('#btnAdd').click(function () {
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
     $('#MembershipTypeModal').modal('show');
     $("#MembershipField").css("display", "none");
     LoadMonths();
@@ -64,7 +66,9 @@ $('#btnAddMembership').click(function () {
         });
     }
     else {
-        $("#waitform").css("display", "block");
+        $("#wait").css("display", "block");
+        $('.modal').addClass('freeze');
+        $('.modal-content').addClass('freeze');
         $("#btnAddMembership").attr("disabled", true);
         if (Id == "" || Id == "0") {
 
@@ -76,7 +80,7 @@ $('#btnAddMembership').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#waitform").css("display", "none");
+                    $("#wait").css("display", "none");
                     $("#btnAddMembership").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -112,7 +116,7 @@ $('#btnAddMembership').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#waitform").css("display", "none");
+                    $("#wait").css("display", "none");
                     $("#btnAddMembership").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -194,7 +198,9 @@ function ListMembershipDetails() {
 }
 
 function EditMembershipType(Id) {
-    $('#MembershipTypeModal').modal('show');
+    $("#wait").css("display", "block");
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
     $("#MembershipField").css("display", "flex");
     LoadMonths();
     $.ajax({
@@ -213,6 +219,8 @@ function EditMembershipType(Id) {
                 $("#Months").val(Result['monthsPerPackage']);
                 $("#MemAmount").val(Result['membershipAmount'].toFixed(2));
                 $("#Enabled").prop("checked", Result.isEnable)
+                $("#wait").css("display", "none");
+                $('#MembershipTypeModal').modal('show');
 
             } else {
                 Swal.fire({

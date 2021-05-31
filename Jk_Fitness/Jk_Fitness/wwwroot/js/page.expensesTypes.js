@@ -3,6 +3,9 @@
 });
 
 $('#btnAdd').click(function () {
+    //document.getElementById("ExpensesTypeModal").classList.remove("freeze");
+    $('.modal').removeClass('freeze');    
+    $('.modal-content').removeClass('freeze');
     $('#ExpensesTypeModal').modal('show');
     $("#ExpenseField").css("display", "none");
 });
@@ -25,7 +28,9 @@ $('#btnAddExpense').click(function () {
         });
     }
     else {
-        $("#waitform").css("display", "block");
+        $("#wait").css("display", "block");
+        $('.modal').addClass('freeze');
+        $('.modal-content').addClass('freeze');
         $("#btnAddExpense").attr("disabled", true);
         if (Id == "" || Id == "0") {
 
@@ -37,7 +42,7 @@ $('#btnAddExpense').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#waitform").css("display", "none");
+                    $("#wait").css("display", "none");
                     $("#btnAddExpense").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -73,7 +78,7 @@ $('#btnAddExpense').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#waitform").css("display", "none");
+                    $("#wait").css("display", "none");
                     $("#btnAddExpense").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -153,8 +158,10 @@ function ListExpensesDetails() {
 }
 
 function EditExpenseType(Id) {
-    $('#ExpensesTypeModal').modal('show');
+    $("#wait").css("display", "block");   
     $("#ExpenseField").css("display", "flex");
+    $('.modal').removeClass('freeze');   
+    $('.modal-content').removeClass('freeze');
     $.ajax({
         type: 'POST',
         url: $("#GetExpenseTypeById").val(),
@@ -168,7 +175,9 @@ function EditExpenseType(Id) {
                 $("#ExpenseId").val(Result['id']);
                 $("#Ecode").val(Result['expenseCode']);
                 $("#Ename").val(Result['expenseName']);
-                $("#Enabled").prop("checked", Result.isEnable)
+                $("#Enabled").prop("checked", Result.isEnable);
+                $("#wait").css("display", "none");   
+                $('#ExpensesTypeModal').modal('show');
 
             } else {
                 Swal.fire({
@@ -260,7 +269,6 @@ $('#btnSearch').click(function () {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
-            $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var ResList = myData.data;
                 var tr = [];
@@ -276,7 +284,7 @@ $('#btnSearch').click(function () {
                     tr.push("<td><button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     tr.push('</tr>');
                 }
-
+                $("#wait").css("display", "none");
                 $("#tbodyid").empty();
                 $('.tblExpenseTypes').append($(tr.join('')));
                 $("#noRecords").css("display", "none");

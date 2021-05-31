@@ -3,6 +3,8 @@
 });
 
 $('#btnAdd').click(function () {
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
     $('#BranchModal').modal('show');
     $("#BranchField").css("display", "none");
     $("#InRangefrom").attr("disabled", false);
@@ -77,7 +79,9 @@ $('#btnAddBranch').click(function () {
         });
     }
     else {
-        $("#waitform").css("display", "block");
+        $("#wait").css("display", "block");
+        $('.modal').addClass('freeze');
+        $('.modal-content').addClass('freeze');
         $("#btnAddBranch").attr("disabled", true);
         if (Id == "" || Id == "0") {
 
@@ -89,7 +93,7 @@ $('#btnAddBranch').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#waitform").css("display", "none");
+                    $("#wait").css("display", "none");
                     $("#btnAddBranch").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -125,7 +129,7 @@ $('#btnAddBranch').click(function () {
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
-                    $("#waitform").css("display", "none");
+                    $("#wait").css("display", "none");
                     $("#btnAddBranch").attr("disabled", false);
                     if (myData.code == "1") {
                         Swal.fire({
@@ -206,7 +210,9 @@ function ListBranchDetails() {
 }
 
 function EditBranch(Id) {
-    $('#BranchModal').modal('show');
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
+    $("#wait").css("display", "block");   
     $("#BranchField").css("display", "flex");
     $("#InRangefrom").attr("disabled", true);
     $("#InRangeTo").attr("disabled", true);
@@ -226,6 +232,9 @@ function EditBranch(Id) {
                 $("#InRangefrom").val(Result['membershipInitialRangeFrom']);
                 $("#InRangeTo").val(Result['membershipInitialRangeTo']);
                 $("#MonthRange").val(Result['membershipActiveMonthRange']);
+
+                $("#wait").css("display", "none");
+                $('#BranchModal').modal('show');
                 
             } else {
                 Swal.fire({

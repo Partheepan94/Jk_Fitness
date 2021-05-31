@@ -17,3 +17,6 @@
     left: 50%;
     padding: 2px;
 }
+.freeze {
+    pointer-events: none;
+}

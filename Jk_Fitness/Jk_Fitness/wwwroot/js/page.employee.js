@@ -22,6 +22,8 @@
     });
 
 $('#btnAdd').click(function () {
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
     $('#EmpModal').modal('show');
     LoadBranches();
     LoadUserTypes();
@@ -36,7 +38,7 @@ $('#btnAdd').click(function () {
 
 function ListEmployeeDetails() {
     var CurEmail = "Admin@jkfitness.lk";
-    $("#wait").css("display", "block");
+    $("#waitform").css("display", "block");
     $.ajax({
         type: 'GET',
         url: $("#GetEmployeeDetailsPath").val(),
@@ -44,7 +46,6 @@ function ListEmployeeDetails() {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
-            $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var EmpList = myData.data;
                 var tr = [];
@@ -67,7 +68,7 @@ function ListEmployeeDetails() {
 
                     tr.push('</tr>');
                 }
-
+                $("#waitform").css("display", "none");
                 $("#tbodyid").empty();
                 $('.tblEmployee').append($(tr.join('')));
                 $("#noRecords").css("display", "none");
@@ -238,6 +239,8 @@ $('#btnAddEmployee').click(function () {
         });
     } else {
         $("#waitform").css("display", "block");
+        $('.modal').addClass('freeze');
+        $('.modal-content').addClass('freeze');
         $("#btnAddEmployee").attr("disabled", true);
         if (EmployeeId == "0" || EmployeeId == "") {
 
@@ -325,7 +328,9 @@ $('#btnAddEmployee').click(function () {
 });
 
 function EditEmployee(Id) {
-    $('#EmpModal').modal('show');
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
+    $("#waitform").css("display", "block");
     LoadBranches();
     LoadUserTypes();
     LoadSalutation();
@@ -355,6 +360,8 @@ function EditEmployee(Id) {
                 $("#EveningOut").val(Result['eveningOutTime']);
                 $("#Status").prop("checked", Result.active)
                 $("#EmployeeId").val(Result['employeeId']);
+                $("#waitform").css("display", "none");
+                $('#EmpModal').modal('show');
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -383,7 +390,7 @@ function DeleteEmployee(Id) {
         confirmButtonText: 'Yes, delete it!'
     }).then((result) => {
         if (result.value) {
-            $("#wait").css("display", "block");
+            $("#waitform").css("display", "block");
             $.ajax({
                 type: 'POST',
                 url: $("#DeleteEmployees").val(),
@@ -391,7 +398,7 @@ function DeleteEmployee(Id) {
                 data: '{"EmployeeId": "' + Id + '"}',
                 contentType: 'application/json; charset=utf-8',
                 success: function (response) {
-                    $("#wait").css("display", "none");
+                    $("#waitform").css("display", "none");
                     var myData = jQuery.parseJSON(JSON.stringify(response));
                     if (myData.code == "1") {
                         Swal.fire({
@@ -453,7 +460,7 @@ function LoadBranchesforSearch() {
 
 $('#btnSearch').click(function () {
     var CurEmail = "Admin@jkfitness.lk";
-    $("#wait").css("display", "block");
+    $("#waitform").css("display", "block");
     var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();
 
@@ -465,7 +472,6 @@ $('#btnSearch').click(function () {
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
-            $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var EmpList = myData.data;
                 var tr = [];
@@ -488,7 +494,7 @@ $('#btnSearch').click(function () {
 
                     tr.push('</tr>');
                 }
-
+                $("#waitform").css("display", "none");
                 $("#tbodyid").empty();
                 $('.tblEmployee').append($(tr.join('')));
                 $("#noRecords").css("display", "none");
