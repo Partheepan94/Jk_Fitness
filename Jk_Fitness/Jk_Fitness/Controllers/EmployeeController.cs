@@ -10,7 +10,6 @@ using ServiceLayer;
 
 namespace Jk_Fitness.Controllers
 {
-    [Authorize]
     public class EmployeeController : Controller
     {
 
@@ -73,7 +72,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                employe.CreatedBy = User.FindFirst("EmployeeId").Value;
+                //employe.CreatedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = employee.SaveEmployees(employe);
                 return webResponce;
             }
@@ -131,7 +130,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                employe.ModifiedBy = User.FindFirst("EmployeeId").Value;
+                //employe.ModifiedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = employee.UpdateEmployees(employe);
                 return webResponce;
             }

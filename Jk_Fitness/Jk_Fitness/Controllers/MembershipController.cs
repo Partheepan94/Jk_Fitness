@@ -9,7 +9,6 @@ using ServiceLayer;
 
 namespace Jk_Fitness.Controllers
 {
-    [Authorize]
     public class MembershipController : Controller
     {
         private readonly MemberShipService MemberShip;
@@ -29,7 +28,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                Member.CreatedBy = User.FindFirst("EmployeeId").Value;
+                //Member.CreatedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = MemberShip.SaveMemberShipDetails(Member);
                 return webResponce;
             }
@@ -87,7 +86,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                Member.ModifiedBy= User.FindFirst("EmployeeId").Value;
+               //Member.ModifiedBy= User.FindFirst("EmployeeId").Value;
                 webResponce = MemberShip.UpdateMemberShipDetails(Member);
                 return webResponce;
             }

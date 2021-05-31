@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace Jk_Fitness.Controllers
 {
-    [Authorize]
+    //[Authorize]
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
