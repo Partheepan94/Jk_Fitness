@@ -172,12 +172,6 @@ namespace DataLayer.Migrations
                     b.Property<bool>("Active")
                         .HasColumnType("bit");
 
-                    b.Property<string>("Address1")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("Address2")
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int>("Age")
                         .HasColumnType("int");
 
@@ -220,6 +214,9 @@ namespace DataLayer.Migrations
                     b.Property<bool>("Discomfort")
                         .HasColumnType("bit");
 
+                    b.Property<string>("District")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<bool>("Doctors")
                         .HasColumnType("bit");
 
@@ -246,6 +243,9 @@ namespace DataLayer.Migrations
 
                     b.Property<bool>("Herina")
                         .HasColumnType("bit");
+
+                    b.Property<string>("HouseNo")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Incorrigible")
                         .HasColumnType("bit");
@@ -286,11 +286,17 @@ namespace DataLayer.Migrations
                     b.Property<bool>("Pressure")
                         .HasColumnType("bit");
 
+                    b.Property<string>("Province")
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("RelationShip")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Smoking")
                         .HasColumnType("bit");
+
+                    b.Property<string>("Street")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<bool>("Surgery")
                         .HasColumnType("bit");
@@ -339,6 +345,9 @@ namespace DataLayer.Migrations
 
                     b.Property<DateTime>("ModifiedDate")
                         .HasColumnType("datetime2");
+
+                    b.Property<int>("MonthsPerPackage")
+                        .HasColumnType("int");
 
                     b.HasKey("Id");
 

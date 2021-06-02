@@ -1,0 +1,15 @@
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\bin\Release\net5.0\DataLayer.deps.json
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\bin\Release\net5.0\DataLayer.runtimeconfig.json
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\bin\Release\net5.0\DataLayer.runtimeconfig.dev.json
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\bin\Release\net5.0\DataLayer.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\bin\Release\net5.0\ref\DataLayer.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\bin\Release\net5.0\DataLayer.pdb
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.csprojAssemblyReference.cache
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.AssemblyInfoInputs.cache
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.AssemblyInfo.cs
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.csproj.CoreCompileInputs.cache
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\ref\DataLayer.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.pdb
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\DataLayer\obj\Release\net5.0\DataLayer.genruntimeconfig.cache

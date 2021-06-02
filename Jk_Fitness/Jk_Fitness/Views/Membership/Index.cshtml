@@ -27,7 +27,7 @@
                         <div class="form-group">
                             <label>Name</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" id="NameforSearch" class="form-control" placeholder="Enter Name">
+                                <input type="text" id="NameforSearch" class="form-control" placeholder="Enter First Name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -43,13 +43,12 @@
                 <table id="example1" class="table table-bordered table-striped tblMember">
                     <thead>
                         <tr>
-
+                            <th>MemberShip Id</th>
                             <th>First Name</th>
                             <th>Last Name</th>
-                            <th>Phone No</th>
-                            <th>Age</th>
-                            <th>BMI</th>
+                            <th>NIC</th>
                             <th>Branch</th>
+                            <th>Active Status</th>
                             <th></th>
                             <th></th>
                         </tr>
@@ -104,16 +103,34 @@
                                     <input type="text" id="Lname" class="form-control">
                                 </div>
                             </div>
-                            <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3 ">Gender</label>
-                                <div class="col-md-9 col-sm-9">
-                                    <select class="form-control" id="Gender" onchange="LoadFemaleRule()"></select>
-                                </div>
-                            </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">NIC No</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" id="Nic" class="form-control">
+                                    <span id="ValidNic" class="error" style="color: red;display:none">
+                                        Please Enter Valid NIC number
+                                    </span>
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Gender</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" id="Gender" class="form-control" placeholder="Gender" disabled>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Date of birth</label>
+                                <div class="input-group date col-md-9 col-sm-9" id="fromdate" data-target-input="nearest">
+                                    <input type="text" id="DOB" class="form-control datetimepicker-input" data-target="#fromdate" disabled />
+                                    <div class="input-group-append" data-target="#fromdate" data-toggle="datetimepicker">
+                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Age</label>
+                                <div class="col-md-9 col-sm-9 ">
+                                    <input type="text" id="Age" class="form-control" placeholder="Age" disabled>
                                 </div>
                             </div>
                             <div class="form-group row">
@@ -127,29 +144,19 @@
                                 <label class="control-label col-md-3 col-sm-3 ">Contact No</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" id="ContactNo" class="form-control" placeholder="771234567">
+                                    <span id="ContactAlert" class="error" style="color: red;display:none">
+                                        Please enter a vaild Phone No
+                                    </span>
                                 </div>
                             </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Date of birth</label>
-                                <div class="input-group date col-md-9 col-sm-9" id="fromdate" data-target-input="nearest">
-                                    <input type="text" id="DOB" class="form-control datetimepicker-input" data-target="#fromdate" />
-                                    <div class="input-group-append" data-target="#fromdate" data-toggle="datetimepicker">
-                                        <div class="input-group-text"><i class="fa fa-calendar"></i></div>
-                                    </div>
-                                </div>
-                            </div>
+
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Email</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" id="Email" class="form-control">
                                 </div>
                             </div>
-                            <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3 ">Age</label>
-                                <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="Age" class="form-control">
-                                </div>
-                            </div>
+
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Height</label>
                                 <div class="col-md-9 col-sm-9 ">
@@ -170,20 +177,42 @@
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">BMI</label>
-                                <div class="col-md-9 col-sm-9 ">
+                                <div class="col-md-6 col-sm-6 ">
                                     <input type="text" id="BMI" class="form-control" placeholder="BMI" disabled>
                                 </div>
+                                <label id="Under" class="error col-md-3 col-sm-3" style="color: orange;display:none">Under Weight</label>
+                                <label id="Normal" class="error col-md-3 col-sm-3" style="color: green;display:none">Normal Weight</label>
+                                <label id="Over" class="error col-md-3 col-sm-3" style="color: orangered;display:none">Over Weight</label>
+                                <label id="Obese" class="error col-md-3 col-sm-3" style="color: red;display:none">Obese</label>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Address 1</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Ideal weight</label>
                                 <div class="col-md-9 col-sm-9">
-                                    <input type="text" id="Address1" class="form-control">
+                                    <input type="text" id="ExWeight" class="form-control" placeholder="Ideal Weight Range" disabled>
                                 </div>
                             </div>
                             <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Address 2</label>
+                                <label class="control-label col-md-3 col-sm-3 ">House No/Name</label>
                                 <div class="col-md-9 col-sm-9">
-                                    <input type="text" id="Address2" class="form-control">
+                                    <input type="text" id="HouseNo" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Street</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" id="Street" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">District</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" id="District" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <label class="control-label col-md-3 col-sm-3 ">Province</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" id="Province" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row ">
@@ -218,8 +247,8 @@
                                 <label class="control-label col-md-3 col-sm-3">Contact No</label>
                                 <div class="col-md-3 col-sm-3">
                                     <input type="text" id="EmergencyTP" class="form-control" placeholder="771234567">
-                                    <span id="ContactAlert" class="error" style="color: red;display:none">
-                                        Please enter a vaild Phone No
+                                    <span id="EContactAlert" class="error" style="color: red;display:none">
+                                        Incorrect Phone Number!
                                     </span>
                                 </div>
                                 <label class="control-label col-md-3 col-sm-3">Relationship</label>
@@ -280,7 +309,7 @@
                                     </div>
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" id="Surgery" value="true">
-                                        <label for="Surgery" class="custom-control-label">Anu surgery done during past 12 months</label>
+                                        <label for="Surgery" class="custom-control-label">Any surgery done during past 12 months</label>
                                     </div>
                                     <div class="custom-control custom-checkbox">
                                         <input class="custom-control-input" type="checkbox" id="Pressure" value="true">
@@ -340,3 +369,4 @@
     </div>
 </div>
 <script src="~/js/page.membership.js"></script>
+<script src="~/js/page.validation.js"></script>
