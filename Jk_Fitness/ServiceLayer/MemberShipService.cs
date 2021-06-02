@@ -41,6 +41,10 @@ namespace ServiceLayer
                 Member.LastName = Member.LastName.Trim();
                 Member.Gender = Member.Gender.Trim();
                 Member.Branch = Member.Branch.Trim();
+                Member.HouseNo = Member.HouseNo.Trim();
+                Member.Street = Member.Street.Trim();
+                Member.District = Member.District.Trim();
+                Member.Province = Member.Province.Trim();
                 Member.CreatedBy = Member.CreatedBy;
                 Member.CreatedDate = DateTime.Now;
                 
@@ -159,8 +163,10 @@ namespace ServiceLayer
                     Mem.LastName = member.LastName.Trim();
                     Mem.Gender = member.Gender.Trim();
                     Mem.NIC = member.NIC.Trim();
-                    Mem.Address1 = member.Address1.Trim();
-                    Mem.Address2 = member.Address2.Trim();
+                    Mem.HouseNo = member.HouseNo.Trim();
+                    Mem.Street = member.Street.Trim();
+                    Mem.District = member.District.Trim();
+                    Mem.Province = member.Province.Trim();
                     Mem.ContactNo = member.ContactNo.Trim();
                     Mem.DateofBirth = member.DateofBirth;
                     Mem.Email = member.Email.Trim();
