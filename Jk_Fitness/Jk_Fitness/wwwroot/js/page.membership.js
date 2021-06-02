@@ -230,12 +230,18 @@ $('#btnAddMember').click(function () {
                             title: 'Oops...',
                             text: 'Email Duplicated!',
                         });
+                        $('#MemberModal').modal('toggle');
+                        ListMemberDetails();
+                        Clear();
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
+                        $('#MemberModal').modal('toggle');
+                        ListMemberDetails();
+                        Clear();
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -272,6 +278,7 @@ $('#btnAddMember').click(function () {
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
+                        $('#MemberModal').modal('toggle');
                         ListMemberDetails();
                         Clear();
                     }
