@@ -1,5 +1,6 @@
 ﻿    $(document).ready(function () {
-    ListBranchDetails();
+        ListBranchDetails();
+
 });
 
 $('#btnAdd').click(function () {
