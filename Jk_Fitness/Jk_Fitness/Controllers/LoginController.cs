@@ -10,6 +10,7 @@ using System.Text.Json;
 using System.Runtime.Serialization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Authentication.Cookies;
 
 namespace Jk_Fitness.Controllers
 {
@@ -37,9 +38,15 @@ namespace Jk_Fitness.Controllers
                 new Claim("Email",((Employee)webResponce.Data).Email),
                 new Claim("EmployeeId",((Employee)webResponce.Data).EmployeeId)
                 };
-                var JkfitnessIdentity = new ClaimsIdentity(JkfitnessClaims, "Jkfitness Identity");
-                var UserPrincipal = new ClaimsPrincipal(new[] { JkfitnessIdentity });
-                HttpContext.SignInAsync(UserPrincipal);
+                //var JkfitnessIdentity = new ClaimsIdentity(JkfitnessClaims, "Jkfitness Identity");
+                var JkfitnessIdentity = new ClaimsIdentity(JkfitnessClaims, CookieAuthenticationDefaults.AuthenticationScheme);
+                //var UserPrincipal = new ClaimsPrincipal(new[] { JkfitnessIdentity });
+                //HttpContext.SignInAsync(UserPrincipal);
+                var authProperties = new AuthenticationProperties
+                {
+                    ExpiresUtc = DateTime.UtcNow.AddMinutes(20)
+                };
+                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(JkfitnessIdentity), authProperties);
             }
             return webResponce;
         }
