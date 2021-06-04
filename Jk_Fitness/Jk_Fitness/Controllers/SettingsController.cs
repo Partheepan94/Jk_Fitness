@@ -173,7 +173,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                //expenseType.CreatedBy = User.FindFirst("EmployeeId").Value;
+                expenseType.CreatedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.SaveExpensesType(expenseType);
                 return webResponce;
             }
@@ -228,7 +228,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                //expenseType.ModifiedBy = User.FindFirst("EmployeeId").Value;
+                expenseType.ModifiedBy = User.FindFirst("EmployeeId").Value;
                 webResponce = Setting.UpdateExpenseType(expenseType);
                 return webResponce;
             }
