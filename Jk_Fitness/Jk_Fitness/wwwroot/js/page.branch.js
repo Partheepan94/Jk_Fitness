@@ -323,7 +323,7 @@ $('#btnSearch').click(function () {
     var BrCode = $('#BranchCode').val();
 
     var ResList = $.grep(BranchDetailsArray, function (v) {
-        return (v.branchName.search(new RegExp(BrName), "i") != -1 && v.branchCode.search(new RegExp(BrCode), "i") != -1);
+        return (v.branchName.search(new RegExp(BrName, "i")) != -1 && v.branchCode.search(new RegExp(BrCode, "i") != -1));
     })
 
     $("#wait").css("display", "none");
