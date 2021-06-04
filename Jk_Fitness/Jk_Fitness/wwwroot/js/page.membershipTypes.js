@@ -172,7 +172,10 @@ function ListMembershipDetails() {
                     else
                         tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
                     tr.push("<td><button onclick=\"EditMembershipType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteMembershipType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    if (ResList[i].isDeleteble == true)
+                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    else
+                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     tr.push('</tr>');
                 }
 
@@ -308,7 +311,7 @@ $('#btnSearch').click(function () {
     var MemCode = $('#MembershipCode').val();
 
     var ResList = $.grep(MembershipDetailsArray, function (v) {
-        return (v.membershipName.search(new RegExp(MemName), "i") != -1 && v.membershipCode.search(new RegExp(MemCode), "i") != -1);
+        return (v.membershipName.search(new RegExp(MemName, "i")) != -1 && v.membershipCode.search(new RegExp(MemCode, "i") != -1));
     })
     $("#wait").css("display", "none");
 
@@ -325,7 +328,10 @@ $('#btnSearch').click(function () {
             else
                 tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
             tr.push("<td><button onclick=\"EditMembershipType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-            tr.push("<td><button onclick=\"DeleteMembershipType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            if (ResList[i].isDeleteble == true)
+                tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            else
+                tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
             tr.push('</tr>');
         }
 

@@ -483,6 +483,12 @@ namespace ServiceLayer
 
                 if (memberships != null && memberships.Count > 0)
                 {
+                    List<MemberShip> membershipsDetails = uow.MembershipRepository.GetAll().ToList();
+                    foreach (var membership in memberships)
+                    {
+                        membership.IsDeleteble = (membershipsDetails.Where(x => x.MemberPackage == membership.Id).Count() > 0) ? false : true;
+                    }
+
                     webResponce = new WebResponce()
                     {
                         Code = 1,
