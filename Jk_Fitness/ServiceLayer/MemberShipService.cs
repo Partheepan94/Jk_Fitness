@@ -27,10 +27,14 @@ namespace ServiceLayer
             {
                 var MemId = uow.DbContext.MemberShips.Where(x => x.Branch == Member.Branch.Trim()).OrderBy(x => x.MemberId).Select(x => x.MemberId).LastOrDefault();
                 var PackageDetails = uow.MembershipTypesRepository.GetByID(Member.MemberPackage);
+                var BranchDetail = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim()).OrderBy(x => x.MembershipInitialRangeTo).LastOrDefault();
 
                 if (MemId != 0)
                 {
-                    Member.MemberId = (int)MemId + 1;
+                    if(MemId + 1 <= BranchDetail.MembershipInitialRangeTo)
+                        Member.MemberId = MemId + 1;
+                    else
+                        Member.MemberId = ExtendNewBranch(BranchDetail);
                 }
                 else {
                     int InitialRange = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim()).Select(x => x.MembershipInitialRangeFrom).FirstOrDefault();
@@ -47,6 +51,8 @@ namespace ServiceLayer
                 Member.Province = Member.Province.Trim();
                 Member.CreatedBy = Member.CreatedBy;
                 Member.CreatedDate = DateTime.Now;
+
+                Member.PackageExpirationDate = DateTime.Now.AddMonths(PackageDetails.MonthsPerPackage);
                 
                 uow.MembershipRepository.Insert(Member);
                 uow.Save();
@@ -57,10 +63,10 @@ namespace ServiceLayer
 
                 StringBuilder body = new StringBuilder();
 
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + Member.FirstName + ",</p>");
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness!.</p>");
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package:" + PackageDetails.MembershipName + "</p>Package Amount: &nbsp;" + PackageDetails.MembershipAmount + "<br /><br />");
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group </ p > ");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "!.</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong>" + PackageDetails.MembershipName + "</strong></p>Package Amount: &nbsp;<strong>" + PackageDetails.MembershipAmount + "</strong><br /><br />");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group<br />0772395819 <br />jkfitness23@gmail.com</ p > ");
 
                 request.Body = body.ToString();
                 mailService.SendEmailAsync(request);
@@ -80,6 +86,19 @@ namespace ServiceLayer
                 };
             }
             return webResponce;
+        }
+
+        public int ExtendNewBranch(Branch branch)
+        {
+            var membershiopLastToId = uow.DbContext.Branches.OrderByDescending(x => x.MembershipInitialRangeTo).Select(x => x.MembershipInitialRangeTo).FirstOrDefault();
+            branch.Id = 0;
+            branch.MembershipInitialRangeFrom = membershiopLastToId + 1;
+            branch.MembershipInitialRangeTo = membershiopLastToId + 1000;
+            branch.CreatedDate = DateTime.Now;
+            uow.BranchRepository.Insert(branch);
+            uow.Save();
+
+            return branch.MembershipInitialRangeFrom;
         }
 
         public WebResponce ListMemberShipDetails()

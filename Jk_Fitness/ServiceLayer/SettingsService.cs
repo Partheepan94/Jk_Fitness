@@ -66,9 +66,10 @@ namespace ServiceLayer
                 if (branches != null && branches.Count > 0)
                 {
                     List<Employee> employees = uow.EmployeeRepository.GetAll().ToList();
+                    List<MemberShip> members = uow.MembershipRepository.GetAll().ToList();
                     foreach (var branch in branches)
                     {
-                        branch.IsDeleteble = (employees.Where(x => x.Branch == branch.BranchName).Count() > 0) ? false : true;
+                        branch.IsDeleteble = (employees.Where(x => x.Branch == branch.BranchName).Count() > 0 && members.Where(z => z.Branch == branch.BranchName).Count() > 0) ? false : true;
                     }
 
                     webResponce = new WebResponce()
