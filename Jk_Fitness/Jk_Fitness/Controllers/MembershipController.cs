@@ -6,9 +6,11 @@ using DataLayer.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
+using ServiceLayer.Password;
 
 namespace Jk_Fitness.Controllers
 {
+    [ValidCookie]
     public class MembershipController : Controller
     {
         private readonly MemberShipService MemberShip;
@@ -28,7 +30,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                //Member.CreatedBy = User.FindFirst("EmployeeId").Value;
+                Member.CreatedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = MemberShip.SaveMemberShipDetails(Member);
                 return webResponce;
             }
@@ -86,7 +88,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-               //Member.ModifiedBy= User.FindFirst("EmployeeId").Value;
+                Member.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = MemberShip.UpdateMemberShipDetails(Member);
                 return webResponce;
             }

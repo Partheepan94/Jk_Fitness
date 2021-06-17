@@ -168,6 +168,7 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Jk_Fitness.
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Humanizer.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\IdentityModel.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\MailKit.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.AspNetCore.Http.Features.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.AspNetCore.Razor.Language.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.Bcl.AsyncInterfaces.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.CodeAnalysis.dll
@@ -182,6 +183,7 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.E
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.Relational.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.EntityFrameworkCore.SqlServer.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.Extensions.DependencyInjection.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.Extensions.Primitives.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.Identity.Client.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.IdentityModel.JsonWebTokens.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\Microsoft.IdentityModel.Logging.dll
@@ -207,6 +209,7 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.Comp
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.Configuration.ConfigurationManager.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.Diagnostics.DiagnosticSource.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.IdentityModel.Tokens.Jwt.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.IO.Pipelines.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.Runtime.Caching.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.Security.Cryptography.ProtectedData.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Debug\net5.0\System.Text.Encodings.Web.dll

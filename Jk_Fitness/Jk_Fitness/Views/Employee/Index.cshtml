@@ -24,9 +24,9 @@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label>Name</label>
+                            <label>First Name</label>
                             <div class="col-md-12 col-sm-12 ">
-                                <input type="text" id="NameforSearch" class="form-control" placeholder="Enter Name">
+                                <input type="text" id="NameforSearch" class="form-control" placeholder="Enter First Name">
                             </div>
                         </div>
                         <div class="form-group">
@@ -90,43 +90,89 @@
                     <div class="x_content">
                         <form id="formUser" class="form-horizontal form-label-left" enctype="multipart/form-data">
                             <input type="hidden" value="0" id="EmployeeId" />
-                            <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3 ">Salutation</label>
+                            <div class="row">
                                 <div class="col-md-9 col-sm-9">
-                                    <select class="form-control" id="Salutation"></select>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Salutation</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <select class="form-control" id="Salutation"></select>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">First Name</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" required id="Fname" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Last Name</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" required id="Lname" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">Image</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <div class="custom-file">
+                                                <input type="file" id="imageBrowes" class="form-control custom-file-input" />
+                                                <label class="custom-file-label">Choose File....</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row ">
+                                        <label class="control-label col-md-4 col-sm-4 ">House No/Name</label>
+                                        <div class="col-md-8 col-sm-8">
+                                            <input type="text" required id="HouseNo" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-3 col-sm-3">
+                                    <div class="form-group row">
+                                        <div id="imgPreview" class="img-thumbnail" style="display:block">
+                                            <img src="~/dist/img/default.jpg" id="targetImg" style="width:100%;height:240px;" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="form-group row ">
+                                <label class="control-label col-md-3 col-sm-3 ">Street</label>
+                                <div class="col-md-9 col-sm-9">
+                                    <input type="text" id="Street" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3">First Name</label>
+                                <label class="control-label col-md-3 col-sm-3">District</label>
                                 <div class="col-md-9 col-sm-9">
-                                    <input type="text" required id="Fname" class="form-control">
-                                    @*<span class="error" style="color: red">
-                    Empty fiels Required
-                </span>*@
+                                    <input type="text" required id="District" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row ">
-                                <label class="control-label col-md-3 col-sm-3 ">Last Name</label>
+                                <label class="control-label col-md-3 col-sm-3 ">Province</label>
                                 <div class="col-md-9 col-sm-9">
-                                    <input type="text" id="Lname" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group row">
-                                <label class="control-label col-md-3 col-sm-3 ">Address</label>
-                                <div class="col-md-9 col-sm-9">
-                                    <textarea id="Address" class="form-control"></textarea>
+                                    <input type="text" id="Province" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group row">
                                 <label class="control-label col-md-3 col-sm-3 ">Email</label>
                                 <div class="col-md-9 col-sm-9 ">
                                     <input type="text" id="Email" class="form-control">
+                                    <span id="EmailAlert" class="error" style="color: red;display:none">
+                                        Please enter a vaild Email Address
+                                    </span>
+                                    <span id="EmailUniqueAlert" class="error" style="color: red;display:none">
+                                        Email Address Should be Unique
+                                    </span>
                                 </div>
                             </div>
                             <div class="form-group row ">
                                 <label class="control-label col-md-3 col-sm-3 ">Contact No</label>
                                 <div class="col-md-9 col-sm-9 ">
-                                    <input type="text" id="ContactNo" class="form-control">
+                                    <input type="text" id="ContactNo" class="form-control" placeholder="771234567">
+                                    <span id="ContactAlert" class="error" style="color: red;display:none">
+                                        Please enter a vaild Phone No
+                                    </span>
                                 </div>
                             </div>
                             <div class="form-group row">

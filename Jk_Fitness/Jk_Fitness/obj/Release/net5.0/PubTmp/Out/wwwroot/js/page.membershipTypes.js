@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     ListMembershipDetails();
 });
+var MembershipDetailsArray = [];
 
 function LoadMonths() {
     $('#Months').find('option').remove().end();
@@ -158,6 +159,7 @@ function ListMembershipDetails() {
             $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var ResList = myData.data;
+                MembershipDetailsArray = ResList;
                 var tr = [];
                 for (var i = 0; i < ResList.length; i++) {
                     tr.push('<tr>');
@@ -170,7 +172,10 @@ function ListMembershipDetails() {
                     else
                         tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
                     tr.push("<td><button onclick=\"EditMembershipType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteMembershipType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    if (ResList[i].isDeleteble == true)
+                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    else
+                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     tr.push('</tr>');
                 }
 
@@ -297,7 +302,6 @@ function Clear() {
 
 function Cancel() {
     $('#MembershipTypeModal').modal('toggle');
-    ListMembershipDetails();
     Clear();
 }
 
@@ -306,52 +310,41 @@ $('#btnSearch').click(function () {
     var MemName = $('#MembershipName').val();
     var MemCode = $('#MembershipCode').val();
 
-    $.ajax({
-        type: 'POST',
-        url: $("#SearchMembershipType").val(),
-        dataType: 'json',
-        data: '{"MembershipCode": "' + MemCode + '","MembershipName": "' + MemName + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            $("#wait").css("display", "none");
-            if (myData.code == "1") {
-                var ResList = myData.data;
-                var tr = [];
-                for (var i = 0; i < ResList.length; i++) {
-                    tr.push('<tr>');
-                    tr.push("<td>" + ResList[i].membershipCode + "</td>");
-                    tr.push("<td>" + ResList[i].membershipName + "</td>");
-                    tr.push("<td>" + ResList[i].monthsPerPackage + "</td>");
-                    tr.push("<td>" + ResList[i].membershipAmount.toFixed(2) + "</td>");
-                    if (ResList[i].isEnable == true)
-                        tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
-                    else
-                        tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
-                    tr.push("<td><button onclick=\"EditMembershipType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteMembershipType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
-                    tr.push('</tr>');
-                }
+    var ResList = $.grep(MembershipDetailsArray, function (v) {
+        return (v.membershipName.search(new RegExp(MemName, "i")) != -1 && v.membershipCode.search(new RegExp(MemCode, "i") != -1));
+    })
+    $("#wait").css("display", "none");
 
-                $("#tbodyid").empty();
-                $('.tblMembershipTypes').append($(tr.join('')));
-                $("#noRecords").css("display", "none");
-                $("#tblMembershipTypes").css("display", "table");
-            } else if (myData.code == "0") {
-                $("#noRecords").css("display", "block");
-                $("#tblMembershipTypes").css("display", "none");
-                var tr = [];
-                $("#tbodyid").empty();
-                $('.tblMembershipTypes').append($(tr.join('')));
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
-        },
-        error: function (jqXHR, exception) {
+    if (ResList.length != 0) {
+        var tr = [];
+        for (var i = 0; i < ResList.length; i++) {
+            tr.push('<tr>');
+            tr.push("<td>" + ResList[i].membershipCode + "</td>");
+            tr.push("<td>" + ResList[i].membershipName + "</td>");
+            tr.push("<td>" + ResList[i].monthsPerPackage + "</td>");
+            tr.push("<td>" + ResList[i].membershipAmount.toFixed(2) + "</td>");
+            if (ResList[i].isEnable == true)
+                tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
+            else
+                tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
+            tr.push("<td><button onclick=\"EditMembershipType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+            if (ResList[i].isDeleteble == true)
+                tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            else
+                tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            tr.push('</tr>');
         }
-    });
+
+        $("#tbodyid").empty();
+        $('.tblMembershipTypes').append($(tr.join('')));
+        $("#noRecords").css("display", "none");
+        $("#tblMembershipTypes").css("display", "table");
+    }
+    else {
+        $("#noRecords").css("display", "block");
+        $("#tblMembershipTypes").css("display", "none");
+        var tr = [];
+        $("#tbodyid").empty();
+        $('.tblMembershipTypes').append($(tr.join('')));
+    }
 });
