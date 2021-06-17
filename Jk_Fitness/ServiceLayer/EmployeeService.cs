@@ -202,6 +202,16 @@ namespace ServiceLayer
             return webResponce;
         }
 
+        public byte[] GetImage(string sBase64String)
+        {
+            byte[] bytes = null;
+            if (!string.IsNullOrEmpty(sBase64String))
+            {
+                bytes = Convert.FromBase64String(sBase64String);
+            }
+            return bytes;
+        }
+
         public WebResponce GetEmployeeById(string Id)
         {
             try
@@ -209,6 +219,9 @@ namespace ServiceLayer
                 var employee = uow.EmployeeRepository.GetByID(Id);
                 if (employee != null)
                 {
+                    if (employee.Image != null) {
+                        employee.Image = this.GetImage(Convert.ToBase64String(employee.Image));
+                    }
                     webResponce = new WebResponce()
                     {
                         Code = 1,
@@ -247,7 +260,13 @@ namespace ServiceLayer
                     Empl.Salutation = employee.Salutation.Trim();
                     Empl.FirstName = employee.FirstName.Trim();
                     Empl.LastName = employee.LastName.Trim();
-                    Empl.Address = employee.Address.Trim();
+                    Empl.HouseNo = employee.HouseNo.Trim();
+                    Empl.Street = employee.Street.Trim();
+                    Empl.District = employee.District.Trim();
+                    Empl.Province = employee.Province.Trim();
+                    if (employee.Image != null) {
+                        Empl.Image = employee.Image;
+                    }
                     Empl.Email = employee.Email.Trim();
                     Empl.PhoneNo = employee.PhoneNo.Trim();
                     Empl.Branch = employee.Branch.Trim();

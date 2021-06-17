@@ -14,7 +14,11 @@ namespace DataLayer
         public string Salutation { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Address { get; set; }
+        public string HouseNo { get; set; }
+        public string Street { get; set; }
+        public string District { get; set; }
+        public string Province { get; set; }
+        public byte[] Image { get; set; }
         public string Email { get; set; }
         public string PhoneNo { get; set; }
         public string Branch { get; set; }
@@ -30,5 +34,6 @@ namespace DataLayer
         public DateTime ModifiedDate { get; set; }
         public bool IsFirstTime { get; set; }
         public string Password { get; set; }
+        
     }
 }

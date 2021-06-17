@@ -1,15 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using DataLayer;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Newtonsoft.Json;
 using ServiceLayer;
+using ServiceLayer.Password;
+using ServiceLayer.VMmodel;
 
 namespace Jk_Fitness.Controllers
 {
+    [ValidCookie]
     public class EmployeeController : Controller
     {
 
@@ -68,11 +73,21 @@ namespace Jk_Fitness.Controllers
         }
 
         [HttpPost]
-        public WebResponce SaveEmployees([FromBody] Employee employe)
+        public WebResponce SaveEmployees(EmployeeVM files)
         {
             try
             {
-                //employe.CreatedBy = User.FindFirst("EmployeeId").Value;
+                Employee employe = JsonConvert.DeserializeObject<Employee>(files.Employee);
+                if (files.file !=null)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        files.file.CopyTo(ms);
+                        var fileBytes = ms.ToArray();
+                        employe.Image = fileBytes; 
+                    }
+                }
+                employe.CreatedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]); 
                 webResponce = employee.SaveEmployees(employe);
                 return webResponce;
             }
@@ -126,11 +141,21 @@ namespace Jk_Fitness.Controllers
         }
 
         [HttpPost]
-        public WebResponce UpdateEmployees([FromBody] Employee employe)
+        public WebResponce UpdateEmployees(EmployeeVM files)
         {
             try
             {
-                //employe.ModifiedBy = User.FindFirst("EmployeeId").Value;
+                Employee employe = JsonConvert.DeserializeObject<Employee>(files.Employee);
+                if (files.file != null)
+                {
+                    using (var ms = new MemoryStream())
+                    {
+                        files.file.CopyTo(ms);
+                        var fileBytes = ms.ToArray();
+                        employe.Image = fileBytes; 
+                    }
+                }
+                employe.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = employee.UpdateEmployees(employe);
                 return webResponce;
             }

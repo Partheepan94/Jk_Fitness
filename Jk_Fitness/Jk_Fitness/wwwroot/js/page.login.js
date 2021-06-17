@@ -32,6 +32,11 @@
                 var myData = jQuery.parseJSON(JSON.stringify(response));
                 if (myData.code == "1") {
                     var Result = myData.data;
+                    const Employee = {
+                        Name: Result.firstName,
+                        Email: Result.email,
+                    }
+                    window.localStorage.setItem('Empl', JSON.stringify(Employee));
                     if (Result.isFirstTime) {
                         $('#ResetPasswordModel').modal('show');
                         $("#EmployeeId").val(Result['employeeId']);

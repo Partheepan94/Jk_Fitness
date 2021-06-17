@@ -13,11 +13,10 @@ $('#btnAdd').click(function () {
     $('#MemberModal').modal('show');
     LoadBranches();
     LoadMemberShipPackage();
-
     var CurDate = new Date();
-    CurDate = String(CurDate.getMonth() + 1).padStart(2, '0') + '/' + String(CurDate.getDate()).padStart(2, '0') + '/' + CurDate.getFullYear();
-    $("#DOB").val(CurDate);
-    $("#JoinDate").val(CurDate);
+    $("#DOB").val(getFormattedDate(CurDate));
+    $("#JoinDate").val(getFormattedDate(CurDate));
+    $('#Status').prop('checked', true);
 });
 
 $(function () {
@@ -132,8 +131,6 @@ $('#btnAddMember').click(function () {
     var Athletics = $('#Athletics').prop('checked') ? "true" : "false";
     var Active = $('#Status').prop('checked') ? "true" : "false";
 
-    var Mailregex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
     var data = '{"MemberId": ' + Memberid +
         ' ,"FirstName": "' + FirstName +
         ' " ,"LastName":" ' + latName +
@@ -178,19 +175,13 @@ $('#btnAddMember').click(function () {
         ',"Fitness": ' + Fitness +
         ',"Athletics": ' + Athletics + '}';
 
-    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#DOB').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#District').val() || !$('#Province').val() ||  !$('#JoinDate').val()) {
+    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#District').val() || !$('#Province').val() ||  !$('#JoinDate').val()) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Empty Value Can not be Allow!',
         });
-    } else if (!Mailregex.test(Email.trim())) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please enter a vaild email address!',
-        });
-    } else if (Gender == 0 || Branch == 0 || Package == 0) {
+    } else if (Branch == 0 || Package == 0) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -221,27 +212,15 @@ $('#btnAddMember').click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('#MemberModal').modal('toggle');
+                        Cancel();
                         ListMemberDetails();
-                        Clear();
-                    } else if (myData.code == "0") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Email Duplicated!',
-                        });
-                        $('#MemberModal').modal('toggle');
-                        ListMemberDetails();
-                        Clear();
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        $('#MemberModal').modal('toggle');
-                        ListMemberDetails();
-                        Clear();
+                        Cancel();
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -269,18 +248,15 @@ $('#btnAddMember').click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('#MemberModal').modal('toggle');
+                        Cancel();
                         ListMemberDetails();
-                        Clear();
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        $('#MemberModal').modal('toggle');
-                        ListMemberDetails();
-                        Clear();
+                        Cancel();
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -411,15 +387,8 @@ function EditMember(Id) {
         $("#Fitness").prop("checked", Result.fitness)
         $("#Athletics").prop("checked", Result.athletics)
         $("#Status").prop("checked", Result.active)
-
-        var DOB = new Date(Result.dateofBirth);
-        DOB = String(DOB.getMonth() + 1).padStart(2, '0') + '/' + String(DOB.getDate()).padStart(2, '0') + '/' + DOB.getFullYear();
-        $("#DOB").val(DOB);
-
-        var Jdate = new Date(Result.joinDate);
-        Jdate = String(Jdate.getMonth() + 1).padStart(2, '0') + '/' + String(Jdate.getDate()).padStart(2, '0') + '/' + Jdate.getFullYear();
-        $("#JoinDate").val(Jdate);
-
+        $("#DOB").val(getFormattedDate(new Date(Result.dateofBirth)));
+        $("#JoinDate").val(getFormattedDate(new Date(Result.joinDate)));
         ShowIdealweight();
         $("#wait").css("display", "none");
         $('#MemberModal').modal('show');
@@ -496,7 +465,7 @@ function LoadBranchesforSearch() {
             if (myData.code == "1") {
                 var Result = myData.data;
                 BranchArray = Result;
-                BranchforSearch.append($("<option/>").val(0).text("-Select Branch-"));
+                BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
                 $.each(Result, function () {
                     BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
                 });
@@ -517,10 +486,19 @@ $('#btnSearch').click(function () {
     $("#wait").css("display", "block");
     var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();
+    if (Branch == "0" && FName == "") {
+        var Result = EmployeeDetailsArray;
+    } else if (Branch == "0" && FName != "") {
+        var Result = $.grep(EmployeeDetailsArray, function (v) {
+            return (v.firstName.search(new RegExp(FName, "i")) != -1);
+        })
+    } else {
+        var Result = $.grep(EmployeeDetailsArray, function (v) {
+            return (v.branch == Branch && v.firstName.search(new RegExp(FName, "i")) != -1);
+        })
+    }
 
-    var Result = $.grep(EmployeeDetailsArray, function (v) {
-        return (v.branch == Branch && v.firstName.indexOf(FName)!=-1);
-    })
+    
 
     $("#wait").css("display", "none");
     if (Result.length !=0) {
@@ -531,8 +509,8 @@ $('#btnSearch').click(function () {
             tr.push("<td>" + Result[i].memberId + "</td>");;
             tr.push("<td>" + Result[i].firstName + "</td>");
             tr.push("<td>" + Result[i].lastName + "</td>");;
-            tr.push("<td>" + Result[i].payment + "</td>");;
-
+            tr.push("<td>" + Result[i].nic + "</td>");;
+            tr.push("<td>" + Result[i].branch + "</td>");;
             if (Result[i].active == true)
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
@@ -610,7 +588,6 @@ function Clear() {
 
 function Cancel() {
     $('#MemberModal').modal('toggle');
-    ListMemberDetails();
     Clear();
 }
 
@@ -645,4 +622,16 @@ function ShowIdealweight() {
 
     var exWeight = (Math.pow((Height / 100), 2) * 18.5).toFixed(2) + " Kg" + " - " + (Math.pow((Height / 100), 2) * 25).toFixed(2) + " Kg";
     $('#ExWeight').val(exWeight);
+}
+
+function getFormattedDate(date) {
+    var year = date.getFullYear();
+
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    return month + '/' + day + '/' + year;
 }

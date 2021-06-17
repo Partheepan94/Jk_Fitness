@@ -1,6 +1,7 @@
 ﻿$(document).ready(function () {
     ListExpensesDetails();
 });
+var ExpensesTypesDetailsArray = [];
 
 $('#btnAdd').click(function () {
     //document.getElementById("ExpensesTypeModal").classList.remove("freeze");
@@ -120,6 +121,7 @@ function ListExpensesDetails() {
             $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var ResList = myData.data;
+                ExpensesTypesDetailsArray = ResList;
                 var tr = [];
                 for (var i = 0; i < ResList.length; i++) {
                     tr.push('<tr>');
@@ -252,7 +254,6 @@ function Clear() {
 
 function Cancel() {
     $('#ExpensesTypeModal').modal('toggle');
-    ListExpensesDetails();
     Clear();
 }
 
@@ -260,50 +261,38 @@ $('#btnSearch').click(function () {
     $("#wait").css("display", "block");
     var ExpName = $('#ExpensesName').val();
     var ExpCode = $('#ExpenseCode').val();
+    
+    var ResList = $.grep(ExpensesTypesDetailsArray, function (v) {
+        return (v.branchName.search(new RegExp(ExpName, "i")) != -1 && v.branchCode.search(new RegExp(ExpCode, "i") != -1));
+    })
 
-    $.ajax({
-        type: 'POST',
-        url: $("#SearchExpensesType").val(),
-        dataType: 'json',
-        data: '{"ExpenseCode": "' + ExpCode + '","ExpenseName": "' + ExpName + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            if (myData.code == "1") {
-                var ResList = myData.data;
-                var tr = [];
-                for (var i = 0; i < ResList.length; i++) {
-                    tr.push('<tr>');
-                    tr.push("<td>" + ResList[i].expenseCode + "</td>");
-                    tr.push("<td>" + ResList[i].expenseName + "</td>");
-                    if (ResList[i].isEnable == true)
-                        tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
-                    else
-                        tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
-                    tr.push("<td><button onclick=\"EditExpenseType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
-                    tr.push('</tr>');
-                }
-                $("#wait").css("display", "none");
-                $("#tbodyid").empty();
-                $('.tblExpenseTypes').append($(tr.join('')));
-                $("#noRecords").css("display", "none");
-                $("#tblExpenseTypes").css("display", "table");
-            } else if (myData.code == "0") {
-                $("#noRecords").css("display", "block");
-                $("#tblExpenseTypes").css("display", "none");
-                var tr = [];
-                $("#tbodyid").empty();
-                $('.tblExpenseTypes').append($(tr.join('')));
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
-        },
-        error: function (jqXHR, exception) {
+    $("#wait").css("display", "none");
+
+    if (ResList.length != 0) {
+        var tr = [];
+        for (var i = 0; i < ResList.length; i++) {
+            tr.push('<tr>');
+            tr.push("<td>" + ResList[i].expenseCode + "</td>");
+            tr.push("<td>" + ResList[i].expenseName + "</td>");
+            if (ResList[i].isEnable == true)
+                tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
+            else
+                tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
+            tr.push("<td><button onclick=\"EditExpenseType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+            tr.push("<td><button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            tr.push('</tr>');
         }
-    });
+        $("#wait").css("display", "none");
+        $("#tbodyid").empty();
+        $('.tblExpenseTypes').append($(tr.join('')));
+        $("#noRecords").css("display", "none");
+        $("#tblExpenseTypes").css("display", "table");
+    }
+    else {
+        $("#noRecords").css("display", "block");
+        $("#tblExpenseTypes").css("display", "none");
+        var tr = [];
+        $("#tbodyid").empty();
+        $('.tblExpenseTypes').append($(tr.join('')));
+    }   
 });

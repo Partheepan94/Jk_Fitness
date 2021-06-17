@@ -45,8 +45,7 @@
             <ul class="navbar-nav ml-auto">
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                        @*<img src="~/dist/img/user2-160x160.jpg" alt="User Image" class="img-size-32 mr-3 img-circle">*@
-                        @User.Identity.Name <b class="caret"></b>
+                        <span id="Name"></span> <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu">
                         <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
@@ -161,6 +160,8 @@
     </div>
 
     <script type="text/javascript">
+       
+        document.getElementById("Name").innerHTML = JSON.parse(window.localStorage.getItem('Empl')).Name;
             /*Initial function while page loading */
     @*$(document).ready(function () {
         $.ajax({
@@ -213,6 +214,7 @@
             success: function (response) {
                 var myData = jQuery.parseJSON(JSON.stringify(response));
                 if (myData.code == "1") {
+                    window.localStorage.clear();
                      window.location.replace('@Url.Action("Index", "Login")');
                 } else {
                     Swal.fire({

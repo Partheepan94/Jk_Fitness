@@ -222,7 +222,6 @@ $('#btnAddBranch').click(function () {
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        ListBranchDetails();
                         Clear();
                     }
                 },
@@ -330,40 +329,30 @@ function EditBranch(Id) {
     $("#BranchField").css("display", "flex");
     $("#InRangefrom").attr("disabled", true);
     $("#InRangeTo").attr("disabled", true);
-    $.ajax({
-        type: 'POST',
-        url: $("#GetBranchById").val(),
-        dataType: 'json',
-        data: '{"Id": "' + Id + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            if (myData.code == "1") {
-                var Result = myData.data;
-                $("#BranchId").val(Result['id']);
-                $("#Bcode").val(Result['branchCode']);
-                $("#Bname").val(Result['branchName']);
-                $("#InRangefrom").val(Result['membershipInitialRangeFrom']);
-                $("#InRangeTo").val(Result['membershipInitialRangeTo']);
-                $("#MonthRange").val(Result['membershipActiveMonthRange']);
 
-                $("#wait").css("display", "none");
-                $('#BranchModal').modal('show');
-                
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
+    var BranchDetails = $.grep(BranchDetailsArray, function (v) {
+        return v.id == Id;
+    })
 
-        },
-        error: function (jqXHR, exception) {
+    if (BranchDetails.length != 0) {
+        var Result = BranchDetails[0];
+        $("#BranchId").val(Result['id']);
+        $("#Bcode").val(Result['branchCode']);
+        $("#Bname").val(Result['branchName']);
+        $("#InRangefrom").val(Result['membershipInitialRangeFrom']);
+        $("#InRangeTo").val(Result['membershipInitialRangeTo']);
+        $("#MonthRange").val(Result['membershipActiveMonthRange']);
 
-        }
-    });
-
+        $("#wait").css("display", "none");
+        $('#BranchModal').modal('show');
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    }
 }
 
 

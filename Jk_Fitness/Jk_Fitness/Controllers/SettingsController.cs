@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
+using ServiceLayer.Password;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace Jk_Fitness.Controllers
 {
-    //[Authorize]
+    [ValidCookie]
     public class SettingsController : Controller
     {
         private readonly SettingsService Setting;
@@ -32,7 +33,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                //branch.CreatedBy = User.FindFirst("EmployeeId").Value;
+                branch.CreatedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = Setting.SaveBranch(branch);
                 return webResponce;
             }
@@ -91,7 +92,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                //branch.ModifiedBy = User.FindFirst("EmployeeId").Value;
+                branch.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = Setting.UpdateBranch(branch);
                 return webResponce;
             }
@@ -173,7 +174,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                expenseType.CreatedBy = User.FindFirst("EmployeeId").Value;
+                expenseType.CreatedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = Setting.SaveExpensesType(expenseType);
                 return webResponce;
             }
@@ -228,7 +229,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                expenseType.ModifiedBy = User.FindFirst("EmployeeId").Value;
+                expenseType.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = Setting.UpdateExpenseType(expenseType);
                 return webResponce;
             }
@@ -290,7 +291,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                //membershipType.CreatedBy = User.FindFirst("EmployeeId").Value;
+                membershipType.CreatedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = Setting.SaveMembershipType(membershipType);
                 return webResponce;
             }
@@ -345,7 +346,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                //membershipType.ModifiedBy = User.FindFirst("EmployeeId").Value;
+                membershipType.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = Setting.UpdateMembershipType(membershipType);
                 return webResponce;
             }

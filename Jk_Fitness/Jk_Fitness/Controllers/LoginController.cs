@@ -11,6 +11,8 @@ using System.Runtime.Serialization;
 using System.Security.Claims;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using ServiceLayer.Password;
+using System.Text;
 
 namespace Jk_Fitness.Controllers
 {
@@ -33,20 +35,7 @@ namespace Jk_Fitness.Controllers
             webResponce = logInService.ListLogInInfo(employe);
             if(webResponce.Code == 1)
             {
-                var JkfitnessClaims = new List<Claim>() {
-                new Claim(ClaimTypes.Name,((Employee)webResponce.Data).FirstName),
-                new Claim("Email",((Employee)webResponce.Data).Email),
-                new Claim("EmployeeId",((Employee)webResponce.Data).EmployeeId)
-                };
-                //var JkfitnessIdentity = new ClaimsIdentity(JkfitnessClaims, "Jkfitness Identity");
-                var JkfitnessIdentity = new ClaimsIdentity(JkfitnessClaims, CookieAuthenticationDefaults.AuthenticationScheme);
-                //var UserPrincipal = new ClaimsPrincipal(new[] { JkfitnessIdentity });
-                //HttpContext.SignInAsync(UserPrincipal);
-                var authProperties = new AuthenticationProperties
-                {
-                    ExpiresUtc = DateTime.UtcNow.AddMinutes(20)
-                };
-                HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, new ClaimsPrincipal(JkfitnessIdentity), authProperties);
+                Response.Cookies.Append("jkfitness.cookie", Crypto.EncryptString(((Employee)webResponce.Data).EmployeeId));
             }
             return webResponce;
         }
@@ -61,7 +50,7 @@ namespace Jk_Fitness.Controllers
         [HttpPost]
         public ActionResult<WebResponce> UpdatePassword([FromBody] Employee employe)
         {
-            employe.ModifiedBy = User.FindFirst("EmployeeId").Value;
+            employe.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
             webResponce = logInService.UpdatePassword(employe);
             return webResponce;
         }
@@ -71,7 +60,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                HttpContext.SignOutAsync();
+                Response.Cookies.Delete("jkfitness.cookie");
                 webResponce = new WebResponce()
                 {
                     Code = 1,

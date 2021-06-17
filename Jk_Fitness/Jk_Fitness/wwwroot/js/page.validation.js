@@ -72,6 +72,19 @@ $('#ContactNo').bind('keyup', function () {
     }
 });
 
+$('#Email').bind('keyup', function () {
+
+    var Valid = validateEmail($('#Email').val());
+    if (Valid) {
+        $("#EmailAlert").css("display", "none");
+        $("#btnAddMember").attr("disabled", false);
+    }
+    else {
+        $("#EmailAlert").css("display", "flex");
+        $("#btnAddMember").attr("disabled", true);
+    }
+});
+
 function ValidateNic(nicNumber) {
     var result = false;
     if (nicNumber.length === 10 && !isNaN(nicNumber.substr(0, 9)) && isNaN(nicNumber.substr(9, 1).toLowerCase()) && ['x', 'v'].includes(nicNumber.substr(9, 1).toLowerCase())) {
@@ -146,13 +159,12 @@ function findAge(date) {
 
 function PhoneNumberValidate(Num) {
     var filter = /^(?:0|94|\+94|0094)?(?:(11|21|23|24|25|26|27|31|32|33|34|35|36|37|38|41|45|47|51|52|54|55|57|63|65|66|67|81|91)(0|2|3|4|5|7|9)|7(0|1|2|4|5|6|7|8)\d)\d{6}$/;
-    if (filter.test(Num.trim())) {
-        result = true;
-    }
-    else {
-        result = false;
-    }
-    return result;
+    return filter.test(Num.trim());
+}
+
+function validateEmail(email) {
+    const re = /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(String(email).toLowerCase());
 }
 
 $('#Height').bind('keyup', function () {

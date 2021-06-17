@@ -1,6 +1,10 @@
 ﻿$(document).ready(function () {
     ListMemberDetails();
     LoadBranchesforSearch();
+    LoadMemberShipType();
+    var BranchArray;
+    var MemberShipPackageArray;
+    var EmployeeDetailsArray;
 });
 
 $('#btnAdd').click(function () {
@@ -8,12 +12,11 @@ $('#btnAdd').click(function () {
     $('.modal-content').removeClass('freeze');
     $('#MemberModal').modal('show');
     LoadBranches();
-    LoadMemberShipType();
-
+    LoadMemberShipPackage();
     var CurDate = new Date();
-    CurDate = String(CurDate.getMonth() + 1).padStart(2, '0') + '/' + String(CurDate.getDate()).padStart(2, '0') + '/' + CurDate.getFullYear();
-    $("#DOB").val(CurDate);
-    $("#JoinDate").val(CurDate);
+    $("#DOB").val(getFormattedDate(CurDate));
+    $("#JoinDate").val(getFormattedDate(CurDate));
+    $('#Status').prop('checked', true);
 });
 
 $(function () {
@@ -29,40 +32,15 @@ $(function () {
 function LoadBranches() {
     $('#Branch').find('option').remove().end();
     Branch = $('#Branch');
-
-    $.ajax({
-        type: 'GET',
-        url: $("#GetBranchDetails").val(),
-        dataType: 'json',
-        headers: {
-            "Authorization": "Bearer " + sessionStorage.getItem('token'),
-        },
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            if (myData.code == "1") {
-                var Result = myData.data;
-                Branch.append($("<option/>").val(0).text("-Select Branch-"));
-                $.each(Result, function () {
-                    Branch.append($("<option/>").val(this.branchName).text(this.branchName));
-                });
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
-        },
-        error: function (jqXHR, exception) {
-        }
+    Branch.append($("<option/>").val(0).text("-Select Branch-"));
+    $.each(BranchArray, function () {
+        Branch.append($("<option/>").val(this.branchName).text(this.branchName));
     });
 }
 
 function LoadMemberShipType() {
-    $('#Package').find('option').remove().end();
-    Package = $('#Package');
-
+    
+    MemberShipPackage = [];
     $.ajax({
         type: 'GET',
         url: $("#GetMembershipTypeDetails").val(),
@@ -74,12 +52,7 @@ function LoadMemberShipType() {
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
             if (myData.code == "1") {
-                var Result = myData.data;
-                Package.append($("<option/>").val(0).text("-Select Membersip Type-"));
-                $.each(Result, function () {
-                    Package.append($("<option/>").val(this.id).text(this.membershipName));
-                });
-              
+                MemberShipPackageArray = myData.data;
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -95,50 +68,20 @@ function LoadMemberShipType() {
 
 function LoadMemberShipAmount() {
     var Id = $('#Package').val();
-    $("#waitform").css("display", "block");
-    $.ajax({
-        type: 'POST',
-        url: $("#GetMembershipTypeById").val(),
-        dataType: 'json',
-        data: '{"Id": "' + Id + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            $("#waitform").css("display", "none");
-            if (myData.code == "1") {
-                var Result = myData.data;
-                 $("#Payment").val(Result['membershipAmount'].toFixed(2));
-
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
-
-        },
-        error: function (jqXHR, exception) {
-
-        }
-    });
-
+    var PackageAmount = $.grep(MemberShipPackageArray, function (v) {
+        return v.id == Id;
+    })
+    
+    $("#Payment").val(PackageAmount[0].membershipAmount.toFixed(2));
 }
 
-function MemberShipPackage() {
+function LoadMemberShipPackage() {
     $('#Package').find('option').remove().end();
     Package = $('#Package');
 
-    var Package_Type = [
-        { Id: 1, Name: "Monthly" },
-        { Id: 2, Name: "Quarterly" },
-        { Id: 3, Name: "HalfYearly" },
-        { Id: 4, Name: "Yearly" }
-    ];
-
     Package.append($("<option/>").val(0).text("-Select Season Type-"))
-    $.each(Package_Type, function () {
-        Package.append($("<option/>").val(this.Id).text(this.Name));
+    $.each(MemberShipPackageArray, function () {
+        Package.append($("<option/>").val(this.id).text(this.membershipName));
     });
 }
 
@@ -246,7 +189,7 @@ $('#btnAddMember').click(function () {
             title: 'Oops...',
             text: 'Please enter a vaild email address!',
         });
-    } else if (Gender == 0 || Branch == 0 || Package == 0) {
+    } else if (Branch == 0 || Package == 0) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -277,21 +220,15 @@ $('#btnAddMember').click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('#MemberModal').modal('toggle');
+                        Cancel();
                         ListMemberDetails();
-                        Clear();
-                    } else if (myData.code == "0") {
-                        Swal.fire({
-                            icon: 'error',
-                            title: 'Oops...',
-                            text: 'Email Duplicated!',
-                        });
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
+                        Cancel();
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -319,17 +256,15 @@ $('#btnAddMember').click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
-                        $('#MemberModal').modal('toggle');
+                        Cancel();
                         ListMemberDetails();
-                        Clear();
                     } else {
                         Swal.fire({
                             icon: 'error',
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        ListMemberDetails();
-                        Clear();
+                        Cancel();
                     }
                 },
                 error: function (jqXHR, exception) {
@@ -353,6 +288,7 @@ function ListMemberDetails() {
             $("#wait").css("display", "none");
             if (myData.code == "1") {
                 var Result = myData.data;
+                EmployeeDetailsArray = Result;
                 var tr = [];
                 for (var i = 0; i < Result.length; i++) {
                     tr.push('<tr>');
@@ -402,93 +338,75 @@ function EditMember(Id) {
     $("#wait").css("display", "block");
     
     LoadBranches();
-    LoadMemberShipType();
-    
+    LoadMemberShipPackage();
 
-    $.ajax({
-        type: 'POST',
-        url: $("#GetMemberShipById").val(),
-        dataType: 'json',
-        data: '{"MemberId": "' + Id + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            if (myData.code == "1") {
-                var Result = myData.data;
+    var MemberDetail = $.grep(EmployeeDetailsArray, function (v) {
+        return v.memberId == Id;
+    })
 
-                if (Result.gender == "Female") {
-                    $("#Frule").css("display", "flex");
-                }
-                else {
-                    $("#Frule").css("display", "none");
-                }
+    if (MemberDetail.length != 0) {
+        var Result = MemberDetail[0];
 
-                $("#MembershipId").val(Result['memberId']);
-                $("#Fname").val(Result['firstName']);
-                $("#Lname").val(Result['lastName']);
-                $("#Gender").val(Result['gender']);
-                $("#Nic").val(Result['nic']);
-                $("#Branch").val(Result['branch']);
-                $("#ContactNo").val(Result['contactNo']);
-                $("#Email").val(Result['email']);
-                $("#Age").val(Result['age']);
-                $("#Height").val(Result['height']);
-                $("#Weight").val(Result['weight']);
-                $("#BMI").val(Result['bmi']);
-                $("#HouseNo").val(Result['houseNo']);
-                $("#Street").val(Result['street']);
-                $("#District").val(Result['district']);
-                $("#Province").val(Result['province']);
-                $("#Payment").val(Result['payment']);
-                $("#Package").val(Result['memberPackage']);
-                $("#Introduce").val(Result['introducedBy']);
-                $("#EmergencyTP").val(Result['emergencyContactNo']);
-                $("#Relation").val(Result['relationShip']);
-                $("#Smoking").prop("checked", Result.smoking)
-                $("#Discomfort").prop("checked", Result.discomfort)
-                $("#Herina").prop("checked", Result.herina)
-                $("#Diabets").prop("checked", Result.diabets)
-                $("#Pain").prop("checked", Result.pain)
-                $("#Complaint").prop("checked", Result.complaint)
-                $("#Trace").prop("checked", Result.trace)
-                $("#Doctors").prop("checked", Result.doctors)
-                $("#Cholesterol").prop("checked", Result.cholesterol)
-                $("#Pregnant").prop("checked", Result.pregnant)
-                $("#Aliments").prop("checked", Result.aliments)
-                $("#Surgery").prop("checked", Result.surgery)
-                $("#Pressure").prop("checked", Result.pressure)
-                $("#Incorrigible").prop("checked", Result.incorrigible)
-                $("#Musele").prop("checked", Result.musele)
-                $("#Fat").prop("checked", Result.fat)
-                $("#Body").prop("checked", Result.body)
-                $("#Fitness").prop("checked", Result.fitness)
-                $("#Athletics").prop("checked", Result.athletics)
-                $("#Status").prop("checked", Result.active)
-
-                var DOB = new Date(Result.dateofBirth);
-                DOB = String(DOB.getMonth() + 1).padStart(2, '0') + '/' + String(DOB.getDate()).padStart(2, '0') + '/' + DOB.getFullYear();
-                $("#DOB").val(DOB);
-
-                var Jdate = new Date(Result.joinDate);
-                Jdate = String(Jdate.getMonth() + 1).padStart(2, '0') + '/' + String(Jdate.getDate()).padStart(2, '0') + '/' + Jdate.getFullYear();
-                $("#JoinDate").val(Jdate);
-
-                ShowIdealweight();
-                $("#wait").css("display", "none");
-                $('#MemberModal').modal('show');
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
-
-        },
-        error: function (jqXHR, exception) {
-
+        if (Result.gender == "Female") {
+            $("#Frule").css("display", "flex");
         }
-    });
+        else {
+            $("#Frule").css("display", "none");
+        }
+
+        $("#MembershipId").val(Result['memberId']);
+        $("#Fname").val(Result['firstName']);
+        $("#Lname").val(Result['lastName']);
+        $("#Gender").val(Result['gender']);
+        $("#Nic").val(Result['nic']);
+        $("#Branch").val(Result['branch']);
+        $("#ContactNo").val(Result['contactNo']);
+        $("#Email").val(Result['email']);
+        $("#Age").val(Result['age']);
+        $("#Height").val(Result['height']);
+        $("#Weight").val(Result['weight']);
+        $("#BMI").val(Result['bmi']);
+        $("#HouseNo").val(Result['houseNo']);
+        $("#Street").val(Result['street']);
+        $("#District").val(Result['district']);
+        $("#Province").val(Result['province']);
+        $("#Payment").val(Result['payment']);
+        $("#Package").val(Result['memberPackage']);
+        $("#Introduce").val(Result['introducedBy']);
+        $("#EmergencyTP").val(Result['emergencyContactNo']);
+        $("#Relation").val(Result['relationShip']);
+        $("#Smoking").prop("checked", Result.smoking)
+        $("#Discomfort").prop("checked", Result.discomfort)
+        $("#Herina").prop("checked", Result.herina)
+        $("#Diabets").prop("checked", Result.diabets)
+        $("#Pain").prop("checked", Result.pain)
+        $("#Complaint").prop("checked", Result.complaint)
+        $("#Trace").prop("checked", Result.trace)
+        $("#Doctors").prop("checked", Result.doctors)
+        $("#Cholesterol").prop("checked", Result.cholesterol)
+        $("#Pregnant").prop("checked", Result.pregnant)
+        $("#Aliments").prop("checked", Result.aliments)
+        $("#Surgery").prop("checked", Result.surgery)
+        $("#Pressure").prop("checked", Result.pressure)
+        $("#Incorrigible").prop("checked", Result.incorrigible)
+        $("#Musele").prop("checked", Result.musele)
+        $("#Fat").prop("checked", Result.fat)
+        $("#Body").prop("checked", Result.body)
+        $("#Fitness").prop("checked", Result.fitness)
+        $("#Athletics").prop("checked", Result.athletics)
+        $("#Status").prop("checked", Result.active)
+        $("#DOB").val(getFormattedDate(new Date(Result.dateofBirth)));
+        $("#JoinDate").val(getFormattedDate(new Date(Result.joinDate)));
+        ShowIdealweight();
+        $("#wait").css("display", "none");
+        $('#MemberModal').modal('show');
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    }
 }
 
 function DeleteMember(Id) {
@@ -541,7 +459,7 @@ function DeleteMember(Id) {
 function LoadBranchesforSearch() {
     $('#BranchforSearch').find('option').remove().end();
     BranchforSearch = $('#BranchforSearch');
-
+    BranchArray = [];
     $.ajax({
         type: 'GET',
         url: $("#GetBranchDetails").val(),
@@ -554,7 +472,8 @@ function LoadBranchesforSearch() {
             var myData = jQuery.parseJSON(JSON.stringify(response));
             if (myData.code == "1") {
                 var Result = myData.data;
-                BranchforSearch.append($("<option/>").val(0).text("-Select Branch-"));
+                BranchArray = Result;
+                BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
                 $.each(Result, function () {
                     BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
                 });
@@ -575,63 +494,58 @@ $('#btnSearch').click(function () {
     $("#wait").css("display", "block");
     var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();
+    if (Branch == "0" && FName == "") {
+        var Result = EmployeeDetailsArray;
+    } else if (Branch == "0" && FName != "") {
+        var Result = $.grep(EmployeeDetailsArray, function (v) {
+            return (v.firstName.search(new RegExp(FName, "i")) != -1);
+        })
+    } else {
+        var Result = $.grep(EmployeeDetailsArray, function (v) {
+            return (v.branch == Branch && v.firstName.search(new RegExp(FName, "i")) != -1);
+        })
+    }
 
-    $.ajax({
-        type: 'POST',
-        url: $("#SearchMembers").val(),
-        dataType: 'json',
-        data: '{"FirstName": "' + FName + '","Branch": "' + Branch + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            $("#wait").css("display", "none");
-            if (myData.code == "1") {
-                var Result = myData.data;
-                var tr = [];
-                for (var i = 0; i < Result.length; i++) {
-                    tr.push('<tr>');
-                    tr.push("<td>" + Result[i].memberId + "</td>");;
-                    tr.push("<td>" + Result[i].firstName + "</td>");
-                    tr.push("<td>" + Result[i].lastName + "</td>");;
-                    tr.push("<td>" + Result[i].payment + "</td>");;
+    
 
-                    if (Result[i].active == true)
-                        tr.push("<td><strong style=\"color:green\">Active</strong></td>");
-                    else
-                        tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-                    tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+    $("#wait").css("display", "none");
+    if (Result.length !=0) {
+       
+        var tr = [];
+        for (var i = 0; i < Result.length; i++) {
+            tr.push('<tr>');
+            tr.push("<td>" + Result[i].memberId + "</td>");;
+            tr.push("<td>" + Result[i].firstName + "</td>");
+            tr.push("<td>" + Result[i].lastName + "</td>");;
+            tr.push("<td>" + Result[i].nic + "</td>");;
+            tr.push("<td>" + Result[i].branch + "</td>");;
+            if (Result[i].active == true)
+                tr.push("<td><strong style=\"color:green\">Active</strong></td>");
+            else
+                tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
+            tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+            tr.push("<td><button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
 
-                    tr.push('</tr>');
-                }
-
-                $("#tbodyid").empty();
-                $('.tblMember').append($(tr.join('')));
-                $("#noRecords").css("display", "none");
-                $("#tblMember").css("display", "table");
-            } else if (myData.code == "0") {
-                $("#noRecords").css("display", "block");
-                $("#tblMember").css("display", "none");
-
-                var tr = [];
-                $("#tbodyid").empty();
-                $('.tblMember').append($(tr.join('')));
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
-        },
-        error: function (jqXHR, exception) {
-
+            tr.push('</tr>');
         }
-    });
+
+        $("#tbodyid").empty();
+        $('.tblMember').append($(tr.join('')));
+        $("#noRecords").css("display", "none");
+        $("#tblMember").css("display", "table");
+    } else {
+        $("#noRecords").css("display", "block");
+        $("#tblMember").css("display", "none");
+
+        var tr = [];
+        $("#tbodyid").empty();
+        $('.tblMember').append($(tr.join('')));
+    }
+
 });
 
 function Clear() {
-    $('#MembershipId').val('');
+    $('#MembershipId').val(0);
     $('#Fname').val('');
     $('#Lname').val('');
     $('#Gender').val('');
@@ -682,7 +596,6 @@ function Clear() {
 
 function Cancel() {
     $('#MemberModal').modal('toggle');
-    ListMemberDetails();
     Clear();
 }
 
@@ -717,4 +630,16 @@ function ShowIdealweight() {
 
     var exWeight = (Math.pow((Height / 100), 2) * 18.5).toFixed(2) + " Kg" + " - " + (Math.pow((Height / 100), 2) * 25).toFixed(2) + " Kg";
     $('#ExWeight').val(exWeight);
+}
+
+function getFormattedDate(date) {
+    var year = date.getFullYear();
+
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+
+    return month + '/' + day + '/' + year;
 }
