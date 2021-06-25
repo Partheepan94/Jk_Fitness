@@ -40,6 +40,7 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Ou
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\dist\img\credit\paypal2.png
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\dist\img\credit\visa.png
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\dist\img\default-150x150.png
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\dist\img\default.jpg
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\dist\img\icons.png
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\dist\img\Loading.gif
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\dist\img\photo1.png
@@ -2160,6 +2161,7 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Ou
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Humanizer.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\IdentityModel.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\MailKit.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Http.Features.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.AspNetCore.Razor.Language.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.Bcl.AsyncInterfaces.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.CodeAnalysis.dll
@@ -2173,6 +2175,7 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Ou
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.Relational.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.EntityFrameworkCore.SqlServer.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.DependencyInjection.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.Extensions.Primitives.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.Identity.Client.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.JsonWebTokens.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\Microsoft.IdentityModel.Logging.dll
@@ -2198,6 +2201,7 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Ou
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\System.Configuration.ConfigurationManager.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\System.Diagnostics.DiagnosticSource.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\System.IdentityModel.Tokens.Jwt.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\System.IO.Pipelines.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\System.Runtime.Caching.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\System.Security.Cryptography.ProtectedData.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\System.Text.Encodings.Web.dll

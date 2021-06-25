@@ -12,27 +12,100 @@ $('#btnAdd').click(function () {
     $("#InRangeTo").attr("disabled", false);
 });
 
-
 $('#InRangefrom').bind('keyup', function () {
-    var RangeFrom = $('#InRangefrom').val();
+    var RangeFrom = parseInt($('#InRangefrom').val());
+    var RangeTo = parseInt($('#InRangeTo').val());
     if ($.isNumeric(RangeFrom)) {
-        $("#Rfrm").css("display", "none");
-        $("#btnAddBranch").attr("disabled", false);
+
+        var Results = $.grep(BranchDetailsArray, function (v) {
+            return (RangeFrom >= v.membershipInitialRangeFrom && RangeFrom <= v.membershipInitialRangeTo);
+        })
+
+        if (Results.length == 0) {
+            $("#Rfrm").css("display", "none");
+            $("#RfrmId").css("display", "none");
+            if ($.isNumeric(RangeTo)) {
+                if (RangeTo <= RangeFrom) {
+                    $(".ovlap").css("display", "none");
+                    $("#RfrmDif").css("display", "flex");
+                } else {
+                    $("#RfrmDif").css("display", "none");
+                    var recs = $.grep(BranchDetailsArray, function (v) {
+                        return (RangeFrom < v.membershipInitialRangeFrom && RangeTo > v.membershipInitialRangeTo);
+                    })
+
+                    if (recs.length > 0)
+                        $(".ovlap").css("display", "flex");
+                    else
+                        $(".ovlap").css("display", "none");
+                }
+                
+            } else {
+                $("#RfrmDif").css("display", "none");
+                $("#RtoDif").css("display", "none");
+                $(".ovlap").css("display", "none");
+                $("#btnAddBranch").attr("disabled", false);
+            }           
+        }else {            
+            $("#RfrmId").css("display", "flex");
+            $("#Rfrm").css("display", "none");
+            $("#RfrmDif").css("display", "none");
+            $("#btnAddBranch").attr("disabled", false);
+        }       
     }
     else {
         $("#Rfrm").css("display", "flex");
+        $("#RfrmId").css("display", "none");
+        $("#RtoDif").css("display", "none");
         $("#btnAddBranch").attr("disabled", true);
     }
 });
 
 $('#InRangeTo').bind('keyup', function () {
-    var RangeTo = $('#InRangeTo').val();
+    var RangeFrom = parseInt($('#InRangefrom').val());
+    var RangeTo = parseInt($('#InRangeTo').val());
     if ($.isNumeric(RangeTo)) {
-        $("#Rto").css("display", "none");
-        $("#btnAddBranch").attr("disabled", false);
+
+        var Results = $.grep(BranchDetailsArray, function (v) {
+            return ((RangeTo >= v.membershipInitialRangeFrom && RangeTo <= v.membershipInitialRangeTo));
+        })
+        if (Results.length == 0) {
+            $("#Rto").css("display", "none");
+            $("#RtoID").css("display", "none");
+            if ($.isNumeric(RangeFrom)) {
+                if ((RangeTo <= RangeFrom)) {
+                    $(".ovlap").css("display", "none");
+                    $("#RtoDif").css("display", "flex");
+                } else {
+                    $("#RtoDif").css("display", "none");
+                    var recs = $.grep(BranchDetailsArray, function (v) {
+                        return (RangeFrom < v.membershipInitialRangeFrom && RangeTo > v.membershipInitialRangeTo);
+                    });
+
+                    if (recs.length > 0)
+                        $(".ovlap").css("display", "flex");
+                    else
+                        $(".ovlap").css("display", "none");
+                }
+               
+            } else {               
+                $("#RtoDif").css("display", "none");
+                $("#RfrmDif").css("display", "none");
+                $(".ovlap").css("display", "none");
+                $("#btnAddBranch").attr("disabled", false);
+            }          
+        }
+        else {
+            $("#RtoID").css("display", "flex");
+            $("#Rto").css("display", "none");
+            $("#RtoDif").css("display", "none");
+            $("#btnAddBranch").attr("disabled", true);
+        }
     }
     else {
         $("#Rto").css("display", "flex");
+        $("#RtoID").css("display", "none");
+        $("#RtoDif").css("display", "none");
         $("#btnAddBranch").attr("disabled", true);
     }
 });
@@ -149,7 +222,6 @@ $('#btnAddBranch').click(function () {
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        ListBranchDetails();
                         Clear();
                     }
                 },
@@ -159,6 +231,26 @@ $('#btnAddBranch').click(function () {
         }
     }
 });
+
+function onlyUnique(uniqueRecords, duplicateRecords, ResList) {
+
+    jQuery.each(ResList, function (index, item) {
+
+        if (uniqueRecords.length == 0)
+            uniqueRecords.push(item);
+        else {
+            var recs = $.grep(uniqueRecords, function (v) {
+                return (v.branchCode == item.branchCode);
+            });
+
+            if (recs.length == 0)
+                uniqueRecords.push(item);
+            else
+                duplicateRecords.push(item);
+        }
+    });
+}
+
 
 function ListBranchDetails() {
     $("#wait").css("display", "block");
@@ -173,18 +265,37 @@ function ListBranchDetails() {
             if (myData.code == "1") {
                 var ResList = myData.data;
                 BranchDetailsArray = ResList;
+                var uniqueRecords = [];
+                var duplicateRecords = [];
+                onlyUnique(uniqueRecords, duplicateRecords, ResList)                
+
                 var tr = [];
-                for (var i = 0; i < ResList.length; i++) {
+                for (var i = 0; i < uniqueRecords.length; i++) {
+
+                    var additionalRecs = $.grep(duplicateRecords, function (v) {
+                        return (v.branchCode == uniqueRecords[i].branchCode);
+                    });
+
                     tr.push('<tr>');
-                    tr.push("<td>" + ResList[i].branchCode + "</td>");
-                    tr.push("<td>" + ResList[i].branchName + "</td>");
-                    tr.push("<td>" + ResList[i].membershipInitialRangeFrom + " - " + ResList[i].membershipInitialRangeTo +"</td>");
-                    tr.push("<td>" + ResList[i].membershipActiveMonthRange + "</td>");
-                    tr.push("<td><button onclick=\"EditBranch('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    if (ResList[i].isDeleteble == true)
-                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    tr.push("<td>" + uniqueRecords[i].branchCode + "</td>");
+                    tr.push("<td>" + uniqueRecords[i].branchName + "</td>");
+                    if (additionalRecs.length == 0)
+                        tr.push("<td>" + uniqueRecords[i].membershipInitialRangeFrom + " - " + uniqueRecords[i].membershipInitialRangeTo + "</td>");
+                    else {
+                        var td = [];
+                        td.push("<td>" + uniqueRecords[i].membershipInitialRangeFrom + " - " + uniqueRecords[i].membershipInitialRangeTo);
+                        jQuery.each(additionalRecs, function (index, item) {
+                            td.push("<br />" + item.membershipInitialRangeFrom + " - " + item.membershipInitialRangeTo);
+                        });
+                        td.push("</td>");
+                        tr.push(td);
+                    }
+                    tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");
+                    tr.push("<td><button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+                    if (uniqueRecords[i].isDeleteble == true)
+                        tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     else
-                        tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                        tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
                     tr.push('</tr>');
                 }
 
@@ -218,40 +329,30 @@ function EditBranch(Id) {
     $("#BranchField").css("display", "flex");
     $("#InRangefrom").attr("disabled", true);
     $("#InRangeTo").attr("disabled", true);
-    $.ajax({
-        type: 'POST',
-        url: $("#GetBranchById").val(),
-        dataType: 'json',
-        data: '{"Id": "' + Id + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            if (myData.code == "1") {
-                var Result = myData.data;
-                $("#BranchId").val(Result['id']);
-                $("#Bcode").val(Result['branchCode']);
-                $("#Bname").val(Result['branchName']);
-                $("#InRangefrom").val(Result['membershipInitialRangeFrom']);
-                $("#InRangeTo").val(Result['membershipInitialRangeTo']);
-                $("#MonthRange").val(Result['membershipActiveMonthRange']);
 
-                $("#wait").css("display", "none");
-                $('#BranchModal').modal('show');
-                
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
+    var BranchDetails = $.grep(BranchDetailsArray, function (v) {
+        return v.id == Id;
+    })
 
-        },
-        error: function (jqXHR, exception) {
+    if (BranchDetails.length != 0) {
+        var Result = BranchDetails[0];
+        $("#BranchId").val(Result['id']);
+        $("#Bcode").val(Result['branchCode']);
+        $("#Bname").val(Result['branchName']);
+        $("#InRangefrom").val(Result['membershipInitialRangeFrom']);
+        $("#InRangeTo").val(Result['membershipInitialRangeTo']);
+        $("#MonthRange").val(Result['membershipActiveMonthRange']);
 
-        }
-    });
-
+        $("#wait").css("display", "none");
+        $('#BranchModal').modal('show');
+    }
+    else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    }
 }
 
 
@@ -327,20 +428,38 @@ $('#btnSearch').click(function () {
     })
 
     $("#wait").css("display", "none");
-    if (ResList.length != 0) {
+    var uniqueRecords = [];
+    var duplicateRecords = [];
+    onlyUnique(uniqueRecords, duplicateRecords, ResList)     
+    if (uniqueRecords.length != 0) {
 
         var tr = [];
-        for (var i = 0; i < ResList.length; i++) {
+        for (var i = 0; i < uniqueRecords.length; i++) {
+
+            var additionalRecs = $.grep(duplicateRecords, function (v) {
+                return (v.branchCode == uniqueRecords[i].branchCode);
+            });
+
             tr.push('<tr>');
-            tr.push("<td>" + ResList[i].branchCode + "</td>");
-            tr.push("<td>" + ResList[i].branchName + "</td>");;
-            tr.push("<td>" + ResList[i].membershipInitialRangeFrom + " - " + ResList[i].membershipInitialRangeTo + "</td>");;
-            tr.push("<td>" + ResList[i].membershipActiveMonthRange + "</td>");;
-            tr.push("<td><button onclick=\"EditBranch('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-            if (ResList[i].isDeleteble == true)
-                tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            tr.push("<td>" + uniqueRecords[i].branchCode + "</td>");
+            tr.push("<td>" + uniqueRecords[i].branchName + "</td>");;
+            if (additionalRecs.length == 0)
+                tr.push("<td>" + uniqueRecords[i].membershipInitialRangeFrom + " - " + uniqueRecords[i].membershipInitialRangeTo + "</td>");
+            else {
+                var td = [];
+                td.push("<td>" + uniqueRecords[i].membershipInitialRangeFrom + " - " + uniqueRecords[i].membershipInitialRangeTo);
+                jQuery.each(additionalRecs, function (index, item) {
+                    td.push("<br />" + item.membershipInitialRangeFrom + " - " + item.membershipInitialRangeTo);
+                });
+                td.push("</td>");
+                tr.push(td);
+            }
+            tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");;
+            tr.push("<td><button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+            if (uniqueRecords[i].isDeleteble == true)
+                tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
             else
-                tr.push("<td><button onclick=\"DeleteBranch('" + ResList[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
             tr.push('</tr>');
         }
 

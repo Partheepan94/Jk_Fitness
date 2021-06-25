@@ -60,6 +60,7 @@ namespace DataLayer.Models
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
         public DateTime PackageExpirationDate { get; set; }
+        public bool IsFreeMembership { get; set; }
     }
 
 }
