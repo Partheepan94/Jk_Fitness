@@ -17,6 +17,10 @@ $('#btnAdd').click(function () {
     $("#DOB").val(getFormattedDate(CurDate));
     $("#JoinDate").val(getFormattedDate(CurDate));
     $('#Status').prop('checked', true);
+    $("#Branch").attr("disabled", false);
+    $("#Package").attr("disabled", false);
+    $("#FreeMembership").attr("disabled", false);
+    $("#JoinDate").attr("disabled", false);
 });
 
 $(function () {
@@ -85,6 +89,18 @@ function LoadMemberShipPackage() {
     });
 }
 
+$("#FreeMembership").change(function () {
+    var FreeMembership = $('#FreeMembership').prop('checked') ? "true" : "false";
+    if (FreeMembership == "true") {
+        $("#Package").attr("disabled", true);
+        $("#Payment").val(0.00);
+        $('#Package').val(0);
+    } else {
+        $("#Package").attr("disabled", false);
+        $("#Payment").val('');
+    }
+});
+
 $('#btnAddMember').click(function () {
 
     var Memberid = $('#MembershipId').val();
@@ -130,6 +146,7 @@ $('#btnAddMember').click(function () {
     var Fitness = $('#Fitness').prop('checked') ? "true" : "false";
     var Athletics = $('#Athletics').prop('checked') ? "true" : "false";
     var Active = $('#Status').prop('checked') ? "true" : "false";
+    var IsFreeMembership = $('#FreeMembership').prop('checked') ? "true" : "false";
 
     var data = '{"MemberId": ' + Memberid +
         ' ,"FirstName": "' + FirstName +
@@ -173,15 +190,15 @@ $('#btnAddMember').click(function () {
         ',"Fat": ' + Fat +
         ',"Body": ' + Body +
         ',"Fitness": ' + Fitness +
-        ',"Athletics": ' + Athletics + '}';
+        ',"Athletics": ' + Athletics + ',"IsFreeMembership": ' + IsFreeMembership + '}';
 
-    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#District').val() || !$('#Province').val() ||  !$('#JoinDate').val()) {
+    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Payment').val() ) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Empty Value Can not be Allow!',
         });
-    } else if (Branch == 0 || Package == 0) {
+    } else if (Branch == 0) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -328,6 +345,9 @@ function EditMember(Id) {
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $("#wait").css("display", "block");
+    $("#Branch").attr("disabled", true);
+    $("#FreeMembership").attr("disabled", true);
+    $("#JoinDate").attr("disabled", true);
     
     LoadBranches();
     LoadMemberShipPackage();
@@ -339,6 +359,18 @@ function EditMember(Id) {
     if (MemberDetail.length != 0) {
         var Result = MemberDetail[0];
 
+        if (Result.isFreeMembership) {
+            $("#Package").attr("disabled", true);
+        } else {
+            var today = getFormattedDate(new Date());
+            var Expire = getFormattedDate(new Date(Result.packageExpirationDate));
+            if (getFormattedDate(new Date()) < getFormattedDate(new Date(Result.packageExpirationDate))) {
+                $("#Package").attr("disabled", true);
+            } else {
+                $("#Package").attr("disabled", false);
+            }
+            
+        }
         if (Result.gender == "Female") {
             $("#Frule").css("display", "flex");
         }
@@ -387,6 +419,7 @@ function EditMember(Id) {
         $("#Fitness").prop("checked", Result.fitness)
         $("#Athletics").prop("checked", Result.athletics)
         $("#Status").prop("checked", Result.active)
+        $("#FreeMembership").prop("checked", Result.isFreeMembership)
         $("#DOB").val(getFormattedDate(new Date(Result.dateofBirth)));
         $("#JoinDate").val(getFormattedDate(new Date(Result.joinDate)));
         ShowIdealweight();
@@ -580,6 +613,7 @@ function Clear() {
     $("#Body").prop("checked", false)
     $("#Fitness").prop("checked", false)
     $("#Athletics").prop("checked", false)
+    $("#FreeMembership").prop("checked", false)
     $("#Under").css("display", "none");
     $("#Normal").css("display", "none");
     $("#Over").css("display", "none");

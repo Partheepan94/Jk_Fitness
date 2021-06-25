@@ -265,6 +265,9 @@ namespace DataLayer.Migrations
                     b.Property<string>("IntroducedBy")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("IsFreeMembership")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("JoinDate")
                         .HasColumnType("datetime2");
 

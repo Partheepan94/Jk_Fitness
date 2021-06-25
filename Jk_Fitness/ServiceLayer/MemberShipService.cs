@@ -51,8 +51,13 @@ namespace ServiceLayer
                 Member.Province = Member.Province.Trim();
                 Member.CreatedBy = Member.CreatedBy;
                 Member.CreatedDate = DateTime.Now;
-
-                Member.PackageExpirationDate = DateTime.Now.AddMonths(PackageDetails.MonthsPerPackage);
+                if (Member.IsFreeMembership)
+                {
+                    Member.PackageExpirationDate = DateTime.Now.AddYears(100);
+                }
+                else {
+                    Member.PackageExpirationDate = DateTime.Now.AddMonths(PackageDetails.MonthsPerPackage);
+                }
                 
                 uow.MembershipRepository.Insert(Member);
                 uow.Save();
@@ -65,7 +70,14 @@ namespace ServiceLayer
 
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "!.</p>");
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong>" + PackageDetails.MembershipName + "</strong></p>Package Amount: &nbsp;<strong>" + PackageDetails.MembershipAmount + "</strong><br /><br />");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
+                if (Member.IsFreeMembership) {
+                    body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong> Free Membership</strong></p>");
+                }
+                else {
+                    body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong>" + PackageDetails.MembershipName + "</strong></p>Package Amount: &nbsp;<strong>" + PackageDetails.MembershipAmount + "</strong><br /><br />");
+                }
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Package ExpirationDate: <strong> " + Member.PackageExpirationDate + "</strong></p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group<br />0772395819 <br />jkfitness23@gmail.com</ p > ");
 
                 request.Body = body.ToString();

@@ -161,3 +161,6 @@ E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitnes
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\ref\Jk_Fitness.dll
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitness.pdb
 E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitness.genruntimeconfig.cache
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Release\net5.0\Microsoft.AspNetCore.Http.Features.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Release\net5.0\Microsoft.Extensions.Primitives.dll
+E:\Gym_Project\New\Jk_Fitness\Jk_Fitness\Jk_Fitness\bin\Release\net5.0\System.IO.Pipelines.dll

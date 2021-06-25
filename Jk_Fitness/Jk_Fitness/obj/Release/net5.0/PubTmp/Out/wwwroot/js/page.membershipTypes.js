@@ -136,7 +136,6 @@ $('#btnAddMembership').click(function () {
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        ListMembershipDetails();
                         Clear();
                     }
                 },
@@ -208,39 +207,28 @@ function EditMembershipType(Id) {
     $('.modal-content').removeClass('freeze');
     $("#MembershipField").css("display", "flex");
     LoadMonths();
-    $.ajax({
-        type: 'POST',
-        url: $("#GetMembershipTypeById").val(),
-        dataType: 'json',
-        data: '{"Id": "' + Id + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            if (myData.code == "1") {
-                var Result = myData.data;
-                $("#MembershipId").val(Result['id']);
-                $("#Mcode").val(Result['membershipCode']);
-                $("#Mname").val(Result['membershipName']);
-                $("#Months").val(Result['monthsPerPackage']);
-                $("#MemAmount").val(Result['membershipAmount'].toFixed(2));
-                $("#Enabled").prop("checked", Result.isEnable)
-                $("#wait").css("display", "none");
-                $('#MembershipTypeModal').modal('show');
 
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
+    var MembershipDetails = $.grep(MembershipDetailsArray, function (v) {
+        return v.id == Id;
+    })
 
-        },
-        error: function (jqXHR, exception) {
-
-        }
-    });
-
+    if (MembershipDetails.length != 0) {
+        var Result = MembershipDetails[0];
+        $("#MembershipId").val(Result['id']);
+        $("#Mcode").val(Result['membershipCode']);
+        $("#Mname").val(Result['membershipName']);
+        $("#Months").val(Result['monthsPerPackage']);
+        $("#MemAmount").val(Result['membershipAmount'].toFixed(2));
+        $("#Enabled").prop("checked", Result.isEnable)
+        $("#wait").css("display", "none");
+        $('#MembershipTypeModal').modal('show');
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    }
 }
 
 function DeleteMembershipType(Id) {

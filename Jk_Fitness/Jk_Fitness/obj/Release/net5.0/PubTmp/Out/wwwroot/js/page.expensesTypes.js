@@ -98,7 +98,6 @@ $('#btnAddExpense').click(function () {
                             title: 'Oops...',
                             text: 'Something went wrong!',
                         });
-                        ListExpensesDetails();
                         Clear();
                     }
                 },
@@ -164,37 +163,26 @@ function EditExpenseType(Id) {
     $("#ExpenseField").css("display", "flex");
     $('.modal').removeClass('freeze');   
     $('.modal-content').removeClass('freeze');
-    $.ajax({
-        type: 'POST',
-        url: $("#GetExpenseTypeById").val(),
-        dataType: 'json',
-        data: '{"Id": "' + Id + '"}',
-        contentType: 'application/json; charset=utf-8',
-        success: function (response) {
-            var myData = jQuery.parseJSON(JSON.stringify(response));
-            if (myData.code == "1") {
-                var Result = myData.data;
-                $("#ExpenseId").val(Result['id']);
-                $("#Ecode").val(Result['expenseCode']);
-                $("#Ename").val(Result['expenseName']);
-                $("#Enabled").prop("checked", Result.isEnable);
-                $("#wait").css("display", "none");   
-                $('#ExpensesTypeModal').modal('show');
 
-            } else {
-                Swal.fire({
-                    icon: 'error',
-                    title: 'Oops...',
-                    text: 'Something went wrong!',
-                });
-            }
+    var ExpensesTypesDetails = $.grep(ExpensesTypesDetailsArray, function (v) {
+        return v.id == Id;
+    })
 
-        },
-        error: function (jqXHR, exception) {
-
-        }
-    });
-
+    if (ExpensesTypesDetails.length != 0) {
+        var Result = ExpensesTypesDetails[0];
+        $("#ExpenseId").val(Result['id']);
+        $("#Ecode").val(Result['expenseCode']);
+        $("#Ename").val(Result['expenseName']);
+        $("#Enabled").prop("checked", Result.isEnable);
+        $("#wait").css("display", "none");
+        $('#ExpensesTypeModal').modal('show');
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    }
 }
 
 function DeleteExpenseType(Id) {

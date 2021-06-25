@@ -131,8 +131,6 @@ $('#btnAddMember').click(function () {
     var Athletics = $('#Athletics').prop('checked') ? "true" : "false";
     var Active = $('#Status').prop('checked') ? "true" : "false";
 
-    var Mailregex = /^([a-zA-Z0-9_.+-])+\@(([a-zA-Z0-9-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-
     var data = '{"MemberId": ' + Memberid +
         ' ,"FirstName": "' + FirstName +
         ' " ,"LastName":" ' + latName +
@@ -177,17 +175,11 @@ $('#btnAddMember').click(function () {
         ',"Fitness": ' + Fitness +
         ',"Athletics": ' + Athletics + '}';
 
-    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#DOB').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#District').val() || !$('#Province').val() ||  !$('#JoinDate').val()) {
+    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#District').val() || !$('#Province').val() ||  !$('#JoinDate').val()) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
             text: 'Empty Value Can not be Allow!',
-        });
-    } else if (!Mailregex.test(Email.trim())) {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Please enter a vaild email address!',
         });
     } else if (Branch == 0 || Package == 0) {
         Swal.fire({

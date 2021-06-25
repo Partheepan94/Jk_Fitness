@@ -5802,11 +5802,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+      "projectUniqueName": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
       "projectName": "DataLayer",
-      "projectPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+      "projectPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
       "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
-      "outputPath": "E:\\Gym_Project\\New\\Jk_Fitness\\Jk_Fitness\\DataLayer\\obj\\",
+      "outputPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -5865,7 +5865,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.203\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.204\\RuntimeIdentifierGraph.json"
       }
     }
   }
