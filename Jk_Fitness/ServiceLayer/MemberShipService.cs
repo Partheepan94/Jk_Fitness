@@ -38,7 +38,7 @@ namespace ServiceLayer
                 }
                 else {
                     int InitialRange = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim()).Select(x => x.MembershipInitialRangeFrom).FirstOrDefault();
-                    Member.MemberId = InitialRange + 1;
+                    Member.MemberId = InitialRange == 0 ? InitialRange + 1 : InitialRange;
                 }
                
                 Member.FirstName = Member.FirstName.Trim();
