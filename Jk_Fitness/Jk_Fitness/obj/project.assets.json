@@ -7586,11 +7586,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+      "projectUniqueName": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
       "projectName": "Jk_Fitness",
-      "projectPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+      "projectPath": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
       "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
-      "outputPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\obj\\",
+      "outputPath": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7607,11 +7607,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
+            "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
             },
-            "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
-              "projectPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
+            "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
+              "projectPath": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
             }
           }
         }

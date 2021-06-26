@@ -36,8 +36,10 @@ $('#InRangefrom').bind('keyup', function () {
 
                     if (recs.length > 0)
                         $(".ovlap").css("display", "flex");
-                    else
+                    else {
                         $(".ovlap").css("display", "none");
+                        $("#btnAddBranch").attr("disabled", false);
+                    }                        
                 }
                 
             } else {
@@ -50,7 +52,7 @@ $('#InRangefrom').bind('keyup', function () {
             $("#RfrmId").css("display", "flex");
             $("#Rfrm").css("display", "none");
             $("#RfrmDif").css("display", "none");
-            $("#btnAddBranch").attr("disabled", false);
+            $("#btnAddBranch").attr("disabled", true);
         }       
     }
     else {
@@ -84,8 +86,10 @@ $('#InRangeTo').bind('keyup', function () {
 
                     if (recs.length > 0)
                         $(".ovlap").css("display", "flex");
-                    else
+                    else {
                         $(".ovlap").css("display", "none");
+                        $("#btnAddBranch").attr("disabled", false);
+                    }
                 }
                
             } else {               
@@ -411,6 +415,16 @@ function Clear() {
     $('#InRangefrom').val('');
     $('#InRangeTo').val('');
     $('#MonthRange').val('');
+    $("#RfrmDif").css("display", "none");
+    $("#RtoDif").css("display", "none");
+    $(".ovlap").css("display", "none");
+    $("#Rto").css("display", "none");
+    $("#Rfrm").css("display", "none");
+    $("#RfrmId").css("display", "none");
+    $("#RtoID").css("display", "none");
+    $("#mRange").css("display", "none");
+    $("#ValidRange").css("display", "none");
+    $("#btnAddBranch").attr("disabled", false);
 }
 
 function Cancel() {

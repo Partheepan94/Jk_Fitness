@@ -420,6 +420,11 @@ function Clear() {
     $(".ovlap").css("display", "none");
     $("#Rto").css("display", "none");
     $("#Rfrm").css("display", "none");
+    $("#RfrmId").css("display", "none");
+    $("#RtoID").css("display", "none");
+    $("#mRange").css("display", "none");
+    $("#ValidRange").css("display", "none");
+    $("#btnAddBranch").attr("disabled", false);
 }
 
 function Cancel() {

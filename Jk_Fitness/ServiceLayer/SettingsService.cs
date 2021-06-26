@@ -502,7 +502,7 @@ namespace ServiceLayer
                     webResponce = new WebResponce()
                     {
                         Code = 0,
-                        Message = "Seems Like Doesn't have Records!"
+                        Message = "Seems Like Doesn't have MembershipTypesDetails!"
                     };
                 }
             }

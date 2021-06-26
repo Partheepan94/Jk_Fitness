@@ -61,7 +61,7 @@ function LoadMemberShipType() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong!',
+                    text: myData.message,
                 });
             }
         },
@@ -506,7 +506,7 @@ function LoadBranchesforSearch() {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
-                    text: 'Something went wrong!',
+                    text: myData.message,
                 });
             }
         },

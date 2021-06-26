@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "TmKE9M4bspG4JhbCWTGBYMlE9WGCMGEIX2CIRWpP9jzsNBvr/GI2FjGxmi73EoVecmzK3h37RqjMX3aDqmduNg==",
+  "dgSpecHash": "cClawNtiehFu/JjFV6XY6tc73Lyr4RswZP0OZJykzQVeIlQeYCNj1t/efD2cOOGjLIq2DF6cyMHuwuMPy3LxgA==",
   "success": true,
-  "projectFilePath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+  "projectFilePath": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\UIser\\.nuget\\packages\\humanizer.core\\2.8.26\\humanizer.core.2.8.26.nupkg.sha512",
     "C:\\Users\\UIser\\.nuget\\packages\\identitymodel\\5.1.0\\identitymodel.5.1.0.nupkg.sha512",

@@ -231,7 +231,7 @@ function EditMembershipType(Id) {
     }
 }
 
-function DeleteMembershipType(Id) {
+function DeleteBranch(Id) {
 
     Swal.fire({
         title: 'Are you sure?',
@@ -286,6 +286,8 @@ function Clear() {
     $('#Months').val('');
     $('#MemAmount').val('');
     $('#Status').prop('checked', true);
+    $("#Rfrm").css("display", "none");
+    $("#btnAddMembership").attr("disabled", false);
 }
 
 function Cancel() {

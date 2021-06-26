@@ -34,3 +34,21 @@ E:\Gym_Project\Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\Ser
 E:\Gym_Project\Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ref\ServiceLayer.dll
 E:\Gym_Project\Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.pdb
 E:\Gym_Project\Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.genruntimeconfig.cache
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\ServiceLayer.deps.json
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\ServiceLayer.runtimeconfig.json
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\ServiceLayer.runtimeconfig.dev.json
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\ServiceLayer.dll
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\ref\ServiceLayer.dll
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\ServiceLayer.pdb
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\DataLayer.dll
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\bin\Release\net5.0\DataLayer.pdb
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.csprojAssemblyReference.cache
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.GeneratedMSBuildEditorConfig.editorconfig
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.AssemblyInfoInputs.cache
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.AssemblyInfo.cs
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.csproj.CoreCompileInputs.cache
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.csproj.CopyComplete
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.dll
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ref\ServiceLayer.dll
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.pdb
+E:\Gym_Project\New Working\Jk_Fitness\Jk_Fitness\ServiceLayer\obj\Release\net5.0\ServiceLayer.genruntimeconfig.cache

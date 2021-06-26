@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {}
+    "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {}
   },
   "projects": {
-    "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+    "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+        "projectUniqueName": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
         "projectName": "DataLayer",
-        "projectPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
+        "projectPath": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj",
         "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
-        "outputPath": "E:\\Gym_Project\\Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\obj\\",
+        "outputPath": "E:\\Gym_Project\\New Working\\Jk_Fitness\\Jk_Fitness\\DataLayer\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
