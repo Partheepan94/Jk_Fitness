@@ -251,7 +251,7 @@ $('#btnSearch').click(function () {
     var ExpCode = $('#ExpenseCode').val();
     
     var ResList = $.grep(ExpensesTypesDetailsArray, function (v) {
-        return (v.branchName.search(new RegExp(ExpName, "i")) != -1 && v.branchCode.search(new RegExp(ExpCode, "i") != -1));
+        return (v.expenseName.search(new RegExp(ExpName, "i")) != -1 && v.expenseCode.search(new RegExp(ExpCode, "i") != -1));
     })
 
     $("#wait").css("display", "none");

@@ -40,7 +40,7 @@ namespace ServiceLayer
                     webResponce = new WebResponce()
                     {
                         Code = 0,
-                        Message = "Seems Like Doesn't have Records!"
+                        Message = "Seems Like Doesn't have Branch Dtails!"
                     };
                 }
             }
@@ -133,7 +133,7 @@ namespace ServiceLayer
 
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + employee.FirstName + ",</p>");
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>You can now login at JK Fitness Backoffice web application.</p>");
-                    body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Website Url: https://office.jkfitness.lk/ </p>");
+                    body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Website Url: https://jkfitness.lk/ </p>");
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Username: " + employee.Email + "</p>");
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Password: " + EmpPwd + "</p>");
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group </ p > ");
