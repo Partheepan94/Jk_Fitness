@@ -26,7 +26,7 @@ namespace Jk_Fitness.Controllers
         }
 
         [HttpPost]
-        public WebResponce SaveMember([FromBody] MemberShip Member)
+        public WebResponce SaveMember(MemberShip Member)
         {
             try
             {
@@ -84,7 +84,7 @@ namespace Jk_Fitness.Controllers
         }
 
         [HttpPost]
-        public WebResponce UpdateMemberShip([FromBody] MemberShip Member)
+        public WebResponce UpdateMemberShip( MemberShip Member)
         {
             try
             {
