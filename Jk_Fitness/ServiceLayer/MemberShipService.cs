@@ -45,18 +45,14 @@ namespace ServiceLayer
                 Member.LastName = Member.LastName.Trim();
                 Member.Gender = Member.Gender.Trim();
                 Member.Branch = Member.Branch.Trim();
-                Member.HouseNo = Member.HouseNo.Trim();
-                Member.Street = Member.Street.Trim();
-                Member.District = Member.District.Trim();
-                Member.Province = Member.Province.Trim();
                 Member.CreatedBy = Member.CreatedBy;
                 Member.CreatedDate = DateTime.Now;
                 if (Member.IsFreeMembership)
                 {
-                    Member.PackageExpirationDate = DateTime.Now.AddYears(100);
+                    Member.PackageExpirationDate = DateTime.Now.AddYears(100).Date;
                 }
                 else {
-                    Member.PackageExpirationDate = DateTime.Now.AddMonths(PackageDetails.MonthsPerPackage);
+                    Member.PackageExpirationDate = Member.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
                 }
                 
                 uow.MembershipRepository.Insert(Member);
@@ -194,10 +190,10 @@ namespace ServiceLayer
                     Mem.LastName = member.LastName.Trim();
                     Mem.Gender = member.Gender.Trim();
                     Mem.NIC = member.NIC.Trim();
-                    Mem.HouseNo = member.HouseNo.Trim();
-                    Mem.Street = member.Street.Trim();
-                    Mem.District = member.District.Trim();
-                    Mem.Province = member.Province.Trim();
+                    Mem.HouseNo = member.HouseNo;
+                    Mem.Street = member.Street;
+                    Mem.District = member.District;
+                    Mem.Province = member.Province;
                     Mem.ContactNo = member.ContactNo.Trim();
                     Mem.DateofBirth = member.DateofBirth;
                     Mem.Email = member.Email.Trim();
@@ -206,33 +202,10 @@ namespace ServiceLayer
                     Mem.Height = member.Height;
                     Mem.Weight = member.Weight;
                     Mem.BMI = member.BMI;
-
-                    if(Mem.MemberPackage != member.MemberPackage)
-                    {
-                        Mem.MemberPackage = member.MemberPackage;
-                        var PackageDetails = uow.MembershipTypesRepository.GetByID(member.MemberPackage);
-
-                        var request = new MailRequest();
-                        request.ToEmail = Mem.Email;
-                        request.Subject = "Membership Package Change";
-
-                        StringBuilder body = new StringBuilder();
-
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + Mem.FirstName + ",</p>");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your package got change successfully!.</p>");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package:" + PackageDetails.MembershipName + "</p>Package Amount: &nbsp;" + PackageDetails.MembershipAmount + "<br /><br />");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group </ p > ");
-
-                        request.Body = body.ToString();
-                        mailService.SendEmailAsync(request);
-
-                    }
-
-                    
                     Mem.Payment = member.Payment;
-                    Mem.EmergencyContactNo = member.EmergencyContactNo.Trim();
-                    Mem.RelationShip = member.RelationShip.Trim();
-                    Mem.IntroducedBy = member.IntroducedBy.Trim();
+                    Mem.EmergencyContactNo = member.EmergencyContactNo;
+                    Mem.RelationShip = member.RelationShip;
+                    Mem.IntroducedBy = member.IntroducedBy;
                     Mem.Active = member.Active;
                     Mem.Smoking = member.Smoking;
                     Mem.Discomfort = member.Discomfort;
@@ -254,7 +227,45 @@ namespace ServiceLayer
                     Mem.Fitness = member.Fitness;
                     Mem.Athletics = member.Athletics;
                     Mem.JoinDate = member.JoinDate;
-                    
+                    Mem.IsFreeMembership = member.IsFreeMembership;
+                    var PackageDetails = uow.MembershipTypesRepository.GetByID(member.MemberPackage);
+                    if (member.IsFreeMembership)
+                    {
+                        Mem.PackageExpirationDate = DateTime.Now.AddYears(100).Date;
+                    }
+                    else
+                    {
+                        Mem.PackageExpirationDate = Mem.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
+                    }
+                   
+                    if (Mem.MemberPackage != member.MemberPackage)
+                    {
+                        Mem.MemberPackage = member.MemberPackage;
+
+
+                        var request = new MailRequest();
+                        request.ToEmail = Mem.Email;
+                        request.Subject = "Membership Package Change";
+
+                        StringBuilder body = new StringBuilder();
+
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear " + Mem.FirstName + ",</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your package got change successfully!.</p>");
+                        if (Mem.IsFreeMembership)
+                        {
+                            body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong> Free Membership</strong></p>");
+                        }
+                        else
+                        {
+                            body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package:" + PackageDetails.MembershipName + "</p>Package Amount: &nbsp;" + PackageDetails.MembershipAmount + "<br /><br />");
+                        }
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Package ExpirationDate: <strong> " + Mem.PackageExpirationDate.ToString("dd.MM.yyyy") + "</strong></p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Regards,<br /> JK Fitness group<br />0772395819 <br />jkfitness23@gmail.com</ p > ");
+
+                        request.Body = body.ToString();
+                        mailService.SendEmailAsync(request);
+
+                    }
                     Mem.ModifiedDate = DateTime.Now;
                     Mem.ModifiedBy = member.ModifiedBy;
                     uow.MembershipRepository.Update(Mem);

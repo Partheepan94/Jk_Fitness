@@ -102,95 +102,56 @@ $("#FreeMembership").change(function () {
 });
 
 $('#btnAddMember').click(function () {
-
+  
     var Memberid = $('#MembershipId').val();
-    var FirstName = $('#Fname').val();
-    var latName = $('#Lname').val();
-    var Gender = $('#Gender').val();
-    var Nic = $('#Nic').val();
     var Branch = $('#Branch').val();
-    var ContactNo = $('#ContactNo').val();
-    var DOB = new Date($('#DOB').val());
-    var Email = $('#Email').val();
-    var Age = $('#Age').val();
-    var Height = $('#Height').val();
-    var Weight = $('#Weight').val();
-    var BMI = $('#BMI').val();
-    var HouseNo = $('#HouseNo').val();
-    var Street = $('#Street').val();
-    var District = $('#District').val();
-    var Province = $('#Province').val();
-    var Package = $('#Package').val();
-    var Joindate = new Date($('#JoinDate').val());
-    var Payment = $('#Payment').val();
-    var Introduce = $('#Introduce').val();
-    var EmergencyTP = $('#EmergencyTP').val();
-    var Relation = $('#Relation').val();
-    var Smoking = $('#Smoking').prop('checked') ? "true" : "false";
-    var Discomfort = $('#Discomfort').prop('checked') ? "true" : "false";
-    var Herina = $('#Herina').prop('checked') ? "true" : "false";
-    var Diabets = $('#Diabets').prop('checked') ? "true" : "false";
-    var Pain = $('#Pain').prop('checked') ? "true" : "false";
-    var Complaint = $('#Complaint').prop('checked') ? "true" : "false";
-    var Trace = $('#Trace').prop('checked') ? "true" : "false";
-    var Doctors = $('#Doctors').prop('checked') ? "true" : "false";
-    var Cholesterol = $('#Cholesterol').prop('checked') ? "true" : "false";
-    var Pregnant = $('#Pregnant').prop('checked') ? "true" : "false";
-    var Aliments = $('#Aliments').prop('checked') ? "true" : "false";
-    var Surgery = $('#Surgery').prop('checked') ? "true" : "false";
-    var Pressure = $('#Pressure').prop('checked') ? "true" : "false";
-    var Incorrigible = $('#Incorrigible').prop('checked') ? "true" : "false";
-    var Musele = $('#Musele').prop('checked') ? "true" : "false";
-    var Fat = $('#Fat').prop('checked') ? "true" : "false";
-    var Body = $('#Body').prop('checked') ? "true" : "false";
-    var Fitness = $('#Fitness').prop('checked') ? "true" : "false";
-    var Athletics = $('#Athletics').prop('checked') ? "true" : "false";
-    var Active = $('#Status').prop('checked') ? "true" : "false";
-    var IsFreeMembership = $('#FreeMembership').prop('checked') ? "true" : "false";
-
-    var data = '{"MemberId": ' + Memberid +
-        ' ,"FirstName": "' + FirstName +
-        ' " ,"LastName":" ' + latName +
-        ' " ,"Gender":" ' + Gender +
-        ' ","NIC":" ' + Nic +
-        ' " ,"HouseNo":" ' + HouseNo +
-        ' ","Street":" ' + Street +
-        ' ","District":" ' + District +
-        ' ","Province":" ' + Province +
-        ' ","ContactNo":" ' + ContactNo +
-        ' ","DateofBirth": ' + JSON.stringify(DOB) +
-        ' ,"Email":" ' + Email +
-        ' ","Branch":" ' + Branch +
-        ' ","Age": ' + Age +
-        ',"Height": ' + Height +
-        ',"Weight": ' + Weight +
-        ',"BMI": ' + BMI +
-        ',"MemberPackage": ' + Package +
-        ',"Payment": ' + Payment +
-        ',"EmergencyContactNo": "' + EmergencyTP +
-        '","RelationShip": "' + Relation +
-        '","IntroducedBy": "' + Introduce +
-        '","Active": ' + Active +
-        ',"JoinDate": ' + JSON.stringify(Joindate) +
-        ',"Smoking": ' + Smoking +
-        ',"Discomfort": ' + Discomfort +
-        ',"Cholesterol": ' + Cholesterol +
-        ',"Herina": ' + Herina +
-        ',"Diabets": ' + Diabets +
-        ',"Pain": ' + Pain +
-        ',"Complaint": ' + Complaint +
-        ',"Incorrigible": ' + Incorrigible +
-        ',"Doctors": ' + Doctors +
-        ',"Aliments": ' + Aliments +
-        ',"Surgery": ' + Surgery +
-        ',"Pressure": ' + Pressure +
-        ',"Trace": ' + Trace +
-        ',"Pregnant": ' + Pregnant +
-        ',"Musele": ' + Musele +
-        ',"Fat": ' + Fat +
-        ',"Body": ' + Body +
-        ',"Fitness": ' + Fitness +
-        ',"Athletics": ' + Athletics + ',"IsFreeMembership": ' + IsFreeMembership + '}';
+    
+    var data = new FormData();
+    data.append("MemberId", $('#MembershipId').val());
+    data.append("FirstName", $('#Fname').val());
+    data.append("LastName", $('#Lname').val());
+    data.append("Gender", $('#Gender').val());
+    data.append("NIC", $('#Nic').val());
+    data.append("HouseNo", $('#HouseNo').val());
+    data.append("Street", $('#Street').val());
+    data.append("District", $('#District').val());
+    data.append("Province", $('#Province').val());
+    data.append("ContactNo", $('#ContactNo').val());
+    data.append("DateofBirth", $('#DOB').val());
+    data.append("Email", $('#Email').val());
+    data.append("Branch", $('#Branch').val());
+    data.append("Age", $('#Age').val());
+    data.append("Height", $('#Height').val());
+    data.append("Weight", $('#Weight').val());
+    data.append("BMI", $('#BMI').val());
+    data.append("MemberPackage", $('#Package').val());
+    data.append("Payment", $('#Payment').val());
+    data.append("EmergencyContactNo", $('#EmergencyTP').val());
+    data.append("RelationShip", $('#Relation').val());
+    data.append("IntroducedBy", $('#Introduce').val());
+    data.append("Active", $('#Status').prop('checked') ? "true" : "false");
+    data.append("JoinDate", $('#JoinDate').val());
+    data.append("Smoking", $('#Smoking').prop('checked') ? "true" : "false");
+    data.append("Discomfort", $('#Discomfort').prop('checked') ? "true" : "false");
+    data.append("Cholesterol", $('#Cholesterol').prop('checked') ? "true" : "false");
+    data.append("Herina", $('#Herina').prop('checked') ? "true" : "false");
+    data.append("Diabets", $('#Diabets').prop('checked') ? "true" : "false");
+    data.append("Pain", $('#Pain').prop('checked') ? "true" : "false");
+    data.append("Complaint", $('#Complaint').prop('checked') ? "true" : "false");
+    data.append("Incorrigible", $('#Incorrigible').prop('checked') ? "true" : "false");
+    data.append("Doctors", $('#Doctors').prop('checked') ? "true" : "false");
+    data.append("Aliments", $('#Aliments').prop('checked') ? "true" : "false");
+    data.append("Surgery", $('#Surgery').prop('checked') ? "true" : "false");
+    data.append("Pressure", $('#Pressure').prop('checked') ? "true" : "false");
+    data.append("Trace", $('#Trace').prop('checked') ? "true" : "false");
+    data.append("Pregnant", $('#Pregnant').prop('checked') ? "true" : "false");
+    data.append("Musele", $('#Musele').prop('checked') ? "true" : "false");
+    data.append("Fat", $('#Fat').prop('checked') ? "true" : "false");
+    data.append("Body", $('#Body').prop('checked') ? "true" : "false");
+    data.append("Fitness", $('#Fitness').prop('checked') ? "true" : "false");
+    data.append("Athletics", $('#Athletics').prop('checked') ? "true" : "false");
+    data.append("IsFreeMembership", $('#FreeMembership').prop('checked') ? "true" : "false");
+    
 
     if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Payment').val() ) {
         Swal.fire({
@@ -216,7 +177,8 @@ $('#btnAddMember').click(function () {
                 url: $("#SaveMembers").val(),
                 dataType: 'json',
                 data: data,
-                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                contentType: false,
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
                     $("#waitform").css("display", "none");
@@ -252,7 +214,8 @@ $('#btnAddMember').click(function () {
                 url: $("#UpdateMemberShip").val(),
                 dataType: 'json',
                 data: data,
-                contentType: 'application/json; charset=utf-8',
+                processData: false,
+                contentType: false,
                 success: function (response) {
                     var myData = jQuery.parseJSON(JSON.stringify(response));
                     $("#waitform").css("display", "none");
@@ -346,8 +309,8 @@ function EditMember(Id) {
     $('.modal-content').removeClass('freeze');
     $("#wait").css("display", "block");
     $("#Branch").attr("disabled", true);
-    $("#FreeMembership").attr("disabled", true);
-    $("#JoinDate").attr("disabled", true);
+    //$("#FreeMembership").attr("disabled", true);
+    //$("#JoinDate").attr("disabled", true);
     
     LoadBranches();
     LoadMemberShipPackage();
@@ -358,19 +321,22 @@ function EditMember(Id) {
 
     if (MemberDetail.length != 0) {
         var Result = MemberDetail[0];
-
+        var date = getFormattedDate(new Date(Result.joinDate));
         if (Result.isFreeMembership) {
             $("#Package").attr("disabled", true);
         } else {
-            var today = getFormattedDate(new Date());
-            var Expire = getFormattedDate(new Date(Result.packageExpirationDate));
-            if (getFormattedDate(new Date()) < getFormattedDate(new Date(Result.packageExpirationDate))) {
-                $("#Package").attr("disabled", true);
-            } else {
-                $("#Package").attr("disabled", false);
-            }
-            
+            $("#Package").attr("disabled", false);
         }
+        //else {
+        //    var today = getFormattedDate(new Date());
+        //    var Expire = getFormattedDate(new Date(Result.packageExpirationDate));
+        //    if (getFormattedDate(new Date()) < getFormattedDate(new Date(Result.packageExpirationDate))) {
+        //        $("#Package").attr("disabled", true);
+        //    } else {
+        //        $("#Package").attr("disabled", false);
+        //    }
+            
+        //}
         if (Result.gender == "Female") {
             $("#Frule").css("display", "flex");
         }
@@ -515,7 +481,7 @@ function LoadBranchesforSearch() {
     });
 }
 
-$('#btnSearch').click(function () {
+function SearchMembership() {
     $("#wait").css("display", "block");
     var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();
@@ -567,7 +533,16 @@ $('#btnSearch').click(function () {
         $('.tblMember').append($(tr.join('')));
     }
 
+}
+
+$("#BranchforSearch").change(function () {
+    SearchMembership();
 });
+
+$("#NameforSearch").bind('keyup',function () {
+    SearchMembership();
+});
+
 
 function Clear() {
     $('#MembershipId').val(0);
