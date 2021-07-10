@@ -21,5 +21,6 @@ namespace DataLayer
         public string ModifiedBy { get; set; }
         public DateTime ModifiedDate { get; set; }
         public bool IsDeleteble { get; set; }
+        public bool IsCurrent { get; set; }
     }
 }

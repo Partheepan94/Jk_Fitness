@@ -102,22 +102,31 @@ namespace ServiceLayer
 
         public int ExtendNewBranch(Branch branch)
         {
+            branch.IsCurrent = false;
+            uow.BranchRepository.Update(branch);
+            uow.Save();
+
             var membershiopLastToId = uow.DbContext.Branches.OrderByDescending(x => x.MembershipInitialRangeTo).Select(x => x.MembershipInitialRangeTo).FirstOrDefault();
             branch.Id = 0;
             branch.MembershipInitialRangeFrom = membershiopLastToId + 1;
             branch.MembershipInitialRangeTo = membershiopLastToId + 1000;
             branch.CreatedDate = DateTime.Now;
+            branch.IsCurrent = true;
             uow.BranchRepository.Insert(branch);
             uow.Save();
 
             return branch.MembershipInitialRangeFrom;
         }
 
-        public WebResponce ListMemberShipDetails()
+        public WebResponce ListMemberShipDetails(string EmpId)
         {
             try
             {
+                var employee = uow.EmployeeRepository.GetByID(EmpId);
                 List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
+
+                Member = employee.UserType == "Admin" ? Member : Member.Where(x => x.Branch == employee.Branch).ToList();
+
                 if (Member != null && Member.Count > 0)
                 {
                     webResponce = new WebResponce()
@@ -357,6 +366,43 @@ namespace ServiceLayer
             return webResponce;
         }
 
+        public WebResponce ListBranches(string EmpId)
+        {
+            try
+            {
+                var employee = uow.EmployeeRepository.GetByID(EmpId);
+                List<Branch> branch = uow.BranchRepository.GetAll().Where(x => x.IsCurrent == true).OrderBy(x => x.BranchCode).ToList();
+
+                branch = employee.UserType == "Admin" ? branch : branch.Where(x => x.BranchName == employee.Branch).ToList();
+
+                if (branch != null && branch.Count > 0)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = branch
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
 
     }
 }

@@ -22,7 +22,7 @@ namespace ServiceLayer
         {
             try
             {
-                var BranchCode = uow.DbContext.Branches.OrderBy(x => x.Id).Select(x => x.BranchCode).LastOrDefault();
+                var BranchCode = uow.DbContext.Branches.OrderBy(x => x.BranchCode).Select(x => x.BranchCode).LastOrDefault();
                 if (BranchCode != null)
                 {
                     double subs = double.Parse(BranchCode.Split(' ')[1]);
@@ -36,6 +36,7 @@ namespace ServiceLayer
                 branch.BranchName = branch.BranchName.Trim();
                 branch.CreatedDate = DateTime.Now;
                 branch.CreatedBy = branch.CreatedBy;
+                branch.IsCurrent = true;
                 uow.BranchRepository.Insert(branch);
                 uow.Save();
 
@@ -61,7 +62,7 @@ namespace ServiceLayer
         {
             try
             {
-                List<Branch> branches = uow.BranchRepository.GetAll().ToList();
+                List<Branch> branches = uow.BranchRepository.GetAll().OrderBy(x => x.BranchCode).ToList();
 
                 if (branches != null && branches.Count > 0)
                 {

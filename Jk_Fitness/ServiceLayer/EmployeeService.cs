@@ -26,7 +26,7 @@ namespace ServiceLayer
         {
             try
             {
-                List<Branch> branch = uow.BranchRepository.GetAll().ToList();
+                List<Branch> branch = uow.BranchRepository.GetAll().Where(x => x.IsCurrent == true).OrderBy(x => x.BranchCode).ToList();
                 if (branch != null && branch.Count > 0)
                 {
                     webResponce = new WebResponce()
