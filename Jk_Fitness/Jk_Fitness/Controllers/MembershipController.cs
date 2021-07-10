@@ -50,7 +50,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                webResponce = MemberShip.ListMemberShipDetails();
+                webResponce = MemberShip.ListMemberShipDetails(Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]));
                 return webResponce;
             }
             catch (Exception Ex)
@@ -128,6 +128,26 @@ namespace Jk_Fitness.Controllers
             try
             {
                 webResponce = MemberShip.SearchMemberShipDetails(member);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+
+        [HttpGet]
+        public WebResponce GetBranchDetails()
+        {
+            try
+            {
+                webResponce = MemberShip.ListBranches(Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]));
                 return webResponce;
             }
             catch (Exception Ex)

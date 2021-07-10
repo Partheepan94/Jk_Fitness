@@ -464,10 +464,10 @@ function LoadBranchesforSearch() {
             if (myData.code == "1") {
                 var Result = myData.data;
                 BranchArray = Result;
-                BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
-                $.each(Result, function () {
-                    BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
-                });
+                    BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
+                    $.each(Result, function () {
+                        BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    });
             } else {
                 Swal.fire({
                     icon: 'error',
