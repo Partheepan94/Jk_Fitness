@@ -27,7 +27,7 @@ namespace ServiceLayer
             {
                 var MemId = uow.DbContext.MemberShips.Where(x => x.Branch == Member.Branch.Trim()).OrderBy(x => x.MemberId).Select(x => x.MemberId).LastOrDefault();
                 var PackageDetails = uow.MembershipTypesRepository.GetByID(Member.MemberPackage);
-                var BranchDetail = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim()).OrderBy(x => x.MembershipInitialRangeTo).LastOrDefault();
+                var BranchDetail = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim() && x.IsCurrent == true).FirstOrDefault();
 
                 if (MemId != 0)
                 {
