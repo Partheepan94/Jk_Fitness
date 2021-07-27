@@ -54,7 +54,7 @@ namespace ServiceLayer
                 else {
                     Member.PackageExpirationDate = Member.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
                 }
-                
+                Member.MembershipExpirationDate = Member.PackageExpirationDate.AddMonths(1).Date;
                 uow.MembershipRepository.Insert(Member);
                 uow.Save();
 
@@ -246,7 +246,7 @@ namespace ServiceLayer
                     {
                         Mem.PackageExpirationDate = Mem.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
                     }
-                   
+                    Mem.MembershipExpirationDate = Mem.PackageExpirationDate.AddMonths(1).Date;
                     if (Mem.MemberPackage != member.MemberPackage)
                     {
                         Mem.MemberPackage = member.MemberPackage;
