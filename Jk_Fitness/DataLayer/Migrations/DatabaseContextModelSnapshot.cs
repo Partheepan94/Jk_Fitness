@@ -336,6 +336,48 @@ namespace DataLayer.Migrations
                     b.ToTable("MemberShips");
                 });
 
+            modelBuilder.Entity("DataLayer.Models.MembersAttendance", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("AttendDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("EveningInTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("EveningOutTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("MembershipId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ModifiedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("ModifiedDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MorningInTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MorningOutTime")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("MembersAttendances");
+                });
+
             modelBuilder.Entity("DataLayer.Models.MembershipTypes", b =>
                 {
                     b.Property<int>("Id")

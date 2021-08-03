@@ -1,6 +1,7 @@
 ﻿using DataLayer;
 using DataLayer.Models;
 using ServiceLayer.Email;
+using ServiceLayer.VMmodel;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -393,6 +394,195 @@ namespace ServiceLayer
                         Code = 1,
                         Message = "Success",
                         Data = branch
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce ListMemberShipAttendanceDetails()
+        {
+            try
+            {
+                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == DateTime.Now.Date).ToList();
+                List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
+                var records = (from m in uow.DbContext.MemberShips
+                               join b in uow.DbContext.MembersAttendances.Where(x => x.AttendDate.Date == DateTime.Now.Date) on m.MemberId equals b.MembershipId into lg
+                               from x in lg.DefaultIfEmpty()
+                               select new { m.MemberId, m.FirstName, m.LastName, m.Branch, x.MorningInTime, x.MorningOutTime, x.EveningInTime, x.EveningOutTime, AttendDate = x.AttendDate.Date == DateTime.Now.Date ? x.AttendDate.Date : default, Id = x.Id > 0 ? x.Id : 0 }).ToList();
+                if (Member != null && Member.Count > 0)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = records
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce SaveMemberShipAttendance(MembersAttendance Attendance)
+        {
+
+            try
+            {
+                Attendance.AttendDate = Attendance.AttendDate.Date;
+                Attendance.CreatedDate = DateTime.Now;
+                uow.MembersAttendanceRepository.Insert(Attendance);
+                uow.Save();
+                webResponce = new WebResponce()
+                {
+                    Code = 1,
+                    Message = "Success",
+                    Data = Attendance
+                };
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce UpdateMemberShipAttendance(MembersAttendance Attendance)
+        {
+
+            try
+            {
+                var Attend = uow.DbContext.MembersAttendances.Where(x => x.Id == Attendance.Id).FirstOrDefault();
+                if (Attend != null)
+                {
+                    Attend.MorningInTime = Attendance.MorningInTime.Trim();
+                    Attend.MorningOutTime = Attendance.MorningOutTime.Trim();
+                    Attend.EveningInTime = Attendance.EveningInTime.Trim();
+                    Attend.EveningOutTime = Attendance.EveningOutTime.Trim();
+                    Attend.MembershipId = Attendance.MembershipId;
+                    Attend.AttendDate = DateTime.Now.Date;
+                    Attend.ModifiedDate = DateTime.Now;
+                    Attend.ModifiedBy = Attendance.ModifiedBy;
+                    uow.MembersAttendanceRepository.Update(Attend);
+                    uow.Save();
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = Attend
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce DeleteMemberAttendance(MembersAttendance Attendance)
+        {
+            try
+            {
+                var Attend = uow.DbContext.MembersAttendances.Where(x => x.Id == Attendance.Id).FirstOrDefault();
+                if (Attend != null)
+                {
+                    uow.MembersAttendanceRepository.Delete(Attend);
+                    uow.Save();
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success"
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce LoadMemberShipAttendanceDetails(AttendancesVM attendances)
+        {
+            try
+            {
+                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == DateTime.Now.Date).ToList();
+
+                List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
+
+                var records = (from m in uow.DbContext.MemberShips.Where(x=>x.Branch==attendances.Branch.Trim())
+                               join b in uow.DbContext.MembersAttendances.Where(x => x.AttendDate.Date == attendances.AttendanceDate.Date) on m.MemberId equals b.MembershipId into lg
+                               from x in lg.DefaultIfEmpty()
+                               select new { m.MemberId, m.FirstName, m.LastName, m.Branch, x.MorningInTime, x.MorningOutTime, x.EveningInTime, x.EveningOutTime, AttendDate = x.AttendDate.Date == DateTime.Now.Date ? x.AttendDate.Date : default, Id = x.Id > 0 ? x.Id : 0 }).ToList();
+
+                if (Member != null && Member.Count > 0)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = records
                     };
                 }
                 else

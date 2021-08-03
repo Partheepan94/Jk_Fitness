@@ -50,9 +50,21 @@ namespace Jk_Fitness.Controllers
         [HttpPost]
         public ActionResult<WebResponce> UpdatePassword([FromBody] Employee employe)
         {
-            employe.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
-            webResponce = logInService.UpdatePassword(employe);
-            return webResponce;
+            try
+            {
+                employe.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
+                webResponce = logInService.UpdatePassword(employe);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
         }
 
         [HttpGet]
@@ -78,5 +90,32 @@ namespace Jk_Fitness.Controllers
                 return webResponce;
             }
         }
+
+        #region ForgotPassword
+        public IActionResult ForgotPassword()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public ActionResult<WebResponce> RequestPassword([FromBody] Employee employe)
+        {
+            try
+            {
+                webResponce = logInService.RequestNewPassword(employe);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        #endregion
     }
 }

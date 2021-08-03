@@ -36,14 +36,15 @@ $(function () {
 function LoadBranches() {
     $('#Branch').find('option').remove().end();
     Branch = $('#Branch');
-    Branch.append($("<option/>").val(0).text("-Select Branch-"));
+    if (BranchArray.length > 1)
+        Branch.append($("<option/>").val(0).text("-Select Branch-"));
     $.each(BranchArray, function () {
         Branch.append($("<option/>").val(this.branchName).text(this.branchName));
     });
 }
 
 function LoadMemberShipType() {
-    
+
     MemberShipPackage = [];
     $.ajax({
         type: 'GET',
@@ -75,7 +76,7 @@ function LoadMemberShipAmount() {
     var PackageAmount = $.grep(MemberShipPackageArray, function (v) {
         return v.id == Id;
     })
-    
+
     $("#Payment").val(PackageAmount[0].membershipAmount.toFixed(2));
 }
 
@@ -102,10 +103,10 @@ $("#FreeMembership").change(function () {
 });
 
 $('#btnAddMember').click(function () {
-  
+
     var Memberid = $('#MembershipId').val();
     var Branch = $('#Branch').val();
-    
+
     var data = new FormData();
     data.append("MemberId", $('#MembershipId').val());
     data.append("FirstName", $('#Fname').val());
@@ -151,9 +152,9 @@ $('#btnAddMember').click(function () {
     data.append("Fitness", $('#Fitness').prop('checked') ? "true" : "false");
     data.append("Athletics", $('#Athletics').prop('checked') ? "true" : "false");
     data.append("IsFreeMembership", $('#FreeMembership').prop('checked') ? "true" : "false");
-    
 
-    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Payment').val() ) {
+
+    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Payment').val()) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -269,11 +270,11 @@ function ListMemberDetails() {
                     tr.push("<td>" + Result[i].lastName + "</td>");;
                     tr.push("<td>" + Result[i].nic + "</td>");;
                     tr.push("<td>" + Result[i].branch + "</td>");;
-                    
+
                     if (Result[i].active == true)
                         tr.push("<td><strong style=\"color:green\">Active</strong></td>");
                     else
-                        tr.push("<td><strong style=\"color:red\">Deactive</strong></td>"); 
+                        tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
                     tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
                     tr.push("<td><button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
 
@@ -311,7 +312,7 @@ function EditMember(Id) {
     $("#Branch").attr("disabled", true);
     //$("#FreeMembership").attr("disabled", true);
     //$("#JoinDate").attr("disabled", true);
-    
+
     LoadBranches();
     LoadMemberShipPackage();
 
@@ -335,7 +336,7 @@ function EditMember(Id) {
         //    } else {
         //        $("#Package").attr("disabled", false);
         //    }
-            
+
         //}
         if (Result.gender == "Female") {
             $("#Frule").css("display", "flex");
@@ -464,7 +465,9 @@ function LoadBranchesforSearch() {
             if (myData.code == "1") {
                 var Result = myData.data;
                 BranchArray = Result;
-                BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
+                if (Result.length > 1)
+                    BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
+
                 $.each(Result, function () {
                     BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
                 });
@@ -497,11 +500,11 @@ function SearchMembership() {
         })
     }
 
-    
+
 
     $("#wait").css("display", "none");
-    if (Result.length !=0) {
-       
+    if (Result.length != 0) {
+
         var tr = [];
         for (var i = 0; i < Result.length; i++) {
             tr.push('<tr>');
@@ -539,7 +542,7 @@ $("#BranchforSearch").change(function () {
     SearchMembership();
 });
 
-$("#NameforSearch").bind('keyup',function () {
+$("#NameforSearch").bind('keyup', function () {
     SearchMembership();
 });
 
