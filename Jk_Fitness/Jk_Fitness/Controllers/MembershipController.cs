@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.Password;
+using ServiceLayer.VMmodel;
 
 namespace Jk_Fitness.Controllers
 {
@@ -160,5 +161,112 @@ namespace Jk_Fitness.Controllers
                 return webResponce;
             }
         }
+
+        #region MembersAttendance
+
+        public IActionResult MembershipAttendance()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public WebResponce GetMemberShipAttendanceDetails()
+        {
+            try
+            {
+                webResponce = MemberShip.ListMemberShipAttendanceDetails();
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        [HttpPost]
+        public WebResponce LoadMemberShipAttendanceDetails(AttendancesVM attendances)
+        {
+            try
+            {
+                webResponce = MemberShip.LoadMemberShipAttendanceDetails(attendances);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        [HttpPost]
+        public WebResponce SaveMemberAttendance(MembersAttendance Attendance)
+        {
+            try
+            {
+                Attendance.CreatedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
+                webResponce = MemberShip.SaveMemberShipAttendance(Attendance);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        [HttpPost]
+        public WebResponce UpdateMemberAttendance(MembersAttendance Attendance)
+        {
+            try
+            {
+                Attendance.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
+                webResponce = MemberShip.UpdateMemberShipAttendance(Attendance);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        [HttpPost]
+        public WebResponce DeleteMemberAttendance([FromBody] MembersAttendance Attendance)
+        {
+            try
+            {
+                webResponce = MemberShip.DeleteMemberAttendance(Attendance);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        #endregion
+
     }
 }

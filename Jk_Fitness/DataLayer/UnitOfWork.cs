@@ -20,6 +20,7 @@ namespace DataLayer
         private GenericRepository<ExpensesTypes> expensesTypeRepository;
         private GenericRepository<MembershipTypes> membershipTypesRepository;
         private GenericRepository<MemberShip> membershipRepository;
+        private GenericRepository<MembersAttendance> membersAttendanceRepository;
         public GenericRepository<Branch> BranchRepository
         {
             get 
@@ -130,6 +131,26 @@ namespace DataLayer
                         this.membershipRepository = new GenericRepository<MemberShip>(context);
                     }
                     return membershipRepository;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                    throw;
+                }
+            }
+        }
+
+        public GenericRepository<MembersAttendance> MembersAttendanceRepository
+        {
+            get
+            {
+                try
+                {
+                    if (this.membersAttendanceRepository == null)
+                    {
+                        this.membersAttendanceRepository = new GenericRepository<MembersAttendance>(context);
+                    }
+                    return membersAttendanceRepository;
                 }
                 catch (Exception ex)
                 {

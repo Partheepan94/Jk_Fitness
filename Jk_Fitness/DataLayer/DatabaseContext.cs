@@ -8,11 +8,6 @@ namespace DataLayer
 {
     public partial class DatabaseContext:DbContext
     {
-        //public DatabaseContext()
-        //{
-
-        //}
-
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
 
@@ -23,5 +18,6 @@ namespace DataLayer
         public DbSet<ExpensesTypes> ExpensesTypes { get; set; }
         public DbSet<MembershipTypes> MembershipTypes { get; set; }
         public DbSet<MemberShip> MemberShips { get; set; }
+        public DbSet<MembersAttendance> MembersAttendances { get; set; }
     }
 }
