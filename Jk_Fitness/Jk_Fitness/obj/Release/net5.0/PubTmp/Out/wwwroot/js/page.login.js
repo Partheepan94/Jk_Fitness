@@ -44,17 +44,11 @@
                     else {
                         window.location.replace($("#HomePath").val());
                     }
-                } else if (myData.code == "0" && myData.message == "Invalid") {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Invalid Login Credentials!',
-                    });
                 } else {
                     Swal.fire({
                         icon: 'error',
                         title: 'Oops...',
-                        text: 'Something went wrong!',
+                        text: myData.message,
                     });
                 }
             },
@@ -95,7 +89,7 @@ $('#btnPwdUpdate').click(function () {
                             var myData = jQuery.parseJSON(JSON.stringify(response));
                             $("#Modelwait").css("display", "none");
                             $("#btnPwdUpdate").attr("disabled", false);
-                            if (myData.code = "1") {
+                            if (myData.code == "1") {
                                 Swal.fire({
                                     icon: 'success',
                                     title: 'Updated!',

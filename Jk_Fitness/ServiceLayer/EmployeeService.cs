@@ -379,5 +379,47 @@ namespace ServiceLayer
             return webResponce;
         }
 
+        public WebResponce UpdateSalary(Employee employee)
+        {
+            try
+            {
+                var Empl = uow.DbContext.Employees.Where(x => x.EmployeeId == employee.EmployeeId.Trim()).FirstOrDefault();
+                if (Empl != null)
+                {
+                    Empl.Salary = employee.Salary;
+                    Empl.ModifiedDate = DateTime.Now;
+                    Empl.ModifiedBy = employee.ModifiedBy;
+                    uow.EmployeeRepository.Update(Empl);
+                    uow.Save();
+
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = employee
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+
     }
 }

@@ -29,11 +29,6 @@ namespace Jk_Fitness.Controllers
             return View();
         }
 
-        public IActionResult AddEmployee()
-        {
-            return View();
-        }
-
         [HttpGet]
         public WebResponce GetBranchDetails()
         {
@@ -207,5 +202,33 @@ namespace Jk_Fitness.Controllers
                 return webResponce;
             }
         }
+
+        #region SalaryManagement
+        public IActionResult Salary()
+        {
+            return View();
+        }
+
+
+        [HttpPost]
+        public WebResponce UpdateSalary([FromBody] Employee employe)
+        {
+            try
+            {
+                employe.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
+                webResponce = employee.UpdateSalary(employe);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        #endregion
     }
 }

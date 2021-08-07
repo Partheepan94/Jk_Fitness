@@ -436,7 +436,15 @@ function LoadBranchesforSearch() {
     });
 }
 
-$('#btnSearch').click(function () {
+$("#BranchforSearch").change(function () {
+    SearchEmployee();
+});
+
+$("#NameforSearch").bind('keyup', function () {
+    SearchEmployee();
+});
+
+function SearchEmployee() {
     var CurEmail = JSON.parse(window.localStorage.getItem('Empl')).Email;
     $("#waitform").css("display", "block");
     var Branch = $('#BranchforSearch').val();
@@ -481,21 +489,15 @@ $('#btnSearch').click(function () {
         $('.tblEmployee').append($(tr.join('')));
         $("#noRecords").css("display", "none");
         $("#tblEmployee").css("display", "table");
-    } else if (myData.code == "0") {
+    } else {
         $("#noRecords").css("display", "block");
         $("#tblEmployee").css("display", "none");
 
         var tr = [];
         $("#tbodyid").empty();
         $('.tblEmployee').append($(tr.join('')));
-    } else {
-        Swal.fire({
-            icon: 'error',
-            title: 'Oops...',
-            text: 'Something went wrong!',
-        });
-    }
-});
+    } 
+}
 
 function Clear() {
     $('#EmployeeId').val('');
