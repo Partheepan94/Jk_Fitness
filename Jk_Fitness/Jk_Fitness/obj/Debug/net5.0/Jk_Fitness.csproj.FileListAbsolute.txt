@@ -964,8 +964,10 @@ E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\n
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Jk_Fitness.TagHelpers.output.cache
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Jk_Fitness.RazorCoreGenerate.cache
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Employee\Index.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Employee\Salary.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Login\ForgotPassword.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Login\Index.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Membership\Index.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Membership\MembershipAttendance.cshtml.g.cs
@@ -986,4 +988,3 @@ E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\n
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\ref\Jk_Fitness.dll
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Jk_Fitness.pdb
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Jk_Fitness.genruntimeconfig.cache
-E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Login\ForgotPassword.cshtml.g.cs

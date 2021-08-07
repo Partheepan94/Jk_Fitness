@@ -34,6 +34,7 @@ namespace DataLayer
         public DateTime ModifiedDate { get; set; }
         public bool IsFirstTime { get; set; }
         public string Password { get; set; }
-        
+        public decimal Salary { get; set; }
+
     }
 }

@@ -46,12 +46,12 @@ namespace Jk_Fitness.Controllers
             }
         }
 
-        [HttpGet]
-        public WebResponce GetMemberDetails()
+        [HttpPost]
+        public WebResponce GetMemberDetails([FromBody] MemberShip Member)
         {
             try
             {
-                webResponce = MemberShip.ListMemberShipDetails(Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]));
+                webResponce = MemberShip.ListMemberShipDetails(Member);
                 return webResponce;
             }
             catch (Exception Ex)

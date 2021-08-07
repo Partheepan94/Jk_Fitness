@@ -129,6 +129,9 @@ namespace DataLayer.Migrations
                     b.Property<string>("Province")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<decimal>("Salary")
+                        .HasColumnType("decimal(18,2)");
+
                     b.Property<string>("Salutation")
                         .HasColumnType("nvarchar(max)");
 

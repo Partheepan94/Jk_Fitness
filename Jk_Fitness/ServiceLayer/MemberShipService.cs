@@ -115,14 +115,11 @@ namespace ServiceLayer
             return branch.MembershipInitialRangeFrom;
         }
 
-        public WebResponce ListMemberShipDetails(string EmpId)
+        public WebResponce ListMemberShipDetails(MemberShip Mem)
         {
             try
             {
-                var employee = uow.EmployeeRepository.GetByID(EmpId);
-                List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
-
-                Member = employee.UserType == "Admin" ? Member : Member.Where(x => x.Branch == employee.Branch).ToList();
+                List<MemberShip> Member = uow.MembershipRepository.GetAll().Where(x => x.Branch == Mem.Branch.Trim()).ToList();
 
                 if (Member != null && Member.Count > 0)
                 {

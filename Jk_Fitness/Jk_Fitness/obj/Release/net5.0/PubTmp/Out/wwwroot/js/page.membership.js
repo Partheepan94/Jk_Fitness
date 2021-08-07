@@ -1,5 +1,5 @@
 ﻿$(document).ready(function () {
-    ListMemberDetails();
+
     LoadBranchesforSearch();
     LoadMemberShipType();
     var BranchArray;
@@ -36,8 +36,6 @@ $(function () {
 function LoadBranches() {
     $('#Branch').find('option').remove().end();
     Branch = $('#Branch');
-    if (BranchArray.length > 1)
-        Branch.append($("<option/>").val(0).text("-Select Branch-"));
     $.each(BranchArray, function () {
         Branch.append($("<option/>").val(this.branchName).text(this.branchName));
     });
@@ -250,11 +248,13 @@ $('#btnAddMember').click(function () {
 });
 
 function ListMemberDetails() {
+    var Branch = $('#BranchforSearch').val();
     $("#wait").css("display", "block");
     $.ajax({
-        type: 'GET',
+        type: 'POST',
         url: $("#GetMemberDetails").val(),
         dataType: 'json',
+        data: '{"Branch": "' + Branch + '"}',
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
@@ -266,17 +266,16 @@ function ListMemberDetails() {
                 for (var i = 0; i < Result.length; i++) {
                     tr.push('<tr>');
                     tr.push("<td>" + Result[i].memberId + "</td>");;
-                    tr.push("<td>" + Result[i].firstName + "</td>");
-                    tr.push("<td>" + Result[i].lastName + "</td>");;
+                    tr.push("<td>" + Result[i].firstName + " " + Result[i].lastName + "</td>");
+
                     tr.push("<td>" + Result[i].nic + "</td>");;
                     tr.push("<td>" + Result[i].branch + "</td>");;
-
+                    tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");;
                     if (Result[i].active == true)
                         tr.push("<td><strong style=\"color:green\">Active</strong></td>");
                     else
                         tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-                    tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button></td>");
 
                     tr.push('</tr>');
                 }
@@ -304,6 +303,7 @@ function ListMemberDetails() {
         }
     });
 }
+
 
 function EditMember(Id) {
     $('.modal').removeClass('freeze');
@@ -465,12 +465,10 @@ function LoadBranchesforSearch() {
             if (myData.code == "1") {
                 var Result = myData.data;
                 BranchArray = Result;
-                if (Result.length > 1)
-                    BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
-
                 $.each(Result, function () {
                     BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
                 });
+                ListMemberDetails();
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -486,17 +484,12 @@ function LoadBranchesforSearch() {
 
 function SearchMembership() {
     $("#wait").css("display", "block");
-    var Branch = $('#BranchforSearch').val();
     var FName = $('#NameforSearch').val();
-    if (Branch == "0" && FName == "") {
+    if (FName == "") {
         var Result = EmployeeDetailsArray;
-    } else if (Branch == "0" && FName != "") {
-        var Result = $.grep(EmployeeDetailsArray, function (v) {
-            return (v.firstName.search(new RegExp(FName, "i")) != -1);
-        })
     } else {
         var Result = $.grep(EmployeeDetailsArray, function (v) {
-            return (v.branch == Branch && v.firstName.search(new RegExp(FName, "i")) != -1);
+            return (v.firstName.search(new RegExp(FName, "i")) != -1);
         })
     }
 
@@ -509,16 +502,16 @@ function SearchMembership() {
         for (var i = 0; i < Result.length; i++) {
             tr.push('<tr>');
             tr.push("<td>" + Result[i].memberId + "</td>");;
-            tr.push("<td>" + Result[i].firstName + "</td>");
-            tr.push("<td>" + Result[i].lastName + "</td>");;
+            tr.push("<td>" + Result[i].firstName + " " + Result[i].lastName + "</td>");
+
             tr.push("<td>" + Result[i].nic + "</td>");;
             tr.push("<td>" + Result[i].branch + "</td>");;
+            tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");;
             if (Result[i].active == true)
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
                 tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-            tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-            tr.push("<td><button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button></td>");
 
             tr.push('</tr>');
         }
@@ -539,7 +532,7 @@ function SearchMembership() {
 }
 
 $("#BranchforSearch").change(function () {
-    SearchMembership();
+    ListMemberDetails();
 });
 
 $("#NameforSearch").bind('keyup', function () {
@@ -548,6 +541,7 @@ $("#NameforSearch").bind('keyup', function () {
 
 
 function Clear() {
+    $('#NameforSearch').val('');
     $('#MembershipId').val(0);
     $('#Fname').val('');
     $('#Lname').val('');
@@ -601,6 +595,7 @@ function Clear() {
 function Cancel() {
     $('#MemberModal').modal('toggle');
     Clear();
+    SearchMembership();
 }
 
 function ShowIdealweight() {
