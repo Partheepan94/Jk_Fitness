@@ -62,6 +62,7 @@ function ListEmployeeDetails() {
 }
 
 function EditEmployee(Id) {
+   /* $('.modal-body').addClass('freeze');*/
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $('#EmpModal').modal('show');
