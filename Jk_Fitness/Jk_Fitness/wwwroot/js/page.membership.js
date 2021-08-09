@@ -8,6 +8,9 @@
 });
 
 $('#btnAdd').click(function () {
+    $('#btnAddMember').attr('hidden', false);
+    $('#btnCancel').attr('hidden', false);
+    $('.modal-body').removeClass('freeze');
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $('#MemberModal').modal('show');
@@ -275,7 +278,7 @@ function ListMemberDetails() {
                         tr.push("<td><strong style=\"color:green\">Active</strong></td>");
                     else
                         tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-                    tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button></td>");
+                    tr.push("<td><button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
 
                     tr.push('</tr>');
                 }
@@ -306,6 +309,9 @@ function ListMemberDetails() {
 
 
 function EditMember(Id) {
+    $('#btnAddMember').attr('hidden', false);
+    $('#btnCancel').attr('hidden', false);
+    $('.modal-body').removeClass('freeze');
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $("#wait").css("display", "block");
@@ -511,7 +517,7 @@ function SearchMembership() {
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
                 tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-            tr.push("<td><button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button></td>");
+            tr.push("<td><button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
 
             tr.push('</tr>');
         }
@@ -641,4 +647,93 @@ function getFormattedDate(date) {
     day = day.length > 1 ? day : '0' + day;
 
     return month + '/' + day + '/' + year;
+}
+
+function ViewMember(Id) {
+   
+    $('#btnAddMember').attr('hidden', true);
+    $('#btnCancel').attr('hidden', true);
+    $('.modal-body').addClass('freeze');
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
+    $("#wait").css("display", "block");
+    $("#Branch").attr("disabled", true);
+
+    LoadBranches();
+    LoadMemberShipPackage();
+
+    var MemberDetail = $.grep(EmployeeDetailsArray, function (v) {
+        return v.memberId == Id;
+    })
+
+    if (MemberDetail.length != 0) {
+        var Result = MemberDetail[0];
+        var date = getFormattedDate(new Date(Result.joinDate));
+        if (Result.isFreeMembership) {
+            $("#Package").attr("disabled", true);
+        } else {
+            $("#Package").attr("disabled", false);
+        }
+      
+        if (Result.gender == "Female") {
+            $("#Frule").css("display", "flex");
+        }
+        else {
+            $("#Frule").css("display", "none");
+        }
+
+        $("#MembershipId").val(Result['memberId']);
+        $("#Fname").val(Result['firstName']);
+        $("#Lname").val(Result['lastName']);
+        $("#Gender").val(Result['gender']);
+        $("#Nic").val(Result['nic']);
+        $("#Branch").val(Result['branch']);
+        $("#ContactNo").val(Result['contactNo']);
+        $("#Email").val(Result['email']);
+        $("#Age").val(Result['age']);
+        $("#Height").val(Result['height']);
+        $("#Weight").val(Result['weight']);
+        $("#BMI").val(Result['bmi']);
+        $("#HouseNo").val(Result['houseNo']);
+        $("#Street").val(Result['street']);
+        $("#District").val(Result['district']);
+        $("#Province").val(Result['province']);
+        $("#Payment").val(Result['payment']);
+        $("#Package").val(Result['memberPackage']);
+        $("#Introduce").val(Result['introducedBy']);
+        $("#EmergencyTP").val(Result['emergencyContactNo']);
+        $("#Relation").val(Result['relationShip']);
+        $("#Smoking").prop("checked", Result.smoking)
+        $("#Discomfort").prop("checked", Result.discomfort)
+        $("#Herina").prop("checked", Result.herina)
+        $("#Diabets").prop("checked", Result.diabets)
+        $("#Pain").prop("checked", Result.pain)
+        $("#Complaint").prop("checked", Result.complaint)
+        $("#Trace").prop("checked", Result.trace)
+        $("#Doctors").prop("checked", Result.doctors)
+        $("#Cholesterol").prop("checked", Result.cholesterol)
+        $("#Pregnant").prop("checked", Result.pregnant)
+        $("#Aliments").prop("checked", Result.aliments)
+        $("#Surgery").prop("checked", Result.surgery)
+        $("#Pressure").prop("checked", Result.pressure)
+        $("#Incorrigible").prop("checked", Result.incorrigible)
+        $("#Musele").prop("checked", Result.musele)
+        $("#Fat").prop("checked", Result.fat)
+        $("#Body").prop("checked", Result.body)
+        $("#Fitness").prop("checked", Result.fitness)
+        $("#Athletics").prop("checked", Result.athletics)
+        $("#Status").prop("checked", Result.active)
+        $("#FreeMembership").prop("checked", Result.isFreeMembership)
+        $("#DOB").val(getFormattedDate(new Date(Result.dateofBirth)));
+        $("#JoinDate").val(getFormattedDate(new Date(Result.joinDate)));
+        ShowIdealweight();
+        $("#wait").css("display", "none");
+        $('#MemberModal').modal('show');
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    }
 }
