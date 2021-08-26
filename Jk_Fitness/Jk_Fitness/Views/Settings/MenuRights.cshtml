@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewData["Title"] = "MenuRights";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <div class="form-group">
+                    <h3 class="card-title">Roles and Access Rights</h3>
+                </div>
+            </div>
+            @*<div class="card-body">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <label><strong style="color: red">Branches cannot delete until it depends on other records in the application.</strong></label>
+                        </div>
+                    </div>
+                    <br />
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Branch Name</label>
+                                <div class="col-md-12 col-sm-12 ">
+                                    <input type="text" id="BranchName" class="form-control" placeholder="Enter Branch Name">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="form-group">
+                                <label>Branch Code</label>
+                                <div class="col-md-12 col-sm-12 ">
+                                    <input type="text" id="BranchCode" class="form-control" placeholder="Enter Branch Code">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div style="float:right">
+                                    <button type="button" id="btnSearch" class="btn btn-secondary"><i class="fa fa-search"></i> Search</button>
+                                    <button type="button" id="btnAdd" class="btn btn-success"><i class="fa fa-plus"></i> Add New</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>*@
+            <div class="card-footer table-responsive">
+                <table id="tblMenu" class="table table-bordered table-striped tblMenu">
+                    <thead>
+                        <tr>
+                            <th>Main Menu</th>
+                            <th>Admin</th>
+                            <th>Staff</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tbodyid">
+                    </tbody>
+                </table>
+                <div class="msg-block" id="noRecords">
+                    <label>No Records found.</label>
+                </div>
+            </div>
+            <div id="wait" class="loading-gif"><img src="~/dist/img/Loading.gif" width="70" height="70" /><br></div>
+        </div>
+        <!-- /.card -->
+    </div>
+    <!-- /.col -->
+    <input type="hidden" id="GetMenuRights" value="@Url.Action("GetMenuRights", "Settings")" />
+    <input type="hidden" id="UpdateMenuRights" value="@Url.Action("UpdateMenuRights", "Settings")" />
+</div>
+
+<script src="~/js/page.menuRights.js"></script>

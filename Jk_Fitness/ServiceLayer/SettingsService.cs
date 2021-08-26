@@ -482,7 +482,7 @@ namespace ServiceLayer
             try
             {
                 List<MembershipTypes> memberships = uow.MembershipTypesRepository.GetAll().ToList();
-
+            
                 if (memberships != null && memberships.Count > 0)
                 {
                     List<MemberShip> membershipsDetails = uow.MembershipRepository.GetAll().ToList();
@@ -704,6 +704,82 @@ namespace ServiceLayer
             return webResponce;
         }
         #endregion
+
+
+        public WebResponce GetMenuRights()
+        {
+            try
+            {
+                var MenuRights = uow.DbContext.MenusRights.Select(s => new { ParentId=s.ParentId,Id=s.Id, MenuName=s.MenuName, Staff = s.Staff == 1 ? "checked" : s.Staff == 2 ? "checked disabled" :s.Staff==3 ? "disabled" : " ",
+                    Admin = s.Admin == 1 ? "checked" : s.Admin == 2 ? "checked disabled" :s.Admin==3 ? "disabled" : " " }).ToList();
+                if (MenuRights != null)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = MenuRights
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+                return webResponce;
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+                return webResponce;
+            }
+        }
+
+        public WebResponce UpdateMenuRights(MenuRights menu)
+        {
+            try
+            {
+                var Menu = uow.DbContext.MenusRights.Where(x => x.Id == menu.Id).FirstOrDefault();
+                if (Menu != null)
+                {
+                    Menu.Staff = menu.Staff;
+                   
+                    uow.MenuRightsRepository.Update(Menu);
+                    uow.Save();
+
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
 
 
     }

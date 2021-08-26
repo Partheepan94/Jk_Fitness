@@ -48,7 +48,6 @@
                             <th>User Type</th>
                             <th>Status</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
@@ -68,7 +67,7 @@
     <input type="hidden" id="GetUserTypeDetails" value="@Url.Action("GetUserTypeDetails", "Employee")" />
     <input type="hidden" id="SaveEmployees" value="@Url.Action("SaveEmployees", "Employee")" />
     <input type="hidden" id="UpdateEmployees" value="@Url.Action("UpdateEmployees", "Employee")" />
-    <input type="hidden" id="GetEmployeeById" value="@Url.Action("GetEmployeeById", "Employee")" />
+    @*<input type="hidden" id="GetEmployeeById" value="@Url.Action("GetEmployeeById", "Employee")" />*@
     <input type="hidden" id="DeleteEmployees" value="@Url.Action("DeleteEmployees", "Employee")" />
     <input type="hidden" id="SearchEmployees" value="@Url.Action("SearchEmployees", "Employee")" />
     @*<input type="hidden" id="SeassionEmail" value="@User.FindFirst("Email").Value" />*@
@@ -236,7 +235,7 @@
                             <div class="form-group">
                                 <div style="float:right">
                                     <button type="button" id="btnAddEmployee" class="btn btn-success">Save</button>
-                                    <button type="button" onclick="Cancel()" class="btn btn-warning">Cancel</button>
+                                    <button type="button" id="btnCancel" onclick="Cancel()" class="btn btn-warning">Cancel</button>
                                 </div>
                             </div>
                             <div id="waitform" class="loading-gif"><img src="~/dist/img/Loading.gif" width="70" height="70" /><br></div>

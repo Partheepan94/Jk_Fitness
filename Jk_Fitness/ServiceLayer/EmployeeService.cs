@@ -203,15 +203,15 @@ namespace ServiceLayer
             return webResponce;
         }
 
-        public byte[] GetImage(string sBase64String)
-        {
-            byte[] bytes = null;
-            if (!string.IsNullOrEmpty(sBase64String))
-            {
-                bytes = Convert.FromBase64String(sBase64String);
-            }
-            return bytes;
-        }
+        //public byte[] GetImage(string sBase64String)
+        //{
+        //    byte[] bytes = null;
+        //    if (!string.IsNullOrEmpty(sBase64String))
+        //    {
+        //        bytes = Convert.FromBase64String(sBase64String);
+        //    }
+        //    return bytes;
+        //}
 
         public WebResponce GetEmployeeById(string Id)
         {
@@ -220,9 +220,6 @@ namespace ServiceLayer
                 var employee = uow.EmployeeRepository.GetByID(Id);
                 if (employee != null)
                 {
-                    if (employee.Image != null) {
-                        employee.Image = this.GetImage(Convert.ToBase64String(employee.Image));
-                    }
                     webResponce = new WebResponce()
                     {
                         Code = 1,
