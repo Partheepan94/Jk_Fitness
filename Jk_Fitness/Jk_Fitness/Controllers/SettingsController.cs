@@ -379,5 +379,51 @@ namespace Jk_Fitness.Controllers
             }
         }
         #endregion
+
+        #region Roles and Access Rights
+        public IActionResult MenuRights()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public WebResponce GetMenuRights()
+        {
+            try
+            {
+                webResponce = Setting.GetMenuRights();
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        [HttpPost]
+        public WebResponce UpdateMenuRights([FromBody] MenuRights menu)
+        {
+            try
+            {
+                webResponce = Setting.UpdateMenuRights(menu);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        #endregion
     }
 }

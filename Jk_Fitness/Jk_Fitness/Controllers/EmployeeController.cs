@@ -117,25 +117,6 @@ namespace Jk_Fitness.Controllers
         }
 
         [HttpPost]
-        public WebResponce GetEmployeeById([FromBody] Employee employe)
-        {
-            try
-            {
-                webResponce = employee.GetEmployeeById(employe.EmployeeId);
-                return webResponce;
-            }
-            catch (Exception Ex)
-            {
-                webResponce = new WebResponce()
-                {
-                    Code = -1,
-                    Message = Ex.Message
-                };
-                return webResponce;
-            }
-        }
-
-        [HttpPost]
         public WebResponce UpdateEmployees(EmployeeVM files)
         {
             try
@@ -217,6 +198,32 @@ namespace Jk_Fitness.Controllers
             {
                 employe.ModifiedBy = Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]);
                 webResponce = employee.UpdateSalary(employe);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+        #endregion
+
+        #region Profile
+        public IActionResult Profile()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public WebResponce GetProfileDetails()
+        {
+            try
+            {
+                webResponce = employee.GetEmployeeById(Crypto.DecryptString(Request.Cookies["jkfitness.cookie"]));
                 return webResponce;
             }
             catch (Exception Ex)

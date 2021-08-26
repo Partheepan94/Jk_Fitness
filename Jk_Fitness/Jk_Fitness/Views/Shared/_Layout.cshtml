@@ -44,12 +44,14 @@
             </ul>
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
+                
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
+                        <img src="~/dist/img/default.jpg" id="UserImg" alt="AdminLTE Logo" class=" brand-image img-circle elevation-3" style="opacity: .8;height: 50px;">
                         <span id="Name"></span> <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu">
-                        <a href="#" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
+                        <a href="@Url.Action("Profile", "Employee")" class="dropdown-item"><i class="fa fa-user-o"></i> Profile</a>
                         <div class="dropdown-divider"></div>
                         <a href="" onclick="SignOut()" class="dropdown-item"><i class="fa fa-power-off"></i> Logout</a>
                     </div>
@@ -71,7 +73,7 @@
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
                         <!-- Add icons to the links using the .nav-icon class
-                        with font-awesome or any other icon font library -->
+            with font-awesome or any other icon font library -->
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -140,12 +142,20 @@
                                         <p>Salary Management</p>
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="@Url.Action("MenuRights", "Settings")" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>Roles and Access Rights</p>
+                                    </a>
+                                </li>
                             </ul>
                         </li>
 
                     </ul>
                 </nav>
                 <!-- /.sidebar-menu -->
+                <input type="hidden" id="SignOutLogin" value="@Url.Action("SignOutLogin","Login")" />
+                <input type="hidden" id="LoginHome" value="@Url.Action("Index","Login")" />
             </div>
             <!-- /.sidebar -->
         </aside>
@@ -172,77 +182,8 @@
         <!-- /.control-sidebar -->
     </div>
 
-    <script type="text/javascript">
-       
-        document.getElementById("Name").innerHTML = JSON.parse(window.localStorage.getItem('Empl')).Name;
-            /*Initial function while page loading */
-    @*$(document).ready(function () {
-        $.ajax({
-            type: 'GET',
-            url: '@Url.Action("GetLoggedUserDetails", "Login")',
-            dataType: 'json',
-            headers: {
-                "Authorization": "Bearer " + sessionStorage.getItem('token'),
-            },
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-                var myData = jQuery.parseJSON(JSON.stringify(response));
-                if (myData.code == "1") {
-                    $("#input").html(myData.data);
-                     //window.location.replace('@Url.Action("Index", "Login")');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    });
-                }
-            },
-            error: function (jqXHR, exception) {
-            }
-        });
 
-    });*@
-
-        $(function () {
-            $('a').each(function () {
-                if ($(this).prop('href') == window.location.href) {
-                    $(this).addClass('active');
-                    $(this).parents('li').addClass('menu-open');
-                } else {
-                    //$(this).removeClass('active');
-                }
-            });
-        });
-
-        function SignOut() {
-        $.ajax({
-            type: 'GET',
-            url: '@Url.Action("SignOutLogin", "Login")',
-            dataType: 'json',
-            headers: {
-                "Authorization": "Bearer " + sessionStorage.getItem('token'),
-            },
-            contentType: 'application/json; charset=utf-8',
-            success: function (response) {
-                var myData = jQuery.parseJSON(JSON.stringify(response));
-                if (myData.code == "1") {
-                    window.localStorage.clear();
-                     window.location.replace('@Url.Action("Index", "Login")');
-                } else {
-                    Swal.fire({
-                        icon: 'error',
-                        title: 'Oops...',
-                        text: 'Something went wrong!',
-                    });
-                }
-            },
-            error: function (jqXHR, exception) {
-            }
-        });
-    }
-    </script>
-
+    <script src="~/js/page.layout.js"></script>
     <!-- jQuery -->
     <script src="~/plugins/jquery/jquery.js"></script>
     <!-- jQuery -->
