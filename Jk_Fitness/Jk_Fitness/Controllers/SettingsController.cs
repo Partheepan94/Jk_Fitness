@@ -391,6 +391,7 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
+                var userType = Request.Cookies["Role"];
                 webResponce = Setting.GetMenuRights();
                 return webResponce;
             }
@@ -411,6 +412,26 @@ namespace Jk_Fitness.Controllers
             try
             {
                 webResponce = Setting.UpdateMenuRights(menu);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
+        [HttpGet]
+        public WebResponce GetUserRights()
+        {
+            try
+            {
+                var userType = Request.Cookies["Role"];
+                webResponce = Setting.GetUserRights(userType);
                 return webResponce;
             }
             catch (Exception Ex)

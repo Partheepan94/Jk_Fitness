@@ -8,23 +8,26 @@
 });
 
 //for Time Picker
-    $(function () {
-        //Date picker
-        $('#timepicker').datetimepicker({
-            format: 'LT'
-        })
-        $('#timepicker1').datetimepicker({
-            format: 'LT'
-        })
-        $('#timepicker2').datetimepicker({
-            format: 'LT'
-        })
-        $('#timepicker3').datetimepicker({
-            format: 'LT'
-        })
-    });
+$(function () {
+    //Date picker
+    $('#timepicker').datetimepicker({
+        format: 'LT'
+    })
+    $('#timepicker1').datetimepicker({
+        format: 'LT'
+    })
+    $('#timepicker2').datetimepicker({
+        format: 'LT'
+    })
+    $('#timepicker3').datetimepicker({
+        format: 'LT'
+    })
+});
 
 $('#btnAdd').click(function () {
+    $('#btnAddEmployee').attr('hidden', false);
+    $('#btnCancel').attr('hidden', false);
+    $('.modal-body').removeClass('freeze');
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $('#EmpModal').modal('show');
@@ -63,15 +66,19 @@ function ListEmployeeDetails() {
                     if (EmpList[i].active == true)
                         tr.push("<td><strong style=\"color:green\">Active</strong></td>");
                     else
-                        tr.push("<td><strong style=\"color:red\">Deactive</strong></td>"); 
-                   
-                    tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+                        tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
+
+
                     if (CurEmail == EmpList[i].email)
-                        tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                        tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"disabled><i class=\"fa fa-trash\"></i></button></td>");
                     else
-                        tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                        tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
 
                     tr.push('</tr>');
+
+
+
+
                 }
                 $("#wait").css("display", "none");
                 $("#tbodyid").empty();
@@ -196,7 +203,7 @@ $('#btnAddEmployee').click(function () {
         Active: $('#Status').prop('checked') ? "true" : "false"
     };
     formData.append("Employee", JSON.stringify(Emp));
-   
+
 
     if (!$('#Fname').val() || !$('#Lname').val() || !$('#Email').val() || !$('#MorningIn').val() || !$('#MorningOut').val() || !$('#EveningIn').val() || !$('#EveningOut').val()) {
         Swal.fire({
@@ -238,7 +245,7 @@ $('#btnAddEmployee').click(function () {
                         });
                         Cancel();
                         ListEmployeeDetails();
-                        
+
                     } else if (myData.code == "0") {
                         Swal.fire({
                             icon: 'error',
@@ -302,7 +309,11 @@ $('#btnAddEmployee').click(function () {
 
 });
 
-function EditEmployee(Id) {
+function ViewEmployee(Id) {
+
+    $('#btnAddEmployee').attr('hidden', true);
+    $('#btnCancel').attr('hidden', true);
+    $('.modal-body').addClass('freeze');
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $("#wait").css("display", "block");
@@ -318,7 +329,64 @@ function EditEmployee(Id) {
         return v.employeeId == Id;
     })
 
-    if (EmployeeDetail.length != 0){
+    if (EmployeeDetail.length != 0) {
+        var Result = EmployeeDetail[0];
+
+        $("#Salutation").val(Result['salutation']);
+        $("#Fname").val(Result['firstName']);
+        $("#Lname").val(Result['lastName']);
+        $("#HouseNo").val(Result['houseNo']);
+        $("#Street").val(Result['street']);
+        $("#District").val(Result['district']);
+        $("#Province").val(Result['province']);
+        $("#Email").val(Result['email']);
+        $("#ContactNo").val(Result['phoneNo']);
+        $("#Branch").val(Result['branch']);
+        $("#UserType").val(Result['userType']);
+        $("#MorningIn").val(Result['morningInTime']);
+        $("#MorningOut").val(Result['morningOutTime']);
+        $("#EveningIn").val(Result['eveningInTime']);
+        $("#EveningOut").val(Result['eveningOutTime']);
+        $("#Status").prop("checked", Result.active)
+        $("#EmployeeId").val(Result['employeeId']);
+        if (Result.image != null) {
+            $('#targetImg').attr("src", "data:image/jgp;base64," + Result.image + "");
+        }
+        else {
+            $('#targetImg').attr("src", "dist/img/default.jpg");
+        }
+        $("#wait").css("display", "none");
+        $('#EmpModal').modal('show');
+    } else {
+        Swal.fire({
+            icon: 'error',
+            title: 'Oops...',
+            text: 'Something went wrong!',
+        });
+    }
+}
+
+
+function EditEmployee(Id) {
+    $('#btnAddEmployee').attr('hidden', false);
+    $('#btnCancel').attr('hidden', false);
+    $('.modal-body').removeClass('freeze');
+    $('.modal').removeClass('freeze');
+    $('.modal-content').removeClass('freeze');
+    $("#wait").css("display", "block");
+
+    LoadBranches();
+    LoadUserTypes();
+    LoadSalutation();
+
+    $("#Branch").attr("disabled", true);
+    $("#Email").attr("disabled", true);
+
+    var EmployeeDetail = $.grep(EmployeeArray, function (v) {
+        return v.employeeId == Id;
+    })
+
+    if (EmployeeDetail.length != 0) {
         var Result = EmployeeDetail[0];
 
         $("#Salutation").val(Result['salutation']);
@@ -463,7 +531,7 @@ function SearchEmployee() {
     }
 
     if (EmpList.length != 0) {
-       
+
         var tr = [];
         for (var i = 0; i < EmpList.length; i++) {
             tr.push('<tr>');
@@ -476,11 +544,11 @@ function SearchEmployee() {
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
                 tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-            tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+           
             if (CurEmail == EmpList[i].email)
-                tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"disabled><i class=\"fa fa-trash\"></i></button></td>");
             else
-                tr.push("<td><button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
 
             tr.push('</tr>');
         }
@@ -496,7 +564,7 @@ function SearchEmployee() {
         var tr = [];
         $("#tbodyid").empty();
         $('.tblEmployee').append($(tr.join('')));
-    } 
+    }
 }
 
 function Clear() {
@@ -522,7 +590,7 @@ function Clear() {
 
 function Cancel() {
     $('#EmpModal').modal('toggle');
-   /* Clear();*/
+    /* Clear();*/
     $('#formUser').trigger("reset");
     $('#imageBrowes').next('.custom-file-label').html("Choose File....");
     $('#Status').prop('checked', true);
@@ -539,7 +607,7 @@ $('#imageBrowes').change(function (event) {
     if (files.length > 0) {
         $('#targetImg').attr('src', window.URL.createObjectURL(files[0]));
         $(this).next('.custom-file-label').html(files[0].name);
-    }    
+    }
 });
 
 $('#ContactNo').bind('keyup', function () {
@@ -571,7 +639,7 @@ $('#Email').bind('keyup', function () {
             $("#EmailUniqueAlert").css("display", "none");
             $("#btnAddEmployee").attr("disabled", false);
         }
-        
+
     }
     else {
         $("#EmailAlert").css("display", "flex");
