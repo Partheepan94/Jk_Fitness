@@ -62,10 +62,13 @@ function ListEmployeeDetails() {
 }
 
 function EditEmployee(Id) {
+   /* $('.modal-body').addClass('freeze');*/
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $('#EmpModal').modal('show');
     $("#EmployeeId").val(Id);
+    $("#btnUpdateSalary").attr("disabled", false);
+    $("#SaAlert").css("display", "none");
 
     var EmployeeDetail = $.grep(EmployeeArray, function (v) {
         return v.employeeId == Id;
@@ -229,3 +232,15 @@ function SearchEmployee() {
         $('.tblEmployee').append($(tr.join('')));
     }
 }
+
+$("#Salary").bind('keyup', function () {
+    var Salary = $('#Salary').val();
+    if ($.isNumeric(Salary)) {
+        $("#SaAlert").css("display", "none");
+        $("#btnUpdateSalary").attr("disabled", false);
+    }
+    else {
+        $("#SaAlert").css("display", "flex");
+        $("#btnUpdateSalary").attr("disabled", true);
+    }
+});

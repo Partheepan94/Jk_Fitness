@@ -35,6 +35,7 @@
                     const Employee = {
                         Name: Result.firstName,
                         Email: Result.email,
+                        Image: Result.image,
                     }
                     window.localStorage.setItem('Empl', JSON.stringify(Employee));
                     if (Result.isFirstTime) {

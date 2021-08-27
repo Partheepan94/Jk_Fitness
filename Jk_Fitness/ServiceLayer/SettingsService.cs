@@ -781,6 +781,42 @@ namespace ServiceLayer
             return webResponce;
         }
 
+        public WebResponce GetUserRights(string UserType)
+        {
+            try
+            {
+                 
+                var RoleRights = uow.DbContext.MenusRights.Select(s => new { V = UserType == "Admin" ? s.Admin : s.Staff }).ToList();
+               
+                if (RoleRights != null)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = RoleRights
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+                return webResponce;
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+                return webResponce;
+            }
+        }
 
     }
 }

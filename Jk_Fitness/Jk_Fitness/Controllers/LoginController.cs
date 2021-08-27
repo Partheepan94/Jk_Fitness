@@ -36,6 +36,7 @@ namespace Jk_Fitness.Controllers
             if(webResponce.Code == 1)
             {
                 Response.Cookies.Append("jkfitness.cookie", Crypto.EncryptString(((Employee)webResponce.Data).EmployeeId));
+                Response.Cookies.Append("Role", ((Employee)webResponce.Data).UserType);
             }
             return webResponce;
         }
