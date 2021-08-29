@@ -6,7 +6,7 @@ using System.Text;
 
 namespace DataLayer
 {
-    public class GenericRepository<TEntity> where TEntity:class
+    public class GenericRepository<TEntity> where TEntity : class
     {
         internal DatabaseContext context;
         internal DbSet<TEntity> dbSet;
@@ -41,10 +41,19 @@ namespace DataLayer
         public virtual void Delete(TEntity entityToDelete)
         {
             if (context.Entry(entityToDelete).State == EntityState.Detached)
-            {
                 dbSet.Attach(entityToDelete);
-            }
+
             dbSet.Remove(entityToDelete);
+        }
+        public virtual void DeleteRange(List<TEntity> entitiesToDelete)
+        {
+            foreach(var entityToDelete in entitiesToDelete)
+            {
+                if (context.Entry(entityToDelete).State == EntityState.Detached)
+                    dbSet.Attach(entityToDelete);
+
+                dbSet.Remove(entityToDelete);
+            }
         }
     }
 }
