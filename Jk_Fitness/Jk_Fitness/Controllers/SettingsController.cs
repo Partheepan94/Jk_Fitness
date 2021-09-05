@@ -28,21 +28,11 @@ namespace Jk_Fitness.Controllers
         {
             var userType = Request.Cookies["Role"];
             List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
-            //List<int> result1 = new List<int>();
-            // result1 = (List<int>)webResponce.Data;
-            //var result1 = webResponce.Data;
             if (result1.Count() > 0) {
-                var valu = result1[5];
+                ViewBag.Add = result1[17];
+                ViewBag.Edit= result1[18];
+                ViewBag.Delete = result1[19];
             }
-            
-            //IList collection = (IList)webResponce.Data;
-            //var vall = collection[5];
-            //foreach (object i in collection)
-            //{
-            //    var ii = i;
-            //}
-
-
             return View();
         }
 
