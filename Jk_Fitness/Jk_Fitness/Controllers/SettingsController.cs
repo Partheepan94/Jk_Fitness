@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.Password;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,23 @@ namespace Jk_Fitness.Controllers
         #region - Branch
         public IActionResult Branch()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            //List<int> result1 = new List<int>();
+            // result1 = (List<int>)webResponce.Data;
+            //var result1 = webResponce.Data;
+            if (result1.Count() > 0) {
+                var valu = result1[5];
+            }
+            
+            //IList collection = (IList)webResponce.Data;
+            //var vall = collection[5];
+            //foreach (object i in collection)
+            //{
+            //    var ii = i;
+            //}
+
+
             return View();
         }
 
@@ -391,7 +409,6 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                var userType = Request.Cookies["Role"];
                 webResponce = Setting.GetMenuRights();
                 return webResponce;
             }

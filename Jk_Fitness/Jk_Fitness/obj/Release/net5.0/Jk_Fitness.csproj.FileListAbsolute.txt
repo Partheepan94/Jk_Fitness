@@ -807,6 +807,7 @@ E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitness.TagHelpers.output.cache
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitness.RazorCoreGenerate.cache
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Employee\Index.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Employee\Profile.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Employee\Salary.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Home\Index.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Home\Privacy.cshtml.g.cs
@@ -817,10 +818,12 @@ E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Settings\Branch.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Settings\ExpensesType.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Settings\MembershipType.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Settings\MenuRights.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Shared\Error.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Shared\_Layout.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Shared\_Layout_Login.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Shared\_ValidationScriptsPartial.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Task\Index.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\_ViewImports.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\_ViewStart.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitness.RazorTargetAssemblyInfo.cache
@@ -831,5 +834,3 @@ E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\ref\Jk_Fitness.dll
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitness.pdb
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Jk_Fitness.genruntimeconfig.cache
-E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Employee\Profile.cshtml.g.cs
-E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\Razor\Views\Settings\MenuRights.cshtml.g.cs

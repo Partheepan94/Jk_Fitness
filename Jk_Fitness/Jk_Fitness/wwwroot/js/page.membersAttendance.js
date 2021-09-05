@@ -349,17 +349,22 @@ function getFormattedDate(date) {
     return month + '/' + day + '/' + year;
 }
 
-$("#Branch").change(function () {
-    LoadAttendance();
-});
+//$("#Branch").change(function () {
+//    LoadAttendance();
+//});
 
-$("#AttendDate").bind('keyup', function () {
-    LoadAttendance();
-});
+//$("#AttendDate").bind('keyup', function () {
+//    LoadAttendance();
+//});
 
 //$("#AttendDate").change(function () {
 //    LoadAttendance();
 //});
+
+$("#btnSearch").click(function () {
+    LoadAttendance();
+    $('#FName').val("");
+});
 
 $("#FName").bind('keyup', function () {
     SearchMemberAttendance();

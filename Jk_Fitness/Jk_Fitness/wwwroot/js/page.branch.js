@@ -294,7 +294,7 @@ function ListBranchDetails() {
                         td.push("</td>");
                         tr.push(td);
                     }
-                    tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");
+                   /* tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");*/
                     tr.push("<td><button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
                     if (uniqueRecords[i].isDeleteble == true)
                         tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
@@ -468,7 +468,7 @@ $('#btnSearch').click(function () {
                 td.push("</td>");
                 tr.push(td);
             }
-            tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");;
+           /* tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");;*/
             tr.push("<td><button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
             if (uniqueRecords[i].isDeleteble == true)
                 tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")

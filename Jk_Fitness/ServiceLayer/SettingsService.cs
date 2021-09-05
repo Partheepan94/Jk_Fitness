@@ -705,7 +705,7 @@ namespace ServiceLayer
         }
         #endregion
 
-
+        #region MenuRights
         public WebResponce GetMenuRights()
         {
             try
@@ -786,10 +786,11 @@ namespace ServiceLayer
             try
             {
                  
-                var RoleRights = uow.DbContext.MenusRights.Select(s => new { V = UserType == "Admin" ? s.Admin : s.Staff }).ToList();
+                var RoleRights = uow.DbContext.MenusRights.Select(s => new { Role = UserType == "Admin" ? s.Admin : s.Staff }).ToList();
                
                 if (RoleRights != null)
                 {
+                    var re = RoleRights[5].Role;
                     webResponce = new WebResponce()
                     {
                         Code = 1,
@@ -818,5 +819,22 @@ namespace ServiceLayer
             }
         }
 
+        public List<int> GetUserRightsbyUsertype(string UserType)
+        {
+            try
+            {
+                var RoleRights = uow.DbContext.MenusRights.Select(s => new { x = UserType == "Admin" ? s.Admin : s.Staff }).ToList();
+                List<int> menuRights = uow.MenuRightsRepository.GetAll().Select(x => UserType == "Admin" ? x.Staff : x.Admin).ToList();
+                List<Branch> branches = uow.BranchRepository.GetAll().OrderBy(x => x.BranchCode).ToList();
+                return menuRights;
+            }
+            catch (Exception ex)
+            {
+
+                throw;
+            }
+        }
+
+        #endregion
     }
 }
