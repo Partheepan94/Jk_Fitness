@@ -824,7 +824,7 @@ namespace ServiceLayer
             try
             {
                 var RoleRights = uow.DbContext.MenusRights.Select(s => new { x = UserType == "Admin" ? s.Admin : s.Staff }).ToList();
-                List<int> menuRights = uow.MenuRightsRepository.GetAll().Select(x => UserType == "Admin" ? x.Staff : x.Admin).ToList();
+                List<int> menuRights = uow.MenuRightsRepository.GetAll().Select(x => UserType == "Admin" ? x.Admin : x.Staff).ToList();
                 List<Branch> branches = uow.BranchRepository.GetAll().OrderBy(x => x.BranchCode).ToList();
                 return menuRights;
             }

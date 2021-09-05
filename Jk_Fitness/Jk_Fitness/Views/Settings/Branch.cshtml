@@ -54,8 +54,7 @@
                             <th>Branch Name</th>
                             <th>InitialRange</th>
                             @*<th>Month Range-Active Member</th>*@
-                            <th>Edit</th>
-                            <th>Delete</th>
+                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
@@ -76,6 +75,9 @@
     <input type="hidden" id="GetBranchById" value="@Url.Action("GetBranchById", "Settings")" />
     <input type="hidden" id="DeleteBranch" value="@Url.Action("DeleteBranch", "Settings")" />
     <input type="hidden" id="SearchBranch" value="@Url.Action("SearchBranch", "Settings")" />
+    <input type="hidden" id="add" value="@ViewBag.Add" />
+    <input type="hidden" id="edit" value="@ViewBag.Edit" />
+    <input type="hidden" id="delete" value="@ViewBag.Delete" />
 </div>
 
 @* Add new Branch and EDIT Branch Popup *@

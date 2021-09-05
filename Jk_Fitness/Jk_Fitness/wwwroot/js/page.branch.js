@@ -1,5 +1,12 @@
 ﻿    $(document).ready(function () {
         ListBranchDetails();
+        var add = $('#add').val();
+        if ($('#add').val() == "1" || $('#add').val() == "2") {
+            $("#btnAdd").attr('hidden', false);
+        }
+        else {
+            $("#btnAdd").attr('hidden', true);
+        }
     });
 var BranchDetailsArray = [];
 
@@ -294,12 +301,24 @@ function ListBranchDetails() {
                         td.push("</td>");
                         tr.push(td);
                     }
-                   /* tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");*/
-                    tr.push("<td><button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    if (uniqueRecords[i].isDeleteble == true)
-                        tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
-                    else
-                        tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                   /* for feature Use*/
+                /* tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");*/
+
+                    var td1 = [];
+                    td1.push('<td>');
+                    if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                        td1.push("<button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button>");
+
+                    if ($('#delete').val() == 1 || $('#delete').val() == 2) {
+                        if (uniqueRecords[i].isDeleteble == true)
+                            td1.push("<button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button>");
+                        else
+                            td1.push("<button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i>  </button>");
+                    }
+                    td1.push('</td>');
+
+                    tr.push(td1.join(' '));
+
                     tr.push('</tr>');
                 }
 
@@ -469,11 +488,21 @@ $('#btnSearch').click(function () {
                 tr.push(td);
             }
            /* tr.push("<td>" + uniqueRecords[i].membershipActiveMonthRange + "</td>");;*/
-            tr.push("<td><button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-            if (uniqueRecords[i].isDeleteble == true)
-                tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
-            else
-                tr.push("<td><button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\" disabled><i class=\"fa fa-trash\"></i> Delete </button></td>")
+            var td1 = [];
+            td1.push('<td>');
+            if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                td1.push("<button onclick=\"EditBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button>");
+
+            if ($('#delete').val() == 1 || $('#delete').val() == 2) {
+                if (uniqueRecords[i].isDeleteble == true)
+                    td1.push("<button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button>");
+                else
+                    td1.push("<button onclick=\"DeleteBranch('" + uniqueRecords[i].id + "')\" class=\"btn btn-danger\"disabled><i class=\"fa fa-trash\"></i>  </button>");
+            }
+            td1.push('</td>');
+
+            tr.push(td1.join(' '));
+
             tr.push('</tr>');
         }
 
