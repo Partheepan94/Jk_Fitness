@@ -54,7 +54,6 @@
                             <th>Package Amount</th>
                             <th>Status</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
@@ -75,6 +74,9 @@
     <input type="hidden" id="GetMembershipTypeById" value="@Url.Action("GetMembershipTypeById", "Settings")" />
     <input type="hidden" id="DeleteMembershipType" value="@Url.Action("DeleteMembershipType", "Settings")" />
     <input type="hidden" id="SearchMembershipType" value="@Url.Action("SearchMembershipType", "Settings")" />
+    <input type="hidden" id="add" value="@ViewBag.Add" />
+    <input type="hidden" id="edit" value="@ViewBag.Edit" />
+    <input type="hidden" id="delete" value="@ViewBag.Delete" />
 </div>
 
 @* Add new Branch and EDIT Branch Popup *@

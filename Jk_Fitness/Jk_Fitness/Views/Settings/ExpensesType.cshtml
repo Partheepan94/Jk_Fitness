@@ -14,11 +14,11 @@
             </div>
             <div class="card-body">
                 @*<div class="row">
-                    <div class="col-md-12">
-                        <label><strong style="color: red">Branches cannot delete until it depends on other records in the application.</strong></label>
+                        <div class="col-md-12">
+                            <label><strong style="color: red">Branches cannot delete until it depends on other records in the application.</strong></label>
+                        </div>
                     </div>
-                </div>
-                <br />*@
+                    <br />*@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
@@ -52,7 +52,6 @@
                             <th>Expense Name</th>
                             <th>Status</th>
                             <th></th>
-                            <th></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
@@ -73,6 +72,9 @@
     <input type="hidden" id="GetExpenseTypeById" value="@Url.Action("GetExpenseTypeById", "Settings")" />
     <input type="hidden" id="DeleteExpenseType" value="@Url.Action("DeleteExpenseType", "Settings")" />
     <input type="hidden" id="SearchExpensesType" value="@Url.Action("SearchExpensesType", "Settings")" />
+    <input type="hidden" id="add" value="@ViewBag.Add" />
+    <input type="hidden" id="edit" value="@ViewBag.Edit" />
+    <input type="hidden" id="delete" value="@ViewBag.Delete" />
 </div>
 
 @* Add new Branch and EDIT Branch Popup *@
