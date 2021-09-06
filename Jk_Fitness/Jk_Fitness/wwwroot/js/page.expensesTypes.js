@@ -1,5 +1,11 @@
 ﻿$(document).ready(function () {
     ListExpensesDetails();
+    if ($('#add').val() == "1" || $('#add').val() == "2") {
+        $("#btnAdd").attr('hidden', false);
+    }
+    else {
+        $("#btnAdd").attr('hidden', true);
+    }
 });
 var ExpensesTypesDetailsArray = [];
 
@@ -130,8 +136,21 @@ function ListExpensesDetails() {
                         tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
                     else
                         tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
-                    tr.push("<td><button onclick=\"EditExpenseType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-                    tr.push("<td><button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+                    //tr.push("<td><button onclick=\"EditExpenseType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+                    //tr.push("<td><button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+
+                    var td = [];
+                    td.push('<td>');
+                    if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                        td.push("<button onclick=\"EditExpenseType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> </button>");
+
+                    if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                        td.push("<button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> </button>");
+                         
+                    td.push('</td>');
+
+                    tr.push(td.join(' '));
+
                     tr.push('</tr>');
                 }
 
@@ -266,8 +285,18 @@ $('#btnSearch').click(function () {
                 tr.push("<td><strong style=\"color:green\">Enabled</strong></td>");
             else
                 tr.push("<td><strong style=\"color:red\">Disabled</strong></td>");
-            tr.push("<td><button onclick=\"EditExpenseType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
-            tr.push("<td><button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> Delete </button></td>")
+
+            var td = [];
+            td.push('<td>');
+            if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                td.push("<button onclick=\"EditExpenseType('" + ResList[i].id + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> </button>");
+
+            if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                td.push("<button onclick=\"DeleteExpenseType('" + ResList[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i> </button>");
+
+            td.push('</td>');
+
+            tr.push(td.join(' '));
             tr.push('</tr>');
         }
         $("#wait").css("display", "none");

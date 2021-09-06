@@ -15,14 +15,25 @@ namespace Jk_Fitness.Controllers
     public class MembershipController : Controller
     {
         private readonly MemberShipService MemberShip;
+        private readonly SettingsService Setting;
         WebResponce webResponce = null;
 
-        public MembershipController(MemberShipService MemberShip)
+        public MembershipController(MemberShipService MemberShip, SettingsService Setting)
         {
             this.MemberShip = MemberShip;
+            this.Setting = Setting;
         }
         public IActionResult Index()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            if (result1.Count() > 0)
+            {
+                ViewBag.Add = result1[9];
+                ViewBag.Edit = result1[10];
+                ViewBag.Delete = result1[11];
+                ViewBag.View = result1[12];
+            }
             return View();
         }
 

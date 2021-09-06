@@ -70,7 +70,10 @@
     @*<input type="hidden" id="GetEmployeeById" value="@Url.Action("GetEmployeeById", "Employee")" />*@
     <input type="hidden" id="DeleteEmployees" value="@Url.Action("DeleteEmployees", "Employee")" />
     <input type="hidden" id="SearchEmployees" value="@Url.Action("SearchEmployees", "Employee")" />
-    @*<input type="hidden" id="SeassionEmail" value="@User.FindFirst("Email").Value" />*@
+    <input type="hidden" id="add" value="@ViewBag.Add" />
+    <input type="hidden" id="edit" value="@ViewBag.Edit" />
+    <input type="hidden" id="delete" value="@ViewBag.Delete" />
+    <input type="hidden" id="view" value="@ViewBag.View" />
 </div>
 
 @* Add new Employee and EDIT Employee Popup *@

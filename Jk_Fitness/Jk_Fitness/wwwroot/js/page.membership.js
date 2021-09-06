@@ -5,6 +5,12 @@
     var BranchArray;
     var MemberShipPackageArray;
     var EmployeeDetailsArray;
+    if ($('#add').val() == "1" || $('#add').val() == "2") {
+        $("#btnAdd").attr('hidden', false);
+    }
+    else {
+        $("#btnAdd").attr('hidden', true);
+    }
 });
 
 $('#btnAdd').click(function () {
@@ -278,7 +284,20 @@ function ListMemberDetails() {
                         tr.push("<td><strong style=\"color:green\">Active</strong></td>");
                     else
                         tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-                    tr.push("<td><button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
+
+                    var td = [];
+                    td.push('<td>');
+                    if ($('#view').val() == 1 || $('#view').val() == 2)
+                        td.push("<button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button>");
+
+                    if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                        td.push("<button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+                    if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                        td.push("<button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+                    td.push('</td>');
+
+                    tr.push(td.join(' '));
 
                     tr.push('</tr>');
                 }
@@ -517,8 +536,20 @@ function SearchMembership() {
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
                 tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-            tr.push("<td><button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
 
+            var td = [];
+            td.push('<td>');
+            if ($('#view').val() == 1 || $('#view').val() == 2)
+                td.push("<button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button>");
+
+            if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                td.push("<button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+            if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                td.push("<button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+            td.push('</td>');
+
+            tr.push(td.join(' '));
             tr.push('</tr>');
         }
 

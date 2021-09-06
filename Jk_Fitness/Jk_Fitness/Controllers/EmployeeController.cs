@@ -19,13 +19,24 @@ namespace Jk_Fitness.Controllers
     {
 
         private readonly EmployeeService employee;
+        private readonly SettingsService Setting;
         WebResponce webResponce = null;
-        public EmployeeController(EmployeeService employee)
+        public EmployeeController(EmployeeService employee, SettingsService Setting)
         {
             this.employee = employee;
+            this.Setting = Setting;
         }
         public IActionResult Index()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            if (result1.Count() > 0)
+            {
+                ViewBag.Add = result1[4];
+                ViewBag.Edit = result1[5];
+                ViewBag.Delete = result1[6];
+                ViewBag.View = result1[7];
+            }
             return View();
         }
 
@@ -187,6 +198,14 @@ namespace Jk_Fitness.Controllers
         #region SalaryManagement
         public IActionResult Salary()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            if (result1.Count() > 0)
+            {
+                ViewBag.Add = result1[17];
+                ViewBag.Edit = result1[18];
+                ViewBag.Delete = result1[19];
+            }
             return View();
         }
 
