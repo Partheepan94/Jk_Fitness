@@ -43,7 +43,7 @@
                             <th>User Type</th>
                             <th>Status</th>
                             <th>Salary</th>
-                            <th></th>
+                            <th id="Action"></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
@@ -61,7 +61,7 @@
     <input type="hidden" id="GetEmployeeDetailsPath" value="@Url.Action("GetEmployeeDetails","Employee")" />
     <input type="hidden" id="GetBranchDetails" value="@Url.Action("GetBranchDetails", "Employee")" />
     <input type="hidden" id="UpdateSalary" value="@Url.Action("UpdateSalary", "Employee")" />
-    @*<input type="hidden" id="SeassionEmail" value="@User.FindFirst("Email").Value" />*@
+    <input type="hidden" id="edit" value="@ViewBag.Edit" />
 </div>
 
 <div id="EmpModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">

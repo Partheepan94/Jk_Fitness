@@ -202,9 +202,7 @@ namespace Jk_Fitness.Controllers
             List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
             if (result1.Count() > 0)
             {
-                ViewBag.Add = result1[17];
-                ViewBag.Edit = result1[18];
-                ViewBag.Delete = result1[19];
+                ViewBag.Edit = result1[29];
             }
             return View();
         }
