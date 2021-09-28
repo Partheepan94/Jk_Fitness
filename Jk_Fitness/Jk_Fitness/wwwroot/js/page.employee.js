@@ -5,6 +5,12 @@
     var EmployeeArray;
     var BranchArray;
     var UserTypeArray;
+    if ($('#add').val() == "1" || $('#add').val() == "2") {
+        $("#btnAdd").attr('hidden', false);
+    }
+    else {
+        $("#btnAdd").attr('hidden', true);
+    }
 });
 
 //for Time Picker
@@ -69,10 +75,29 @@ function ListEmployeeDetails() {
                         tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
 
 
-                    if (CurEmail == EmpList[i].email)
-                        tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"disabled><i class=\"fa fa-trash\"></i></button></td>");
-                    else
-                        tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
+                    //if (CurEmail == EmpList[i].email)
+                    //    tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"disabled><i class=\"fa fa-trash\"></i></button></td>");
+                    //else
+                    //    tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
+
+
+                    var td = [];
+                    td.push('<td>');
+                    if ($('#view').val() == 1 || $('#view').val() == 2)
+                        td.push("<button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button>");
+
+                    if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                        td.push("<button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+                    if ($('#delete').val() == 1 || $('#delete').val() == 2) {
+                        if (CurEmail == EmpList[i].email)
+                            td.push("<button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"disabled><i class=\"fa fa-trash\"></i></button>");
+                        else
+                            td.push("<button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+                    }
+                    td.push('</td>');
+
+                    tr.push(td.join(' '));
 
                     tr.push('</tr>');
 
@@ -545,11 +570,23 @@ function SearchEmployee() {
             else
                 tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
            
-            if (CurEmail == EmpList[i].email)
-                tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"disabled><i class=\"fa fa-trash\"></i></button></td>");
-            else
-                tr.push("<td><button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
+            var td = [];
+            td.push('<td>');
+            if ($('#view').val() == 1 || $('#view').val() == 2)
+                td.push("<button onclick=\"ViewEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button>");
 
+            if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                td.push("<button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+            if ($('#delete').val() == 1 || $('#delete').val() == 2) {
+                if (CurEmail == EmpList[i].email)
+                    td.push("<button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"disabled><i class=\"fa fa-trash\"></i></button>");
+                else
+                    td.push("<button onclick=\"DeleteEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+            }
+            td.push('</td>');
+
+            tr.push(td.join(' '));
             tr.push('</tr>');
         }
         $("#waitform").css("display", "none");

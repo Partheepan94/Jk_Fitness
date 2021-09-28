@@ -18,7 +18,7 @@ function ListMenuRights() {
                 for (var i = 0; i < Menu.length; i++) {
                     tr.push('<tr>');
                     if (Menu[i].parentId == "0")
-                        tr.push("<td><b><font size='2'>" + Menu[i].menuName + "</font></b></td>");
+                        tr.push("<td><b><font size='3'>" + Menu[i].menuName + "</font></b></td>");
                     else
                         tr.push("<td>&nbsp;&nbsp;--" + Menu[i].menuName + "</td>");
                     tr.push("<td><input type=\"checkbox\" " + Menu[i].admin + " onclick=\"updateRoles(this,'admin'," + Menu[i].id + ");\"></td>");
@@ -75,7 +75,7 @@ function updateRoles(Control, Name, Id) {
                     showConfirmButton: false,
                     timer: 1500
                 });
-                ListMenuRights();
+                location.reload();
             } else {
                 Swal.fire({
                     icon: 'error',

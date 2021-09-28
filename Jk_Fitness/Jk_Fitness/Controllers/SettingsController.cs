@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 using ServiceLayer;
 using ServiceLayer.Password;
 using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
@@ -25,6 +26,13 @@ namespace Jk_Fitness.Controllers
         #region - Branch
         public IActionResult Branch()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            if (result1.Count() > 0) {
+                ViewBag.Add = result1[17];
+                ViewBag.Edit= result1[18];
+                ViewBag.Delete = result1[19];
+            }
             return View();
         }
 
@@ -149,6 +157,14 @@ namespace Jk_Fitness.Controllers
         #region Expenses Types
         public IActionResult ExpensesType()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            if (result1.Count() > 0)
+            {
+                ViewBag.Add = result1[21];
+                ViewBag.Edit = result1[22];
+                ViewBag.Delete = result1[23];
+            }
             return View();
         }
         [HttpGet]
@@ -266,6 +282,14 @@ namespace Jk_Fitness.Controllers
         #region Memebership Types
         public IActionResult MembershipType()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            if (result1.Count() > 0)
+            {
+                ViewBag.Add = result1[25];
+                ViewBag.Edit = result1[26];
+                ViewBag.Delete = result1[27];
+            }
             return View();
         }
         [HttpGet]
@@ -391,7 +415,6 @@ namespace Jk_Fitness.Controllers
         {
             try
             {
-                var userType = Request.Cookies["Role"];
                 webResponce = Setting.GetMenuRights();
                 return webResponce;
             }

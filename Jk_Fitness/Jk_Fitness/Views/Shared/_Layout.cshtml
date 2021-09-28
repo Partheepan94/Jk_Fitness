@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="~/plugins/icheck-bootstrap/icheck-bootstrap.min.css">
     <!-- JQVMap -->
     <link rel="stylesheet" href="~/plugins/jqvmap/jqvmap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <!-- Theme style -->
     <link rel="stylesheet" href="~/dist/css/adminlte.min.css">
     <!-- overlayScrollbars -->
@@ -44,10 +45,10 @@
             </ul>
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-                
+
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                        <img src="~/dist/img/default.jpg" id="UserImg" alt="AdminLTE Logo" class=" brand-image img-circle elevation-3" style="opacity: .8;height: 50px;">
+                        <img src="~/dist/img/default.jpg" id="UserImg" alt="AdminLTE Logo" class=" brand-image img-circle elevation-3" style="height: 50px;">
                         <span id="Name"></span> <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu">
@@ -72,8 +73,8 @@
                 <!-- Sidebar Menu -->
                 <nav class="mt-2">
                     <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                        <!-- Add icons to the links using the .nav-icon class
-    with font-awesome or any other icon font library -->
+                        <!-- Add icons to the links using the .nav-icon class with font-awesome or any other icon font library -->
+
                         <li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-tachometer-alt"></i>
@@ -83,25 +84,25 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuHome">
                                     <a href="@Url.Action("Index", "Home")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Home</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuEmployee">
                                     <a href="@Url.Action("Index", "Employee")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Employee</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuMemebership">
                                     <a href="@Url.Action("Index", "Membership")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Membership</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuAttendance">
                                     <a href="@Url.Action("MembershipAttendance", "Membership")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Attendance</p>
@@ -141,31 +142,31 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuBranch">
                                     <a href="@Url.Action("Branch", "Settings")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Branch</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuExpensesType">
                                     <a href="@Url.Action("ExpensesType", "Settings")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Expense Types</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuMembershipPackage">
                                     <a href="@Url.Action("MembershipType", "Settings")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Membership Packages</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuSalary">
                                     <a href="@Url.Action("Salary", "Employee")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Salary Management</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="MenuRights">
                                     <a href="@Url.Action("MenuRights", "Settings")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>Roles and Access Rights</p>
@@ -223,10 +224,10 @@
     <!-- ChartJS -->
     <script src="~/plugins/chart.js/Chart.min.js"></script>
     <!-- Sparkline -->
-    <script src="~/plugins/sparklines/sparkline.js"></script>
+    <!--<script src="~/plugins/sparklines/sparkline.js"></script>-->
     <!-- JQVMap -->
-    <script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
-    <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>
+    <!--<script src="~/plugins/jqvmap/jquery.vmap.min.js"></script>
+    <script src="~/plugins/jqvmap/maps/jquery.vmap.usa.js"></script>-->
     <!-- jQuery Knob Chart -->
     <script src="~/plugins/jquery-knob/jquery.knob.min.js"></script>
     <!-- daterangepicker -->
@@ -243,6 +244,6 @@
     <!-- AdminLTE for demo purposes -->
     <script src="~/dist/js/demo.js"></script>
     <!-- AdminLTE dashboard demo (This is only for demo purposes) -->
-    <script src="~/dist/js/pages/dashboard.js"></script>
+    @*<script src="~/dist/js/pages/dashboard.js"></script>*@
 </body>
 </html>
