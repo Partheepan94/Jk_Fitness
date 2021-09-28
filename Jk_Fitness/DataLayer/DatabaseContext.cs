@@ -20,5 +20,7 @@ namespace DataLayer
         public DbSet<MemberShip> MemberShips { get; set; }
         public DbSet<MembersAttendance> MembersAttendances { get; set; }
         public DbSet<MenuRights> MenusRights { get; set; }
+        public DbSet<MembershipPayments> MembershipPayments { get; set; }
+        public DbSet<PartialPayments> PartialPayments { get; set; }
     }
 }
