@@ -22,6 +22,8 @@ namespace DataLayer
         private GenericRepository<MemberShip> membershipRepository;
         private GenericRepository<MembersAttendance> membersAttendanceRepository;
         private GenericRepository<MenuRights> menuRightsRepository;
+        private GenericRepository<MembershipPayments> membershipPaymentsRepository;
+        private GenericRepository<PartialPayments> partialPaymentsRepository;
         public GenericRepository<Branch> BranchRepository
         {
             get 
@@ -172,6 +174,44 @@ namespace DataLayer
                         this.menuRightsRepository = new GenericRepository<MenuRights>(context);
                     }
                     return menuRightsRepository;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                    throw;
+                }
+            }
+        }
+        public GenericRepository<MembershipPayments> MembershipPaymentsRepository
+        {
+            get
+            {
+                try
+                {
+                    if (this.membershipPaymentsRepository == null)
+                    {
+                        this.membershipPaymentsRepository = new GenericRepository<MembershipPayments>(context);
+                    }
+                    return membershipPaymentsRepository;
+                }
+                catch (Exception ex)
+                {
+                    ex.ToString();
+                    throw;
+                }
+            }
+        }
+        public GenericRepository<PartialPayments> PartialPaymentsRepository
+        {
+            get
+            {
+                try
+                {
+                    if (this.partialPaymentsRepository == null)
+                    {
+                        this.partialPaymentsRepository = new GenericRepository<PartialPayments>(context);
+                    }
+                    return partialPaymentsRepository;
                 }
                 catch (Exception ex)
                 {
