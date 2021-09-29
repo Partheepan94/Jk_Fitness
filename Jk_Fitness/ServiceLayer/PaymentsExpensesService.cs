@@ -382,5 +382,42 @@ namespace ServiceLayer
                 return webResponce;
             }
         }
+
+        public WebResponce GetStartandEndYear()
+        {
+            try
+            {
+                var paymentDetails = uow.MembershipPaymentsRepository.GetAll().OrderBy(x => x.PaymentDate).ToList();
+                var PaymentYears = new PaymentYears();
+
+                if (paymentDetails.Count > 0)
+                {
+                    PaymentYears.StartYear = paymentDetails.First().PaymentDate.Year;
+                    PaymentYears.EndYear = paymentDetails.Last().PaymentDate.Year;
+                }
+                else
+                {
+                    PaymentYears.StartYear = DateTime.Now.Year;
+                    PaymentYears.EndYear = DateTime.Now.Year;
+                }
+                
+                webResponce = new WebResponce()
+                {
+                    Code = 1,
+                    Message = "Success",
+                    Data = PaymentYears
+                };
+                return webResponce;
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+                return webResponce;
+            }
+        }
     }
 }

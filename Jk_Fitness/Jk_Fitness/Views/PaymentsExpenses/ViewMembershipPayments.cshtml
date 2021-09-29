@@ -76,10 +76,12 @@
             <div id="wait" class="loading-gif"><img src="~/dist/img/Loading.gif" width="70" height="70" /><br></div>
         </div>
     </div>
+
     <input type="hidden" id="GetBranchDetails" value="@Url.Action("GetBranchDetails", "Employee")" />
     <input type="hidden" id="LoadAllMembershipPayments" value="@Url.Action("LoadAllMembershipPayments", "PaymentsExpenses")" />
     <input type="hidden" id="DeletePartialPaymentById" value="@Url.Action("DeletePartialPaymentById", "PaymentsExpenses")" />
     <input type="hidden" id="DeleteMembershipPaymentById" value="@Url.Action("DeleteMembershipPaymentById", "PaymentsExpenses")" />
+    <input type="hidden" id="GetStartandEndYear" value="@Url.Action("GetStartandEndYear", "PaymentsExpenses")" />
 </div>
 <div id="PartialPaymentModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-800">

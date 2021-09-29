@@ -184,6 +184,25 @@ namespace Jk_Fitness.Controllers
                 return webResponce;
             }
         }
+
+        [HttpGet]
+        public WebResponce GetStartandEndYear()
+        {
+            try
+            {
+                webResponce = service.GetStartandEndYear();
+                return webResponce;
+            }
+            catch(Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
         #endregion
     }
 }

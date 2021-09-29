@@ -20,4 +20,10 @@ namespace ServiceLayer.VMmodel
         public List<PartialPayments> PartialPayments { get; set; }
         public MembershipPayments PaymentDetails { get; set; }
     }
+
+    public class PaymentYears
+    {
+        public int StartYear { get; set; }
+        public int EndYear { get; set; }
+    }
 }

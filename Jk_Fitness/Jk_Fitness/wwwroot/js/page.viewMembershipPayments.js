@@ -1,5 +1,4 @@
 ﻿$(document).ready(function () {
-    LoadYear();
     LoadMonths();
     LoadBranchesforSearch();
     var MembersPaymentsArray;
@@ -26,7 +25,30 @@ function LoadBranchesforSearch() {
                 $.each(Result, function () {
                     Branch.append($("<option/>").val(this.branchName).text(this.branchName));
                 });
-                LoadMembershipPayments();
+
+                $.ajax({
+                    type: 'GET',
+                    url: $("#GetStartandEndYear").val(),
+                    dataType: 'json',
+                    headers: {
+                        "Authorization": "Bearer " + sessionStorage.getItem('token'),
+                    },
+                    contentType: 'application/json; charset=utf-8',
+                    success: function (response) {
+                        var myData = jQuery.parseJSON(JSON.stringify(response));
+                        if (myData.code == "1") {
+                            LoadYear(myData.data.startYear, myData.data.endYear)
+                        } else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'Oops...',
+                                text: myData.message,
+                            });
+                        }
+                    },
+                    error: function (jqXHR, exception) {
+                    }
+                });
             } else {
                 Swal.fire({
                     icon: 'error',
@@ -40,9 +62,9 @@ function LoadBranchesforSearch() {
     });
 }
 
-function LoadYear() {
-    let year_satart = 2019;
-    let year_end = (new Date).getFullYear(); // current year
+function LoadYear(stratYear, endYear) {
+    let year_satart = parseInt(stratYear);
+    let year_end = parseInt(endYear); // current year
     let year_selected = year_end;
 
     let option = '';
@@ -53,6 +75,7 @@ function LoadYear() {
     }
 
     document.getElementById("Year").innerHTML = option;
+    LoadMembershipPayments();
 }
 
 function LoadMonths() {
@@ -102,7 +125,19 @@ function LoadMembershipPayments() {
             if (myData.code == "1") {
                 var Result = myData.data;
                 MembersPaymentsArray = Result;
-                BindMembershipTable(MembersPaymentsArray)
+                if (MembersPaymentsArray.length != 0) {
+                    BindMembershipTable(MembersPaymentsArray);
+                    $("#noRecords").css("display", "none");
+                    $("#tblMember").css("display", "table");
+                }
+                else {
+                    $("#noRecords").css("display", "block");
+                    $("#tblMember").css("display", "none");
+
+                    var tr = [];
+                    $("#tbodyid").empty();
+                    $('.tblMember').append($(tr.join('')));
+                }
 
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
