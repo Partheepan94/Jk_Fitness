@@ -38,7 +38,7 @@ namespace ServiceLayer
                         membershipVM.PackageAmount = memberdetails.Payment;
                         membershipVM.PackageId = memberdetails.MemberPackage;
                         membershipVM.PackageType = uow.MembershipTypesRepository.GetByID(memberdetails.MemberPackage).MembershipName;
-                        membershipVM.Branch = memberdetails.Branch;
+                        membershipVM.Branch = uow.BranchRepository.GetAll().Where(x => x.BranchCode == memberdetails.Branch).Select(x => x.BranchName).FirstOrDefault();
 
                         var details = uow.MembershipPaymentsRepository.GetAll().Where(x => x.MemberId == memberId & x.IsPartialPay == true).FirstOrDefault();
 

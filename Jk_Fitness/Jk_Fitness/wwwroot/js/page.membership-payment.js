@@ -144,7 +144,7 @@ $("#btnSearch").click(function () {
 
 $("#btnSavePay").click(function () { 
 
-    $("#waitform").css("display", "block");
+    $("#wait").css("display", "block");
     $("#btnSavePay").attr("disabled", true);
     $('.card-body').addClass('freeze');
 
@@ -195,6 +195,7 @@ $("#btnSavePay").click(function () {
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
+                                successLoad();
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -213,6 +214,7 @@ $("#btnSavePay").click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        successLoad();
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -259,6 +261,8 @@ $("#btnSavePay").click(function () {
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
+                                successLoad();
+
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -285,6 +289,7 @@ $("#btnSavePay").click(function () {
                                     showConfirmButton: false,
                                     timer: 1500
                                 });
+                                successLoad();
                             } else {
                                 Swal.fire({
                                     icon: 'error',
@@ -304,6 +309,7 @@ $("#btnSavePay").click(function () {
                             showConfirmButton: false,
                             timer: 1500
                         });
+                        successLoad();
                     } else {
                         Swal.fire({
                             icon: 'error',
@@ -312,18 +318,17 @@ $("#btnSavePay").click(function () {
                         });
                     }
                 }
-                Clear();
-                $("#waitform").css("display", "none");
-                $("#btnSavePay").attr("disabled", false);
-                $('.card-body').removeClass('freeze');
             }
         });
     }
+
+})
+
+function successLoad() {
     Clear();
-    $("#waitform").css("display", "none");
+    $("#wait").css("display", "none");
     $("#btnSavePay").attr("disabled", false);
     $('.card-body').removeClass('freeze');
     BalanceAmt = 0;
     PaymentId = 0;
-})
-
+}

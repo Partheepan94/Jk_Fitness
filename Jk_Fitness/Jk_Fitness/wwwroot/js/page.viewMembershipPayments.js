@@ -23,7 +23,7 @@ function LoadBranchesforSearch() {
                 BranchArray = Result;
 
                 $.each(Result, function () {
-                    Branch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    Branch.append($("<option/>").val(this.branchCode).text(this.branchName));
                 });
 
                 $.ajax({
@@ -190,6 +190,14 @@ function BindMembershipTable(Result) {
 }
 
 $("#Branch").change(function () {
+    LoadMembershipPayments();
+});
+
+$("#Year").change(function () {
+    LoadMembershipPayments();
+});
+
+$("#Month").change(function () {
     LoadMembershipPayments();
 });
 
