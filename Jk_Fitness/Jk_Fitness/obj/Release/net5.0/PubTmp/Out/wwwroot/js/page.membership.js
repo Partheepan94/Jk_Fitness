@@ -282,8 +282,9 @@ function ListMemberDetails() {
                     tr.push("<td>" + Result[i].firstName + " " + Result[i].lastName + "</td>");
 
                     tr.push("<td>" + Result[i].nic + "</td>");;
-                    tr.push("<td>" + Result[i].branch + "</td>");;
+                    
                     tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");;
+                    tr.push("<td>" + getFormattedDate(new Date(Result[i].membershipExpirationDate)) + "</td>");;
                     if (Result[i].active == true)
                         tr.push("<td><strong style=\"color:green\">Active</strong></td>");
                     else
