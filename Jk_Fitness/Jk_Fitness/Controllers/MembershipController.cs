@@ -58,7 +58,7 @@ namespace Jk_Fitness.Controllers
         }
 
         [HttpPost]
-        public WebResponce GetMemberDetails([FromBody] MemberShip Member)
+        public WebResponce GetMemberDetails(MemberShip Member)
         {
             try
             {

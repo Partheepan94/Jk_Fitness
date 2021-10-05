@@ -13,6 +13,7 @@ namespace ServiceLayer
     {
         private readonly UnitOfWork uow;
         private readonly IMailService mailService;
+        WebResponce webResponce = null;
         public ScheduleTaskService(UnitOfWork uow, IMailService mailService)
         {
             this.uow = uow;
@@ -47,6 +48,7 @@ namespace ServiceLayer
                 {
                     foreach (var Member in membershipsForTwo)
                     {
+                        var Branch = uow.BranchRepository.GetAll().Where(x => x.BranchCode == Member.Branch).FirstOrDefault();
                         var request = new MailRequest();
                         request.ToEmail = Member.Email;
                         request.Subject = "Reminder of Package Expiration";
@@ -54,7 +56,7 @@ namespace ServiceLayer
                         StringBuilder body = new StringBuilder();
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Branch.BranchName + "</p>");
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>As a friendly reminder, your fitness package is expiring on <strong> " + Member.PackageExpirationDate.ToString("dd.MM.yyyy") + ".</strong> Please renew your package and keep yourself fit with us.</p>");
@@ -74,6 +76,7 @@ namespace ServiceLayer
                 {
                     foreach (var Member in memberships)
                     {
+                        var Branch = uow.BranchRepository.GetAll().Where(x => x.BranchCode == Member.Branch).FirstOrDefault();
                         var request = new MailRequest();
                         request.ToEmail = Member.Email;
                         request.Subject = "Reminder of Package Expiration";
@@ -81,7 +84,7 @@ namespace ServiceLayer
                         StringBuilder body = new StringBuilder();
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Branch.BranchName + "</p>");
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Last call! Your fitness package is expiring in <strong>24 hours.</strong> Please renew your package and keep yourself fit with us.</p>");
@@ -111,6 +114,7 @@ namespace ServiceLayer
                 {
                     foreach (var Member in membershipsForSeven)
                     {
+                        var Branch = uow.BranchRepository.GetAll().Where(x => x.BranchCode == Member.Branch).FirstOrDefault();
                         var request = new MailRequest();
                         request.ToEmail = Member.Email;
                         request.Subject = "Reminder of Membership Expiration";
@@ -118,7 +122,7 @@ namespace ServiceLayer
                         StringBuilder body = new StringBuilder();
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Branch.BranchName + "</p>");
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>As a friendly reminder, your membership with JK Fitness is expiring on <strong> " + Member.MembershipExpirationDate.ToString("dd.MM.yyyy") + ".</strong> Please renew your package and keep yourself fit with us.</p>");
@@ -136,6 +140,7 @@ namespace ServiceLayer
                 {
                     foreach (var Member in membershipsForThree)
                     {
+                        var Branch = uow.BranchRepository.GetAll().Where(x => x.BranchCode == Member.Branch).FirstOrDefault();
                         var request = new MailRequest();
                         request.ToEmail = Member.Email;
                         request.Subject = "Reminder of Membership Expiration";
@@ -143,7 +148,7 @@ namespace ServiceLayer
                         StringBuilder body = new StringBuilder();
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Branch.BranchName + "</p>");
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>As a friendly reminder, your membership with JK Fitness is expiring on <strong> " + Member.MembershipExpirationDate.ToString("dd.MM.yyyy") + ".</strong> Please renew your package and keep yourself fit with us.</p>");
@@ -162,6 +167,7 @@ namespace ServiceLayer
                 {
                     foreach (var Member in memberships)
                     {
+                        var Branch = uow.BranchRepository.GetAll().Where(x => x.BranchCode == Member.Branch).FirstOrDefault();
                         var request = new MailRequest();
                         request.ToEmail = Member.Email;
                         request.Subject = "Reminder of Membership Expiration";
@@ -169,7 +175,7 @@ namespace ServiceLayer
                         StringBuilder body = new StringBuilder();
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
-                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "</p>");
+                        body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Branch.BranchName + "</p>");
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
 
                         body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Last call! Your membership with JK Fitness is expiring in <strong>24 hours.</strong> Please renew your package and keep yourself fit with us.</p>");
@@ -213,7 +219,7 @@ namespace ServiceLayer
         public void TestMethod()
         {
             var request = new MailRequest();
-            request.ToEmail = "n.m.nishanthan@gmail.com";
+            request.ToEmail = "kugabalanparthipan94@gmail.com";
             request.Subject = "Reminder of Membership Expiration";
 
             StringBuilder body = new StringBuilder();
@@ -228,5 +234,87 @@ namespace ServiceLayer
             request.Body = body.ToString();
             mailService.SendEmailAsync(request);
         }
+
+        #region Update Branch servicce Class
+        public WebResponce Branchupdates()
+        {
+            try
+            {
+                List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
+                foreach (var item in Member) {
+                    item.Branch = uow.BranchRepository.GetAll().Where(x => x.BranchName == item.Branch).Select(x => x.BranchCode).FirstOrDefault();
+                    uow.MembershipRepository.Update(item);
+                    uow.Save();
+                }
+                if (Member != null)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+        public WebResponce EmployeeBranchupdates()
+        {
+            try
+            {
+                List<Employee> employees = uow.EmployeeRepository.GetAll().ToList();
+                foreach (var item in employees)
+                {
+                    item.Branch = uow.BranchRepository.GetAll().Where(x => x.BranchName == item.Branch).Select(x => x.BranchCode).FirstOrDefault();
+                    uow.EmployeeRepository.Update(item);
+                    uow.Save();
+                }
+                if (employees != null)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Seems Like Doesn't have Records!"
+                    };
+                }
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+            }
+            return webResponce;
+        }
+
+
+        #endregion
+
     }
 }

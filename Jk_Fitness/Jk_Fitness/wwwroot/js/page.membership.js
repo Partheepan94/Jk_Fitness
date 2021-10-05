@@ -1,7 +1,6 @@
 ﻿$(document).ready(function () {
-
-    LoadBranchesforSearch();
     LoadMemberShipType();
+    LoadStatus();
     var BranchArray;
     var MemberShipPackageArray;
     var EmployeeDetailsArray;
@@ -46,7 +45,7 @@ function LoadBranches() {
     $('#Branch').find('option').remove().end();
     Branch = $('#Branch');
     $.each(BranchArray, function () {
-        Branch.append($("<option/>").val(this.branchName).text(this.branchName));
+        Branch.append($("<option/>").val(this.branchCode).text(this.branchName));
     });
 }
 
@@ -258,13 +257,18 @@ $('#btnAddMember').click(function () {
 
 function ListMemberDetails() {
     var Branch = $('#BranchforSearch').val();
+    var Status = $('#StatusforSearch').val();
     $("#wait").css("display", "block");
+    var data = new FormData();
+    data.append("Branch", $('#BranchforSearch').val());
+    data.append("Active", $('#StatusforSearch').val());
     $.ajax({
         type: 'POST',
         url: $("#GetMemberDetails").val(),
         dataType: 'json',
-        data: '{"Branch": "' + Branch + '"}',
-        contentType: 'application/json; charset=utf-8',
+        data: data,
+        processData: false,
+        contentType: false,
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
             $("#wait").css("display", "none");
@@ -491,7 +495,7 @@ function LoadBranchesforSearch() {
                 var Result = myData.data;
                 BranchArray = Result;
                 $.each(Result, function () {
-                    BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    BranchforSearch.append($("<option/>").val(this.branchCode).text(this.branchName));
                 });
                 ListMemberDetails();
             } else {
@@ -569,6 +573,10 @@ function SearchMembership() {
 }
 
 $("#BranchforSearch").change(function () {
+    ListMemberDetails();
+});
+
+$("#StatusforSearch").change(function () {
     ListMemberDetails();
 });
 
@@ -767,4 +775,17 @@ function ViewMember(Id) {
             text: 'Something went wrong!',
         });
     }
+}
+
+function LoadStatus() {
+    $('#StatusforSearch').find('option').remove().end();
+    StatusforSearch = $('#StatusforSearch');
+    var StatusList = [
+        { Id: true, Name: "Active" },
+        { Id: false, Name: "Deactive" }
+    ];
+    $.each(StatusList, function () {
+        StatusforSearch.append($("<option/>").val(this.Id).text(this.Name));
+    });
+    LoadBranchesforSearch();
 }

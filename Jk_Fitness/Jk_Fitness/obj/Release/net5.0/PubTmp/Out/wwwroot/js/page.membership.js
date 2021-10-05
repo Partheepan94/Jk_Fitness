@@ -1,10 +1,15 @@
 ﻿$(document).ready(function () {
-
-    LoadBranchesforSearch();
     LoadMemberShipType();
+    LoadStatus();
     var BranchArray;
     var MemberShipPackageArray;
     var EmployeeDetailsArray;
+    if ($('#add').val() == "1" || $('#add').val() == "2") {
+        $("#btnAdd").attr('hidden', false);
+    }
+    else {
+        $("#btnAdd").attr('hidden', true);
+    }
 });
 
 $('#btnAdd').click(function () {
@@ -40,7 +45,7 @@ function LoadBranches() {
     $('#Branch').find('option').remove().end();
     Branch = $('#Branch');
     $.each(BranchArray, function () {
-        Branch.append($("<option/>").val(this.branchName).text(this.branchName));
+        Branch.append($("<option/>").val(this.branchCode).text(this.branchName));
     });
 }
 
@@ -252,13 +257,18 @@ $('#btnAddMember').click(function () {
 
 function ListMemberDetails() {
     var Branch = $('#BranchforSearch').val();
+    var Status = $('#StatusforSearch').val();
     $("#wait").css("display", "block");
+    var data = new FormData();
+    data.append("Branch", $('#BranchforSearch').val());
+    data.append("Active", $('#StatusforSearch').val());
     $.ajax({
         type: 'POST',
         url: $("#GetMemberDetails").val(),
         dataType: 'json',
-        data: '{"Branch": "' + Branch + '"}',
-        contentType: 'application/json; charset=utf-8',
+        data: data,
+        processData: false,
+        contentType: false,
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
             $("#wait").css("display", "none");
@@ -278,7 +288,20 @@ function ListMemberDetails() {
                         tr.push("<td><strong style=\"color:green\">Active</strong></td>");
                     else
                         tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-                    tr.push("<td><button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
+
+                    var td = [];
+                    td.push('<td>');
+                    if ($('#view').val() == 1 || $('#view').val() == 2)
+                        td.push("<button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button>");
+
+                    if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                        td.push("<button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+                    if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                        td.push("<button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+                    td.push('</td>');
+
+                    tr.push(td.join(' '));
 
                     tr.push('</tr>');
                 }
@@ -472,7 +495,7 @@ function LoadBranchesforSearch() {
                 var Result = myData.data;
                 BranchArray = Result;
                 $.each(Result, function () {
-                    BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    BranchforSearch.append($("<option/>").val(this.branchCode).text(this.branchName));
                 });
                 ListMemberDetails();
             } else {
@@ -517,8 +540,20 @@ function SearchMembership() {
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
                 tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
-            tr.push("<td><button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button> <button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button> <button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button></td>");
 
+            var td = [];
+            td.push('<td>');
+            if ($('#view').val() == 1 || $('#view').val() == 2)
+                td.push("<button onclick=\"ViewMember('" + Result[i].memberId + "')\" class=\"btn btn-secondary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"View\"><i class=\"fa fa-eye\"></i></button>");
+
+            if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                td.push("<button onclick=\"EditMember('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+            if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                td.push("<button onclick=\"DeleteMember('" + Result[i].memberId + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+            td.push('</td>');
+
+            tr.push(td.join(' '));
             tr.push('</tr>');
         }
 
@@ -538,6 +573,10 @@ function SearchMembership() {
 }
 
 $("#BranchforSearch").change(function () {
+    ListMemberDetails();
+});
+
+$("#StatusforSearch").change(function () {
     ListMemberDetails();
 });
 
@@ -736,4 +775,17 @@ function ViewMember(Id) {
             text: 'Something went wrong!',
         });
     }
+}
+
+function LoadStatus() {
+    $('#StatusforSearch').find('option').remove().end();
+    StatusforSearch = $('#StatusforSearch');
+    var StatusList = [
+        { Id: true, Name: "Active" },
+        { Id: false, Name: "Deactive" }
+    ];
+    $.each(StatusList, function () {
+        StatusforSearch.append($("<option/>").val(this.Id).text(this.Name));
+    });
+    LoadBranchesforSearch();
 }

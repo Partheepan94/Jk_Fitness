@@ -68,14 +68,14 @@ function updateRoles(Control, Name, Id) {
         success: function (response) {
             var myData = jQuery.parseJSON(JSON.stringify(response));
             if (myData.code == "1") {
-                Swal.fire({
-                    position: 'center',
-                    icon: 'success',
-                    title: 'Your work has been Updated',
-                    showConfirmButton: false,
-                    timer: 1500
-                });
-                location.reload();
+                //Swal.fire({
+                //    position: 'center',
+                //    icon: 'success',
+                //    title: 'Your work has been Updated',
+                //    showConfirmButton: false,
+                //    timer: 1500
+                //});
+                
             } else {
                 Swal.fire({
                     icon: 'error',
