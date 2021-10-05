@@ -63,7 +63,7 @@
                             <th>Amount</th>
                             <th>Payment Date</th>
                             <th>Payment Status</th>
-                            <th></th>
+                            <th id="Action"></th>
                         </tr>
                     </thead>
                     <tbody id="tbodyid">
@@ -82,6 +82,7 @@
     <input type="hidden" id="DeletePartialPaymentById" value="@Url.Action("DeletePartialPaymentById", "PaymentsExpenses")" />
     <input type="hidden" id="DeleteMembershipPaymentById" value="@Url.Action("DeleteMembershipPaymentById", "PaymentsExpenses")" />
     <input type="hidden" id="GetStartandEndYear" value="@Url.Action("GetStartandEndYear", "PaymentsExpenses")" />
+    <input type="hidden" id="delete" value="@ViewBag.Delete" />
 </div>
 <div id="PartialPaymentModal" class="modal fade bs-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
     <div class="modal-dialog modal-800">
@@ -103,7 +104,7 @@
                                         <tr>
                                             <th>Paid Date</th>
                                             <th>Paid Amount</th>
-                                            <th></th>
+                                            <th id="ViewAction"></th>
                                         </tr>
                                     </thead>
                                     <tbody id="tbodyPartial">

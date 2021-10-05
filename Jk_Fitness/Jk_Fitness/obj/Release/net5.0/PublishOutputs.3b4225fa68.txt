@@ -238,12 +238,15 @@ E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.layout.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.login.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.membersAttendance.js
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.membership-payment.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.membership.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.membershipTypes.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.menuRights.js
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.notification.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.profile.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.salaryManagement.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.validation.js
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\js\page.viewMembershipPayments.js
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.css.map
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Release\net5.0\PubTmp\Out\wwwroot\lib\bootstrap\dist\css\bootstrap-grid.min.css

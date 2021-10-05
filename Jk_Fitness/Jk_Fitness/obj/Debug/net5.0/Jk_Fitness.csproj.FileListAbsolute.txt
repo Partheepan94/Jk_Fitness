@@ -991,3 +991,6 @@ E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\n
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Employee\Profile.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Settings\MenuRights.cshtml.g.cs
 E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Task\Index.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\Notification\Index.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\PaymentsExpenses\Membership.cshtml.g.cs
+E:\Gym_Project\MembershipAttendance\Jk_Fitness\Jk_Fitness\Jk_Fitness\obj\Debug\net5.0\Razor\Views\PaymentsExpenses\ViewMembershipPayments.cshtml.g.cs

@@ -13,11 +13,13 @@ namespace Jk_Fitness.Controllers
     public class PaymentsExpensesController : Controller
     {
         private readonly PaymentsExpensesService service;
+        private readonly SettingsService Setting;
         WebResponce webResponce = null;
 
-        public PaymentsExpensesController(PaymentsExpensesService service)
+        public PaymentsExpensesController(PaymentsExpensesService service, SettingsService Setting)
         {
             this.service = service;
+            this.Setting = Setting;
         }
 
         #region Membership payments and View
@@ -28,6 +30,12 @@ namespace Jk_Fitness.Controllers
         }
         public IActionResult ViewMembershipPayments()
         {
+            var userType = Request.Cookies["Role"];
+            List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            if (result1.Count() > 0)
+            {
+                ViewBag.Delete = result1[34];
+            }
             return View();
         }
 

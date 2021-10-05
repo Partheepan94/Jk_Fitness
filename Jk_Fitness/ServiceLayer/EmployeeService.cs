@@ -99,7 +99,7 @@ namespace ServiceLayer
                     PasswordGenerate password = new();
                     var EmpPwd = password.Generate();
                     var empl = uow.DbContext.Employees.Where(x => x.Branch == employee.Branch.Trim()).OrderBy(x => x.EmployeeId).Select(x => x.EmployeeId).LastOrDefault();
-                    var branchCode = uow.DbContext.Branches.Where(x => x.BranchName == employee.Branch.Trim()).Select(i => i.BranchCode).FirstOrDefault();
+                    var branchCode = uow.DbContext.Branches.Where(x => x.BranchCode == employee.Branch.Trim()).Select(i => i.BranchCode).FirstOrDefault();
                     if (empl != null)
                     {
                         double subs = double.Parse(empl.Split(' ')[1]);
@@ -111,13 +111,13 @@ namespace ServiceLayer
                         employee.EmployeeId = branchCode + "001";
                     }
 
-                    employee.Salutation = employee.Salutation.Trim();
-                    employee.FirstName = employee.FirstName.Trim();
-                    employee.LastName = employee.LastName.Trim();
-                    employee.Email = employee.Email.Trim();
-                    employee.PhoneNo = employee.PhoneNo.Trim();
-                    employee.Branch = employee.Branch.Trim();
-                    employee.UserType = employee.UserType.Trim();
+                    //employee.Salutation = employee.Salutation.Trim();
+                    //employee.FirstName = employee.FirstName.Trim();
+                    //employee.LastName = employee.LastName.Trim();
+                    //employee.Email = employee.Email.Trim();
+                    //employee.PhoneNo = employee.PhoneNo.Trim();
+                    //employee.Branch = employee.Branch.Trim();
+                    //employee.UserType = employee.UserType.Trim();
                     employee.CreatedDate = DateTime.Now;
                     employee.CreatedBy = employee.CreatedBy;
                     employee.Password = Crypto.Hash(EmpPwd);

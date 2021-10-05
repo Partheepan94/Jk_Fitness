@@ -32,7 +32,14 @@ function ListEmployeeDetails() {
                         tr.push("<td><strong style=\"color:red\">Deactive</strong></td>");
 
                     tr.push("<td>" + EmpList[i].salary.toFixed(2) + "</td>");;
-                    tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+                    if ($('#edit').val() == 1 || $('#edit').val() == 2) {
+                        tr.push("<td><button onclick=\"EditEmployee('" + EmpList[i].employeeId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i> Edit </button></td>");
+                        $("#Action").attr('hidden', false);
+                    } else {
+                        $("#Action").attr('hidden', true);
+                    }
+
+                    
                     
                     tr.push('</tr>');
                 }
@@ -107,7 +114,7 @@ function LoadBranchesforSearch() {
                 BranchArray = Result;
                 BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
                 $.each(Result, function () {
-                    BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    BranchforSearch.append($("<option/>").val(this.branchCode).text(this.branchName));
                 });
             } else {
                 Swal.fire({

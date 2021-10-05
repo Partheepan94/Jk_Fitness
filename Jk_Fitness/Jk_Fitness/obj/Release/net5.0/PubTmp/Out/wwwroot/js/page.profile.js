@@ -7,7 +7,7 @@
 
 function LoadProfile() {
     $('.card').addClass('freeze');
-
+    $("#wait").css("display", "block");
     $.ajax({
         type: 'GET',
         url: $("#GetProfileDetails").val(),
@@ -17,6 +17,7 @@ function LoadProfile() {
         },
         contentType: 'application/json; charset=utf-8',
         success: function (response) {
+            $("#wait").css("display", "none");
             var myData = jQuery.parseJSON(JSON.stringify(response));
             if (myData.code == "1") {
                 var Result = myData.data;

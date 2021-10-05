@@ -28,7 +28,7 @@ namespace ServiceLayer
             {
                 var MemId = uow.DbContext.MemberShips.Where(x => x.Branch == Member.Branch.Trim()).OrderBy(x => x.MemberId).Select(x => x.MemberId).LastOrDefault();
                 var PackageDetails = uow.MembershipTypesRepository.GetByID(Member.MemberPackage);
-                var BranchDetail = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim() && x.IsCurrent == true).FirstOrDefault();
+                var BranchDetail = uow.DbContext.Branches.Where(x => x.BranchCode == Member.Branch.Trim() && x.IsCurrent == true).FirstOrDefault();
 
                 if (MemId != 0)
                 {
@@ -38,14 +38,14 @@ namespace ServiceLayer
                         Member.MemberId = ExtendNewBranch(BranchDetail);
                 }
                 else {
-                    int InitialRange = uow.DbContext.Branches.Where(x => x.BranchName == Member.Branch.Trim()).Select(x => x.MembershipInitialRangeFrom).FirstOrDefault();
+                    int InitialRange = uow.DbContext.Branches.Where(x => x.BranchCode == Member.Branch.Trim()).Select(x => x.MembershipInitialRangeFrom).FirstOrDefault();
                     Member.MemberId = InitialRange == 0 ? InitialRange + 1 : InitialRange;
                 }
                
-                Member.FirstName = Member.FirstName.Trim();
-                Member.LastName = Member.LastName.Trim();
-                Member.Gender = Member.Gender.Trim();
-                Member.Branch = Member.Branch.Trim();
+                //Member.FirstName = Member.FirstName.Trim();
+                //Member.LastName = Member.LastName.Trim();
+                //Member.Gender = Member.Gender.Trim();
+                //Member.Branch = Member.Branch.Trim();
                 Member.CreatedBy = Member.CreatedBy;
                 Member.CreatedDate = DateTime.Now;
                 if (Member.IsFreeMembership)
@@ -66,7 +66,7 @@ namespace ServiceLayer
                 StringBuilder body = new StringBuilder();
 
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
-                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + Member.Branch + "</p>");
+                body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + BranchDetail.BranchName + "</p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
                 if (Member.IsFreeMembership) {
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong> Free Membership</strong></p>");
@@ -119,7 +119,7 @@ namespace ServiceLayer
         {
             try
             {
-                List<MemberShip> Member = uow.MembershipRepository.GetAll().Where(x => x.Branch == Mem.Branch.Trim()).ToList();
+                List<MemberShip> Member = uow.MembershipRepository.GetAll().Where(x => x.Branch == Mem.Branch.Trim() && x.Active == Mem.Active).ToList();
 
                 if (Member != null && Member.Count > 0)
                 {
@@ -382,7 +382,7 @@ namespace ServiceLayer
                 var employee = uow.EmployeeRepository.GetByID(EmpId);
                 List<Branch> branch = uow.BranchRepository.GetAll().Where(x => x.IsCurrent == true).OrderBy(x => x.BranchCode).ToList();
 
-                branch = employee.UserType == "Admin" ? branch : branch.Where(x => x.BranchName == employee.Branch).ToList();
+                branch = employee.UserType == "Admin" ? branch : branch.Where(x => x.BranchCode == employee.Branch).ToList();
 
                 if (branch != null && branch.Count > 0)
                 {

@@ -114,7 +114,7 @@ function LoadBranchesforSearch() {
                 BranchArray = Result;
                 BranchforSearch.append($("<option/>").val(0).text("-Select All Branch-"));
                 $.each(Result, function () {
-                    BranchforSearch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    BranchforSearch.append($("<option/>").val(this.branchCode).text(this.branchName));
                 });
             } else {
                 Swal.fire({

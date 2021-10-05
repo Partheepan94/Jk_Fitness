@@ -71,7 +71,7 @@ function LoadBranchesforSearch() {
                 BranchArray = Result;
 
                 $.each(Result, function () {
-                    Branch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    Branch.append($("<option/>").val(this.branchCode).text(this.branchName));
                 });
                 LoadAttendance();
             } else {
@@ -460,10 +460,10 @@ function LoadMemberAttendance() {
             var td = [];
             td.push('<td>');
             if ($('#edit').val() == 1 || $('#edit').val() == 2)
-                td.push("<button onclick=\"EditMemberAttendance('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+                td.push("<button onclick=\"EditMemberAttendance('" + MembersAttendanceArray[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
 
             if ($('#delete').val() == 1 || $('#delete').val() == 2)
-                td.push("<button onclick=\"DeleteMemberAttendance('" + Result[i].id + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+                td.push("<button onclick=\"DeleteMemberAttendance('" + MembersAttendanceArray[i].id + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
             td.push('</td>');
 
             tr.push(td.join(' '));

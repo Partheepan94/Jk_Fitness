@@ -304,8 +304,16 @@ function LoadAttendance() {
                         tr.push("<td>" + Result[i].eveningInTime + " - " + Result[i].eveningOutTime + "</td>");
 
 
-                    tr.push("<td><button onclick=\"EditMemberAttendance('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button>  <button onclick=\"DeleteMemberAttendance('" + Result[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button></td>");
+                    var td = [];
+                    td.push('<td>');
+                    if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                        td.push("<button onclick=\"EditMemberAttendance('" + Result[i].memberId + "')\" class=\"btn btn-primary\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
 
+                    if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                        td.push("<button onclick=\"DeleteMemberAttendance('" + Result[i].id + "')\" class=\"btn btn-danger\" data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+                    td.push('</td>');
+
+                    tr.push(td.join(' '));
                     tr.push('</tr>');
                 }
 
@@ -349,17 +357,22 @@ function getFormattedDate(date) {
     return month + '/' + day + '/' + year;
 }
 
-$("#Branch").change(function () {
-    LoadAttendance();
-});
+//$("#Branch").change(function () {
+//    LoadAttendance();
+//});
 
-$("#AttendDate").bind('keyup', function () {
-    LoadAttendance();
-});
+//$("#AttendDate").bind('keyup', function () {
+//    LoadAttendance();
+//});
 
 //$("#AttendDate").change(function () {
 //    LoadAttendance();
 //});
+
+$("#btnSearch").click(function () {
+    LoadAttendance();
+    $('#FName').val("");
+});
 
 $("#FName").bind('keyup', function () {
     SearchMemberAttendance();
@@ -393,7 +406,18 @@ function SearchMemberAttendance() {
             else
                 tr.push("<td>" + Result[i].eveningInTime + " - " + Result[i].eveningOutTime + "</td>");
 
-            tr.push("<td><button onclick=\"EditMemberAttendance('" + Result[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button>  <button onclick=\"DeleteMemberAttendance('" + Result[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button></td>");
+            
+            var td = [];
+            td.push('<td>');
+            if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                td.push("<button onclick=\"EditMemberAttendance('" + Result[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+            if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                td.push("<button onclick=\"DeleteMemberAttendance('" + Result[i].id + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+            td.push('</td>');
+
+            tr.push(td.join(' '));
+
             tr.push('</tr>');
         }
 
@@ -433,7 +457,16 @@ function LoadMemberAttendance() {
             else
                 tr.push("<td>" + MembersAttendanceArray[i].eveningInTime + " - " + MembersAttendanceArray[i].eveningOutTime + "</td>");
 
-            tr.push("<td><button onclick=\"EditMemberAttendance('" + MembersAttendanceArray[i].memberId + "')\" class=\"btn btn-primary\"><i class=\"fa fa-edit\"></i></button>  <button onclick=\"DeleteMemberAttendance('" + MembersAttendanceArray[i].id + "')\" class=\"btn btn-danger\"><i class=\"fa fa-trash\"></i></button></td>");
+            var td = [];
+            td.push('<td>');
+            if ($('#edit').val() == 1 || $('#edit').val() == 2)
+                td.push("<button onclick=\"EditMemberAttendance('" + MembersAttendanceArray[i].memberId + "')\" class=\"btn btn-primary\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Edit\"><i class=\"fa fa-edit\"></i></button>");
+
+            if ($('#delete').val() == 1 || $('#delete').val() == 2)
+                td.push("<button onclick=\"DeleteMemberAttendance('" + MembersAttendanceArray[i].id + "')\" class=\"btn btn-danger\"data-bs-toggle=\"tooltip\" data-bs-placement=\"top\" title=\"Delete\"><i class=\"fa fa-trash\"></i></button>");
+            td.push('</td>');
+
+            tr.push(td.join(' '));
             tr.push('</tr>');
         }
 

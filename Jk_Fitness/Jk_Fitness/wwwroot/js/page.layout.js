@@ -1,4 +1,5 @@
 ﻿document.getElementById("Name").innerHTML = JSON.parse(window.localStorage.getItem('Empl')).Name;
+
 var image = JSON.parse(window.localStorage.getItem('Empl')).Image;
 var url = window.location.href.split('/', 3).join().replace(",,", "//") + "/dist/img/default.jpg";
 if (image != null) {
@@ -8,6 +9,7 @@ else {
     $('#UserImg').attr("src", url);
 }
 UserRights();
+NotificationValues();
 $(function () {
     $('a').each(function () {
         if ($(this).prop('href') == window.location.href) {
@@ -103,12 +105,54 @@ function UserRights() {
                     $("#MenuRights").attr('hidden', false);
                 else
                     $("#MenuRights").attr('hidden', true);
+
+                if (Result[32].role == 1 || Result[32].role == 2)
+                    $("#NewPayment").attr('hidden', false);
+                else
+                    $("#NewPayment").attr('hidden', true);
+
+                if (Result[33].role == 1 || Result[33].role == 2)
+                    $("#ViewPayment").attr('hidden', false);
+                else
+                    $("#ViewPayment").attr('hidden', true);
             } else {
                 Swal.fire({
                     icon: 'error',
                     title: 'Oops...',
                     text: myData.message,
                 });
+            }
+        },
+        error: function (jqXHR, exception) {
+        }
+    });
+}
+
+function NotificationValues() {
+
+    $.ajax({
+        type: 'GET',
+        url: $("#GetNotificationDetails").val(),
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        success: function (response) {
+            var myData = jQuery.parseJSON(JSON.stringify(response));
+            if (myData.code == "1") {
+                var Result = myData.data;
+                //memberShipExpirationToday = Result.memberShipExpirationToday;
+                //memberShipExpirationTomorrow = Result.memberShipExpirationTomorrow;
+                //packageExpirationToday = Result.packageExpirationToday;
+                //packageExpirationTomorrow = Result.packageExpirationTomorrow;
+                document.getElementById("packLastMonth").innerHTML = Result.packageExpirationLastMonth.length;
+                document.getElementById("packThisMonth").innerHTML = Result.packageExpirationThisMonth.length;
+                document.getElementById("packNextMonth").innerHTML = Result.packageExpirationNextMonth.length;
+                document.getElementById("memLastMonth").innerHTML = Result.memberShipExpirationLastMonth.length;
+                document.getElementById("memThisMonth").innerHTML = Result.memberShipExpirationThisMonth.length;
+                document.getElementById("memNextMonth").innerHTML = Result.memberShipExpirationNextMonth.length;
+                document.getElementById("totalCount").innerHTML = (Result.packageExpirationLastMonth.length + Result.packageExpirationThisMonth.length + Result.packageExpirationNextMonth.length + Result.memberShipExpirationLastMonth.length + Result.memberShipExpirationThisMonth.length + Result.memberShipExpirationNextMonth.length);
+
+            } else {
+
             }
         },
         error: function (jqXHR, exception) {

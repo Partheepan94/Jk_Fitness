@@ -45,10 +45,50 @@
             </ul>
             <!-- Right navbar links -->
             <ul class="navbar-nav ml-auto">
-
+                <li class="nav-item dropdown">
+                    <a class="nav-link" data-toggle="dropdown" href="#">
+                        <i class="far fa-bell"></i>
+                        <span id="totalCount" class="badge badge-warning navbar-badge"></span>
+                    </a>
+                    <div class="dropdown-menu dropdown-menu-lg dropdown-menu-right">
+                        <span class="dropdown-item dropdown-header"> Notifications</span>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">
+                            Package Expiration Last Month
+                            <span id="packLastMonth" style="color:cornflowerblue"></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">
+                            Package Expiration This Month
+                            <span id="packThisMonth" style="color:cornflowerblue"></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">
+                            Package Expiration Next Month
+                            <span id="packNextMonth" style="color:cornflowerblue"></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">
+                            Membership Expiration Last Month
+                            <span id="memLastMonth" style="color:cornflowerblue"></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">
+                            Membership Expiration This Month
+                            <span id="memThisMonth" style="color:cornflowerblue"></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a class="dropdown-item">
+                            Membership Expiration Next Month
+                            <span id="memNextMonth" style="color:cornflowerblue"></span>
+                        </a>
+                        <div class="dropdown-divider"></div>
+                        <a href="@Url.Action("Index", "Notification")" class="dropdown-item dropdown-footer">See All Notifications</a>
+                    </div>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#">
-                        <img src="~/dist/img/default.jpg" id="UserImg" alt="AdminLTE Logo" class=" brand-image img-circle elevation-3" style="height: 50px;">
+                        <img src="~/dist/img/default.jpg" id="UserImg" alt="AdminLTE Logo" class="img-size-32 mr-3 img-circle">
                         <span id="Name"></span> <b class="caret"></b>
                     </a>
                     <div class="dropdown-menu">
@@ -110,7 +150,7 @@
                                 </li>
                             </ul>
                         </li>
-                        <li class="nav-item">
+                        @*<li class="nav-item">
                             <a href="#" class="nav-link active">
                                 <i class="nav-icon fas fa-cog"></i>
                                 <p>
@@ -119,17 +159,51 @@
                                 </p>
                             </a>
                             <ul class="nav nav-treeview">
-                                <li class="nav-item">
+                                <li class="nav-item" id="NewPayment">
                                     <a href="@Url.Action("Membership", "PaymentsExpenses")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>New Membership Payments</p>
                                     </a>
                                 </li>
-                                <li class="nav-item">
+                                <li class="nav-item" id="ViewPayment">
                                     <a href="@Url.Action("ViewMembershipPayments", "PaymentsExpenses")" class="nav-link">
                                         <i class="far fa-circle nav-icon"></i>
                                         <p>View Membership Payment</p>
                                     </a>
+                                </li>
+                            </ul>
+                        </li>*@
+                        <li class="nav-item">
+                            <a href="#" class="nav-link active">
+                                <i class="nav-icon fas fa-circle"></i>
+                                <p>
+                                    Payments & Expenses
+                                    <i class="right fas fa-angle-left"></i>
+                                </p>
+                            </a>
+                            <ul class="nav nav-treeview">
+                                <li class="nav-item">
+                                    <a href="#" class="nav-link">
+                                        <i class="far fa-circle nav-icon"></i>
+                                        <p>
+                                            Membership Payments
+                                            <i class="right fas fa-angle-left"></i>
+                                        </p>
+                                    </a>
+                                    <ul class="nav nav-treeview">
+                                        <li class="nav-item" id="NewPayment">
+                                            <a href="@Url.Action("Membership", "PaymentsExpenses")" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>New Payments</p>
+                                            </a>
+                                        </li>
+                                        <li class="nav-item" id="ViewPayment">
+                                            <a href="@Url.Action("ViewMembershipPayments", "PaymentsExpenses")" class="nav-link">
+                                                <i class="far fa-dot-circle nav-icon"></i>
+                                                <p>View Payments</p>
+                                            </a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>
@@ -181,6 +255,7 @@
                 <input type="hidden" id="SignOutLogin" value="@Url.Action("SignOutLogin","Login")" />
                 <input type="hidden" id="LoginHome" value="@Url.Action("Index","Login")" />
                 <input type="hidden" id="GetUserRights" value="@Url.Action("GetUserRights","Settings")" />
+                <input type="hidden" id="GetNotificationDetails" value="@Url.Action("GetNotifications", "Notification")" />
             </div>
             <!-- /.sidebar -->
         </aside>
