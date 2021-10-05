@@ -71,7 +71,7 @@ function LoadBranchesforSearch() {
                 BranchArray = Result;
 
                 $.each(Result, function () {
-                    Branch.append($("<option/>").val(this.branchName).text(this.branchName));
+                    Branch.append($("<option/>").val(this.branchCode).text(this.branchName));
                 });
                 LoadAttendance();
             } else {

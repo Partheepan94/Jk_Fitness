@@ -13,7 +13,6 @@ namespace ServiceLayer
     {
         private readonly UnitOfWork uow;
         private readonly IMailService mailService;
-        WebResponce webResponce = null;
         public ScheduleTaskService(UnitOfWork uow, IMailService mailService)
         {
             this.uow = uow;
@@ -235,86 +234,6 @@ namespace ServiceLayer
             mailService.SendEmailAsync(request);
         }
 
-        #region Update Branch servicce Class
-        public WebResponce Branchupdates()
-        {
-            try
-            {
-                List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
-                foreach (var item in Member) {
-                    item.Branch = uow.BranchRepository.GetAll().Where(x => x.BranchName == item.Branch).Select(x => x.BranchCode).FirstOrDefault();
-                    uow.MembershipRepository.Update(item);
-                    uow.Save();
-                }
-                if (Member != null)
-                {
-                    webResponce = new WebResponce()
-                    {
-                        Code = 1,
-                        Message = "Success",
-                    };
-                }
-                else
-                {
-                    webResponce = new WebResponce()
-                    {
-                        Code = 0,
-                        Message = "Seems Like Doesn't have Records!"
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                webResponce = new WebResponce()
-                {
-                    Code = -1,
-                    Message = ex.Message.ToString()
-                };
-            }
-            return webResponce;
-        }
-
-        public WebResponce EmployeeBranchupdates()
-        {
-            try
-            {
-                List<Employee> employees = uow.EmployeeRepository.GetAll().ToList();
-                foreach (var item in employees)
-                {
-                    item.Branch = uow.BranchRepository.GetAll().Where(x => x.BranchName == item.Branch).Select(x => x.BranchCode).FirstOrDefault();
-                    uow.EmployeeRepository.Update(item);
-                    uow.Save();
-                }
-                if (employees != null)
-                {
-                    webResponce = new WebResponce()
-                    {
-                        Code = 1,
-                        Message = "Success",
-                    };
-                }
-                else
-                {
-                    webResponce = new WebResponce()
-                    {
-                        Code = 0,
-                        Message = "Seems Like Doesn't have Records!"
-                    };
-                }
-            }
-            catch (Exception ex)
-            {
-                webResponce = new WebResponce()
-                {
-                    Code = -1,
-                    Message = ex.Message.ToString()
-                };
-            }
-            return webResponce;
-        }
-
-
-        #endregion
 
     }
 }

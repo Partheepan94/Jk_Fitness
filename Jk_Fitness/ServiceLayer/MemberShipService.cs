@@ -240,10 +240,6 @@ namespace ServiceLayer
                     {
                         Mem.PackageExpirationDate = DateTime.Now.AddYears(100).Date;
                     }
-                    else
-                    {
-                        Mem.PackageExpirationDate = Mem.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
-                    }
                     Mem.MembershipExpirationDate = Mem.PackageExpirationDate.AddMonths(1).Date;
                     if (Mem.MemberPackage != member.MemberPackage)
                     {

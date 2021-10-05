@@ -148,12 +148,14 @@ $('#btnAddBranch').click(function () {
     var RangeFrom = $('#InRangefrom').val();
     var RangeTo = $('#InRangeTo').val();
     var MonthRange = $('#MonthRange').val();
+    var BranchCode = $("#Bcode").val();
 
    
     var data = '{"Id": ' + Id +
         ' ,"BranchName":" ' + BranchName +
         ' " ,"MembershipInitialRangeFrom": ' + RangeFrom +
-        ' ,"MembershipInitialRangeTo": ' + RangeTo +
+        ',"BranchCode":"' + BranchCode +
+        ' " ,"MembershipInitialRangeTo": ' + RangeTo +
         ' ,"MembershipActiveMonthRange": ' + MonthRange + '}';
 
     if (!$('#Bname').val() || !$('#InRangefrom').val() || !$('#InRangeTo').val() || !$('#MonthRange').val()) {

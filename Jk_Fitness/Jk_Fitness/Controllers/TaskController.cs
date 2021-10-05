@@ -10,7 +10,7 @@ namespace Jk_Fitness.Controllers
     public class TaskController : Controller
     {
         private readonly ScheduleTaskService taskService;
-        WebResponce webResponce = null;
+        
         public TaskController(ScheduleTaskService taskService)
         {
             this.taskService = taskService;
@@ -27,45 +27,6 @@ namespace Jk_Fitness.Controllers
             return View();
         }
 
-        #region Update Branch
-
-        [HttpGet]
-        public WebResponce UpdateMemberBranch()
-        {
-            try
-            {
-                webResponce = taskService.Branchupdates();
-                return webResponce;
-            }
-            catch (Exception Ex)
-            {
-                webResponce = new WebResponce()
-                {
-                    Code = -1,
-                    Message = Ex.Message
-                };
-                return webResponce;
-            }
-        }
-
-        [HttpGet]
-        public WebResponce UpdateEmployeeBranch()
-        {
-            try
-            {
-                webResponce = taskService.EmployeeBranchupdates();
-                return webResponce;
-            }
-            catch (Exception Ex)
-            {
-                webResponce = new WebResponce()
-                {
-                    Code = -1,
-                    Message = Ex.Message
-                };
-                return webResponce;
-            }
-        }
-        #endregion
+        
     }
 }

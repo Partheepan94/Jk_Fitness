@@ -139,19 +139,22 @@ namespace ServiceLayer
         {
             try
             {
-                var Brch = uow.DbContext.Branches.Where(x => x.Id == branch.Id).FirstOrDefault();
-                if (Brch != null)
+                var Branches = uow.DbContext.Branches.Where(x => x.BranchCode == branch.BranchCode).ToList();
+                if (Branches.Count > 0)
                 {
-                    Brch.BranchName = branch.BranchName.Trim();
-                    Brch.MembershipInitialRangeFrom = branch.MembershipInitialRangeFrom;
-                    Brch.MembershipInitialRangeTo = branch.MembershipInitialRangeTo;
-                    Brch.MembershipActiveMonthRange = branch.MembershipActiveMonthRange;
+                    foreach (var Brch in Branches)
+                    {
+                        Brch.BranchName = branch.BranchName.Trim();
+                        Brch.MembershipInitialRangeFrom = branch.MembershipInitialRangeFrom;
+                        Brch.MembershipInitialRangeTo = branch.MembershipInitialRangeTo;
+                        Brch.MembershipActiveMonthRange = branch.MembershipActiveMonthRange;
 
-                    Brch.ModifiedDate = DateTime.Now;
-                    Brch.ModifiedBy = branch.ModifiedBy;
-                    uow.BranchRepository.Update(Brch);
-                    uow.Save();
-
+                        Brch.ModifiedDate = DateTime.Now;
+                        Brch.ModifiedBy = branch.ModifiedBy;
+                        uow.BranchRepository.Update(Brch);
+                        uow.Save();
+                    }
+                   
                     webResponce = new WebResponce()
                     {
                         Code = 1,
