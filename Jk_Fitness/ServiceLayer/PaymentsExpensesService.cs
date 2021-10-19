@@ -187,7 +187,9 @@ namespace ServiceLayer
 
                     memberdetails.PackageExpirationDate = memberdetails.PackageExpirationDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
                     memberdetails.MembershipExpirationDate = memberdetails.PackageExpirationDate.AddMonths(1).Date;
-                    memberdetails.Active = true;
+
+                    if(memberdetails.PackageExpirationDate > DateTime.Now.Date)
+                        memberdetails.Active = true;
 
                     uow.MembershipRepository.Update(memberdetails);
                     uow.Save();
@@ -356,7 +358,7 @@ namespace ServiceLayer
                     var PackageDetails = uow.MembershipTypesRepository.GetByID(memberdetails.MemberPackage);
 
                     memberdetails.PackageExpirationDate = memberdetails.PackageExpirationDate.AddMonths(-PackageDetails.MonthsPerPackage).Date;
-                    memberdetails.MembershipExpirationDate = memberdetails.PackageExpirationDate.AddMonths(-1).Date;
+                    memberdetails.MembershipExpirationDate = memberdetails.PackageExpirationDate.AddMonths(1).Date;
                     memberdetails.Active = false;
 
                     uow.MembershipRepository.Update(memberdetails);

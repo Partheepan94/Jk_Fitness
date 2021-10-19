@@ -3,7 +3,7 @@
     LoadStatus();
     var BranchArray;
     var MemberShipPackageArray;
-    var EmployeeDetailsArray;
+    var EmployeeDetailsArray = [];
     if ($('#add').val() == "1" || $('#add').val() == "2") {
         $("#btnAdd").attr('hidden', false);
     }
@@ -256,8 +256,6 @@ $('#btnAddMember').click(function () {
 });
 
 function ListMemberDetails() {
-    var Branch = $('#BranchforSearch').val();
-    var Status = $('#StatusforSearch').val();
     $("#wait").css("display", "block");
     var data = new FormData();
     data.append("Branch", $('#BranchforSearch').val());
@@ -314,7 +312,7 @@ function ListMemberDetails() {
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblMember").css("display", "none");
-
+                EmployeeDetailsArray = [];
                 var tr = [];
                 $("#tbodyid").empty();
                 $('.tblMember').append($(tr.join('')));
@@ -514,16 +512,39 @@ function LoadBranchesforSearch() {
 
 function SearchMembership() {
     $("#wait").css("display", "block");
-    var FName = $('#NameforSearch').val();
-    if (FName == "") {
-        var Result = EmployeeDetailsArray;
+    var searchVal = $('#ValueforSearch').val();
+
+    var searchOpt = $('#SearchOptions').val();
+
+    var Result = [];
+
+    if (searchVal == "") {
+         Result = EmployeeDetailsArray;
     } else {
-        var Result = $.grep(EmployeeDetailsArray, function (v) {
-            return (v.firstName.search(new RegExp(FName, "i")) != -1);
-        })
+
+        if (searchOpt == "1") {
+            Result = $.grep(EmployeeDetailsArray, function (v) {
+                return ((v.firstName.search(new RegExp(searchVal, "i")) != -1) || (v.lastName.search(new RegExp(searchVal, "i")) != -1));
+            })
+        }
+        else if (searchOpt == "2") {
+             Result = $.grep(EmployeeDetailsArray, function (v) {
+                return (v.nic.search(new RegExp(searchVal, "i")) != -1);
+            })
+        }
+        else if (searchOpt == "3") {
+             Result = $.grep(EmployeeDetailsArray, function (v) {
+                return (v.contactNo.search(new RegExp(searchVal, "i")) != -1);
+            })
+        }
+        else {
+             Result = $.grep(EmployeeDetailsArray, function (v) {
+                return (v.memberId === parseInt(searchVal));
+            })
+        }
+
+       
     }
-
-
 
     $("#wait").css("display", "none");
     if (Result.length != 0) {
@@ -534,9 +555,9 @@ function SearchMembership() {
             tr.push("<td>" + Result[i].memberId + "</td>");;
             tr.push("<td>" + Result[i].firstName + " " + Result[i].lastName + "</td>");
 
-            tr.push("<td>" + Result[i].nic + "</td>");;
-            tr.push("<td>" + Result[i].branch + "</td>");;
-            tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");;
+            tr.push("<td>" + Result[i].nic + "</td>");
+            tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");
+            tr.push("<td>" + getFormattedDate(new Date(Result[i].membershipExpirationDate)) + "</td>");
             if (Result[i].active == true)
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
@@ -581,13 +602,13 @@ $("#StatusforSearch").change(function () {
     ListMemberDetails();
 });
 
-$("#NameforSearch").bind('keyup', function () {
-    SearchMembership();
+$("#SearchOptions").change(function () {
+    ListMemberDetails();
+    $('#ValueforSearch').val('');
 });
 
-
 function Clear() {
-    $('#NameforSearch').val('');
+    $('#ValueforSearch').val('');
     $('#MembershipId').val(0);
     $('#Fname').val('');
     $('#Lname').val('');
@@ -789,4 +810,23 @@ function LoadStatus() {
         StatusforSearch.append($("<option/>").val(this.Id).text(this.Name));
     });
     LoadBranchesforSearch();
+    LoadSearchOption();
+}
+
+$("#ValueforSearch").bind('keyup', function () {
+    SearchMembership();
+});
+
+function LoadSearchOption() {
+    $('#SearchOptions').find('option').remove().end();
+    searchOptions = $('#SearchOptions');
+    var searchOptionsList = [
+        { Id: 1, Name: "Name" },
+        { Id: 2, Name: "NIC" },
+        { Id: 3, Name: "Phone Number" },
+        { Id: 4, Name: "Membership Id" }
+    ];
+    $.each(searchOptionsList, function () {
+        searchOptions.append($("<option/>").val(this.Id).text(this.Name));
+    });
 }
