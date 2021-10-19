@@ -103,7 +103,11 @@ namespace ServiceLayer
                     var memberdetails = uow.MembershipRepository.GetByID(payment.MemberId);
                     var PackageDetails = uow.MembershipTypesRepository.GetByID(memberdetails.MemberPackage);
 
-                    memberdetails.PackageExpirationDate = memberdetails.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
+                    if(payment.PaymentDate > memberdetails.MembershipExpirationDate)
+                        memberdetails.PackageExpirationDate = payment.PaymentDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
+                    else
+                        memberdetails.PackageExpirationDate = memberdetails.PackageExpirationDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
+
                     memberdetails.MembershipExpirationDate = memberdetails.PackageExpirationDate.AddMonths(1).Date;
 
                     if(memberdetails.PackageExpirationDate > DateTime.Now.Date)

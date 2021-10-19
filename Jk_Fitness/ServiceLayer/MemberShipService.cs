@@ -32,28 +32,26 @@ namespace ServiceLayer
 
                 if (MemId != 0)
                 {
-                    if(MemId + 1 <= BranchDetail.MembershipInitialRangeTo)
+                    if (MemId + 1 <= BranchDetail.MembershipInitialRangeTo)
                         Member.MemberId = MemId + 1;
                     else
                         Member.MemberId = ExtendNewBranch(BranchDetail);
                 }
-                else {
+                else
+                {
                     int InitialRange = uow.DbContext.Branches.Where(x => x.BranchCode == Member.Branch.Trim()).Select(x => x.MembershipInitialRangeFrom).FirstOrDefault();
                     Member.MemberId = InitialRange == 0 ? InitialRange + 1 : InitialRange;
                 }
-               
-                //Member.FirstName = Member.FirstName.Trim();
-                //Member.LastName = Member.LastName.Trim();
-                //Member.Gender = Member.Gender.Trim();
-                //Member.Branch = Member.Branch.Trim();
+
                 Member.CreatedBy = Member.CreatedBy;
                 Member.CreatedDate = DateTime.Now;
                 if (Member.IsFreeMembership)
                 {
                     Member.PackageExpirationDate = DateTime.Now.AddYears(100).Date;
                 }
-                else {
-                    Member.PackageExpirationDate = Member.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
+                else
+                {
+                    Member.PackageExpirationDate = Member.JoinDate.Date;
                 }
                 Member.MembershipExpirationDate = Member.PackageExpirationDate.AddMonths(1).Date;
                 uow.MembershipRepository.Insert(Member);
@@ -68,10 +66,12 @@ namespace ServiceLayer
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Dear <strong>" + Member.FirstName + "</strong>,</p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Welcome to JK Fitness - " + BranchDetail.BranchName + "</p>");
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Membership Id: <strong> " + Member.MemberId + "</strong></p>");
-                if (Member.IsFreeMembership) {
+                if (Member.IsFreeMembership)
+                {
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong> Free Membership</strong></p>");
                 }
-                else {
+                else
+                {
                     body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Your Fitness Package: <strong>" + PackageDetails.MembershipName + "</strong></p>Package Amount: &nbsp;<strong>" + PackageDetails.MembershipAmount + "</strong><br />");
                 }
                 body.AppendLine("<p style='line - height: 18px; font - family: verdana; font - size: 12px;'>Package ExpirationDate: <strong> " + Member.PackageExpirationDate.ToString("dd.MM.yyyy") + "</strong></p>");
@@ -190,7 +190,7 @@ namespace ServiceLayer
         {
             try
             {
-                var Mem = uow.DbContext.MemberShips.Where(x => x.MemberId==member.MemberId).FirstOrDefault();
+                var Mem = uow.DbContext.MemberShips.Where(x => x.MemberId == member.MemberId).FirstOrDefault();
                 if (Mem != null)
                 {
                     Mem.FirstName = member.FirstName.Trim();
@@ -306,7 +306,7 @@ namespace ServiceLayer
         {
             try
             {
-                var MeM = uow.DbContext.MemberShips.Where(x => x.MemberId==Member.MemberId).FirstOrDefault();
+                var MeM = uow.DbContext.MemberShips.Where(x => x.MemberId == Member.MemberId).FirstOrDefault();
                 if (MeM != null)
                 {
                     uow.MembershipRepository.Delete(MeM);
@@ -409,18 +409,19 @@ namespace ServiceLayer
             return webResponce;
         }
 
-        public WebResponce ListMemberShipAttendanceDetails()
+        public WebResponce ViewMemberShipAttendanceDetails(AttendancesVM attendances)
         {
             try
             {
                 List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == DateTime.Now.Date).ToList();
-                List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
-                var records = (from m in uow.DbContext.MemberShips
-                               join b in uow.DbContext.MembersAttendances.Where(x => x.AttendDate.Date == DateTime.Now.Date) on m.MemberId equals b.MembershipId into lg
-                               from x in lg.DefaultIfEmpty()
-                               select new { m.MemberId, m.FirstName, m.LastName, m.Branch, x.MorningInTime, x.MorningOutTime, x.EveningInTime, x.EveningOutTime, AttendDate = x.AttendDate.Date == DateTime.Now.Date ? x.AttendDate.Date : default, Id = x.Id > 0 ? x.Id : 0 }).ToList();
-                if (Member != null && Member.Count > 0)
+                if (MemberAttendances != null && MemberAttendances.Count > 0)
                 {
+                    List<MemberShip> Member = uow.MembershipRepository.GetAll().Where(x => x.Active == true).ToList();
+
+                    var records = (from b in uow.DbContext.MembersAttendances.Where(x => x.AttendDate.Date == attendances.AttendanceDate.Date)
+                                   join m in uow.DbContext.MemberShips.Where(x => x.Branch == attendances.Branch.Trim()) on b.MembershipId equals m.MemberId
+                                   select new { m.MemberId, m.FirstName, m.LastName, m.Branch, b.MorningInTime, b.MorningOutTime, b.EveningInTime, b.EveningOutTime, AttendDate = b.AttendDate.Date == DateTime.Now.Date ? b.AttendDate.Date : default, Id = b.Id > 0 ? b.Id : 0 }).ToList();
+
                     webResponce = new WebResponce()
                     {
                         Code = 1,
@@ -562,9 +563,9 @@ namespace ServiceLayer
             {
                 List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == DateTime.Now.Date).ToList();
 
-                List<MemberShip> Member = uow.MembershipRepository.GetAll().ToList();
+                List<MemberShip> Member = uow.MembershipRepository.GetAll().Where(x => x.Active == true).ToList();
 
-                var records = (from m in uow.DbContext.MemberShips.Where(x=>x.Branch==attendances.Branch.Trim())
+                var records = (from m in uow.DbContext.MemberShips.Where(x => x.Branch == attendances.Branch.Trim())
                                join b in uow.DbContext.MembersAttendances.Where(x => x.AttendDate.Date == attendances.AttendanceDate.Date) on m.MemberId equals b.MembershipId into lg
                                from x in lg.DefaultIfEmpty()
                                select new { m.MemberId, m.FirstName, m.LastName, m.Branch, x.MorningInTime, x.MorningOutTime, x.EveningInTime, x.EveningOutTime, AttendDate = x.AttendDate.Date == DateTime.Now.Date ? x.AttendDate.Date : default, Id = x.Id > 0 ? x.Id : 0 }).ToList();

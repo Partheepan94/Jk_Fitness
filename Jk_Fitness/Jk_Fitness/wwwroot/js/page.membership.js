@@ -24,7 +24,7 @@ $('#btnAdd').click(function () {
     var CurDate = new Date();
     $("#DOB").val(getFormattedDate(CurDate));
     $("#JoinDate").val(getFormattedDate(CurDate));
-    $('#Status').prop('checked', true);
+    //$('#Status').prop('checked', true);
     $("#Branch").attr("disabled", false);
     $("#Package").attr("disabled", false);
     $("#FreeMembership").attr("disabled", false);
