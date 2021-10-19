@@ -105,7 +105,9 @@ namespace ServiceLayer
 
                     memberdetails.PackageExpirationDate = memberdetails.JoinDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
                     memberdetails.MembershipExpirationDate = memberdetails.PackageExpirationDate.AddMonths(1).Date;
-                    memberdetails.Active = true;
+
+                    if(memberdetails.PackageExpirationDate > DateTime.Now.Date)
+                        memberdetails.Active = true;
 
                     uow.MembershipRepository.Update(memberdetails);
                     uow.Save();
