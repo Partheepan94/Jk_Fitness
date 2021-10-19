@@ -187,12 +187,24 @@ namespace Jk_Fitness.Controllers
             return View();
         }
 
-        [HttpGet]
-        public WebResponce GetMemberShipAttendanceDetails()
+        public IActionResult ViewMembershipAttendance()
+        {
+            //var userType = Request.Cookies["Role"];
+            //List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
+            //if (result1.Count() > 0)
+            //{
+            //    ViewBag.Edit = result1[14];
+            //    ViewBag.Delete = result1[15];
+            //}
+            return View();
+        }
+
+        [HttpPost]
+        public WebResponce ViewMemberShipAttendanceDetails(AttendancesVM attendances)
         {
             try
             {
-                webResponce = MemberShip.ListMemberShipAttendanceDetails();
+                webResponce = MemberShip.ViewMemberShipAttendanceDetails(attendances);
                 return webResponce;
             }
             catch (Exception Ex)
