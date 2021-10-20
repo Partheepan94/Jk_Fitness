@@ -233,7 +233,11 @@ namespace ServiceLayer
                     Mem.Body = member.Body;
                     Mem.Fitness = member.Fitness;
                     Mem.Athletics = member.Athletics;
-                    Mem.JoinDate = member.JoinDate;
+                    if(member.JoinDate.Date != Mem.JoinDate.Date)
+                    {
+                        Mem.PackageExpirationDate = member.JoinDate.Date;
+                        Mem.JoinDate = member.JoinDate;
+                    }                    
                     Mem.IsFreeMembership = member.IsFreeMembership;
                     var PackageDetails = uow.MembershipTypesRepository.GetByID(member.MemberPackage);
                     if (member.IsFreeMembership)
@@ -244,7 +248,6 @@ namespace ServiceLayer
                     if (Mem.MemberPackage != member.MemberPackage)
                     {
                         Mem.MemberPackage = member.MemberPackage;
-
 
                         var request = new MailRequest();
                         request.ToEmail = Mem.Email;
