@@ -381,7 +381,7 @@ namespace ServiceLayer
                 var employee = uow.EmployeeRepository.GetByID(EmpId);
                 List<Branch> branch = uow.BranchRepository.GetAll().Where(x => x.IsCurrent == true).OrderBy(x => x.BranchCode).ToList();
 
-                branch = employee.UserType == "Admin" ? branch : branch.Where(x => x.BranchCode == employee.Branch).ToList();
+                branch = employee.UserType == "Admin" || employee.UserType == "Temporary Staff" ? branch : branch.Where(x => x.BranchCode == employee.Branch).ToList();
 
                 if (branch != null && branch.Count > 0)
                 {

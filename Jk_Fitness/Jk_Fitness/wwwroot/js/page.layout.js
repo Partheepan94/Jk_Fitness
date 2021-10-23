@@ -115,6 +115,21 @@ function UserRights() {
                     $("#ViewPayment").attr('hidden', false);
                 else
                     $("#ViewPayment").attr('hidden', true);
+
+                if (Result[35].role == 1 || Result[35].role == 2)
+                    $("#MenuMemebersService").attr('hidden', false);
+                else
+                    $("#MenuMemebersService").attr('hidden', true);
+
+                if (Result[36].role == 1 || Result[36].role == 2)
+                    $("#AddAttendance").attr('hidden', false);
+                else
+                    $("#AddAttendance").attr('hidden', true);
+
+                if (Result[37].role == 1 || Result[37].role == 2)
+                    $("#ViewAttendance").attr('hidden', false);
+                else
+                    $("#ViewAttendance").attr('hidden', true);
             } else {
                 Swal.fire({
                     icon: 'error',

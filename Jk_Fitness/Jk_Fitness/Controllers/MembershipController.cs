@@ -173,6 +173,11 @@ namespace Jk_Fitness.Controllers
             }
         }
 
+        public IActionResult MembersService()
+        {
+            return View();
+        }
+
         #region MembersAttendance
 
         public IActionResult MembershipAttendance()
@@ -189,13 +194,6 @@ namespace Jk_Fitness.Controllers
 
         public IActionResult ViewMembershipAttendance()
         {
-            //var userType = Request.Cookies["Role"];
-            //List<int> result1 = Setting.GetUserRightsbyUsertype(userType);
-            //if (result1.Count() > 0)
-            //{
-            //    ViewBag.Edit = result1[14];
-            //    ViewBag.Delete = result1[15];
-            //}
             return View();
         }
 

@@ -603,8 +603,8 @@ $("#StatusforSearch").change(function () {
 });
 
 $("#SearchOptions").change(function () {
-    ListMemberDetails();
     $('#ValueforSearch').val('');
+    SearchMembership();
 });
 
 function Clear() {
