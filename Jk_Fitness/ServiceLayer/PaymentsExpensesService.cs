@@ -28,7 +28,7 @@ namespace ServiceLayer
                 var memberdetails = uow.MembershipRepository.GetByID(memberId);
                 if (memberdetails != null)
                 {
-                    if (memberdetails.PackageExpirationDate.Date <= DateTime.Now.Date)
+                    if (memberdetails.PackageExpirationDate.Date <= GetDateTimeByLocalZone.GetDateTime().Date)
                     {
 
                         var membershipVM = new MembershipVM();
@@ -94,7 +94,7 @@ namespace ServiceLayer
             {
                 payment.PaymentDate = payment.PaymentDate.Date;
                 payment.Branch = uow.MembershipRepository.GetByID(payment.MemberId).Branch;
-                payment.CreatedDate = DateTime.Now;
+                payment.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                 uow.MembershipPaymentsRepository.Insert(payment);
                 uow.Save();
 
@@ -110,7 +110,7 @@ namespace ServiceLayer
 
                     memberdetails.MembershipExpirationDate = memberdetails.PackageExpirationDate.AddMonths(1).Date;
 
-                    if(memberdetails.PackageExpirationDate > DateTime.Now.Date)
+                    if(memberdetails.PackageExpirationDate > GetDateTimeByLocalZone.GetDateTime().Date)
                         memberdetails.Active = true;
 
                     uow.MembershipRepository.Update(memberdetails);
@@ -156,7 +156,7 @@ namespace ServiceLayer
             try
             {
                 payment.PaymentDate = payment.PaymentDate.Date;
-                payment.CreatedDate = DateTime.Now;
+                payment.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                 uow.PartialPaymentsRepository.Insert(payment);
                 uow.Save();
                 webResponce = new WebResponce()
@@ -182,7 +182,7 @@ namespace ServiceLayer
             try
             {
                 payment.PaymentDate = payment.PaymentDate.Date;
-                payment.ModifiedDate = DateTime.Now;
+                payment.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                 uow.MembershipPaymentsRepository.Update(payment);
                 uow.Save();
 
@@ -194,7 +194,7 @@ namespace ServiceLayer
                     memberdetails.PackageExpirationDate = memberdetails.PackageExpirationDate.AddMonths(PackageDetails.MonthsPerPackage).Date;
                     memberdetails.MembershipExpirationDate = memberdetails.PackageExpirationDate.AddMonths(1).Date;
 
-                    if(memberdetails.PackageExpirationDate > DateTime.Now.Date)
+                    if(memberdetails.PackageExpirationDate > GetDateTimeByLocalZone.GetDateTime().Date)
                         memberdetails.Active = true;
 
                     uow.MembershipRepository.Update(memberdetails);
@@ -405,8 +405,8 @@ namespace ServiceLayer
                 }
                 else
                 {
-                    PaymentYears.StartYear = DateTime.Now.Year;
-                    PaymentYears.EndYear = DateTime.Now.Year;
+                    PaymentYears.StartYear = GetDateTimeByLocalZone.GetDateTime().Year;
+                    PaymentYears.EndYear = GetDateTimeByLocalZone.GetDateTime().Year;
                 }
                 
                 webResponce = new WebResponce()

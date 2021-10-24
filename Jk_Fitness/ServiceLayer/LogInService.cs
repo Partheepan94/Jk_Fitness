@@ -35,7 +35,7 @@ namespace ServiceLayer
                         DateTime EveningIntime = DateTime.Parse(Empl.EveningInTime);
                         DateTime EveningOutTime = DateTime.Parse(Empl.EveningOutTime);
 
-                        if ((MoriningIntime <= DateTime.Now && MoriningOutTime >= DateTime.Now) || (EveningIntime <= DateTime.Now && EveningOutTime >= DateTime.Now)) {
+                        if ((MoriningIntime <= GetDateTimeByLocalZone.GetDateTime() && MoriningOutTime >= GetDateTimeByLocalZone.GetDateTime()) || (EveningIntime <= GetDateTimeByLocalZone.GetDateTime() && EveningOutTime >= GetDateTimeByLocalZone.GetDateTime())) {
                             if (string.Compare(Crypto.Hash(employee.Password.Trim()), Empl.Password) == 0)
                             {
                                 webResponce = new WebResponce()
@@ -146,7 +146,7 @@ namespace ServiceLayer
                 {
                     Empl.Password = Crypto.Hash(employee.Password.Trim());
                     Empl.IsFirstTime = false;
-                    Empl.ModifiedDate = DateTime.Now;
+                    Empl.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                     Empl.ModifiedBy = employee.ModifiedBy;
                     uow.EmployeeRepository.Update(Empl);
                     uow.Save();
@@ -190,7 +190,7 @@ namespace ServiceLayer
 
                         Empl.Password = Crypto.Hash(EmpPwd);
                         Empl.IsFirstTime = true;
-                        Empl.ModifiedDate = DateTime.Now;
+                        Empl.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                         uow.EmployeeRepository.Update(Empl);
                         uow.Save();
 

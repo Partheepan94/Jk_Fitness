@@ -22,7 +22,7 @@ namespace ServiceLayer
         {
             try
             {
-                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date < DateTime.Now.Date.AddMonths(-1)).ToList();
+                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date < GetDateTimeByLocalZone.GetDateTime().Date.AddMonths(-1)).ToList();
                 if (MemberAttendances.Count > 0)
                 {
                     uow.MembersAttendanceRepository.DeleteRange(MemberAttendances);
@@ -41,7 +41,7 @@ namespace ServiceLayer
             {
                 #region 2days before
 
-                List<MemberShip> membershipsForTwo = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate == DateTime.Now.Date.AddDays(2)).ToList();
+                List<MemberShip> membershipsForTwo = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate == GetDateTimeByLocalZone.GetDateTime().Date.AddDays(2)).ToList();
 
                 if (membershipsForTwo.Count > 0)
                 {
@@ -69,7 +69,7 @@ namespace ServiceLayer
 
                 #region Same day
 
-                List<MemberShip> memberships = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate == DateTime.Now.Date).ToList();
+                List<MemberShip> memberships = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate == GetDateTimeByLocalZone.GetDateTime().Date).ToList();
 
                 if (memberships.Count > 0)
                 {
@@ -107,7 +107,7 @@ namespace ServiceLayer
             try
             {
                 #region 7days before
-                List<MemberShip> membershipsForSeven = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == DateTime.Now.Date.AddDays(7)).ToList();
+                List<MemberShip> membershipsForSeven = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == GetDateTimeByLocalZone.GetDateTime().Date.AddDays(7)).ToList();
 
                 if (membershipsForSeven.Count > 0)
                 {
@@ -133,7 +133,7 @@ namespace ServiceLayer
                 }
                 #endregion
                 #region 3days before
-                List<MemberShip> membershipsForThree = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == DateTime.Now.Date.AddDays(3)).ToList();
+                List<MemberShip> membershipsForThree = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == GetDateTimeByLocalZone.GetDateTime().Date.AddDays(3)).ToList();
 
                 if (membershipsForThree.Count > 0)
                 {
@@ -160,7 +160,7 @@ namespace ServiceLayer
                 #endregion
                 #region Same day
 
-                List<MemberShip> memberships = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == DateTime.Now.Date).ToList();
+                List<MemberShip> memberships = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == GetDateTimeByLocalZone.GetDateTime().Date).ToList();
 
                 if (memberships.Count > 0)
                 {
@@ -196,14 +196,14 @@ namespace ServiceLayer
         {
             try
             {
-                List<MemberShip> deactivatingMembers = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == DateTime.Now.Date.AddDays(-1)).ToList();
+                List<MemberShip> deactivatingMembers = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate == GetDateTimeByLocalZone.GetDateTime().Date.AddDays(-1)).ToList();
 
                 if(deactivatingMembers.Count > 0)
                 {
                     foreach(var member in deactivatingMembers)
                     {
                         member.Active = false;
-                        member.ModifiedDate = DateTime.Now;
+                        member.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                         uow.MembershipRepository.Update(member);
                         uow.Save();
                     }

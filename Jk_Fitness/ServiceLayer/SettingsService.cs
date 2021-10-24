@@ -34,7 +34,7 @@ namespace ServiceLayer
                     branch.BranchCode = "JKF 1.0";
                 }
                 branch.BranchName = branch.BranchName.Trim();
-                branch.CreatedDate = DateTime.Now;
+                branch.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                 branch.CreatedBy = branch.CreatedBy;
                 branch.IsCurrent = true;
                 uow.BranchRepository.Insert(branch);
@@ -149,7 +149,7 @@ namespace ServiceLayer
                         Brch.MembershipInitialRangeTo = branch.MembershipInitialRangeTo;
                         Brch.MembershipActiveMonthRange = branch.MembershipActiveMonthRange;
 
-                        Brch.ModifiedDate = DateTime.Now;
+                        Brch.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                         Brch.ModifiedBy = branch.ModifiedBy;
                         uow.BranchRepository.Update(Brch);
                         uow.Save();
@@ -310,7 +310,7 @@ namespace ServiceLayer
                     expenseType.ExpenseCode = "Exp-1";
                 }
                 expenseType.ExpenseName = expenseType.ExpenseName.Trim();
-                expenseType.CreatedDate = DateTime.Now;
+                expenseType.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                 expenseType.CreatedBy = expenseType.CreatedBy;
                 uow.ExpensesTypeRepository.Insert(expenseType);
                 uow.Save();
@@ -412,7 +412,7 @@ namespace ServiceLayer
                     expense.ExpenseName = expenseType.ExpenseName.Trim();
                     expense.IsEnable = expenseType.IsEnable;
 
-                    expense.ModifiedDate = DateTime.Now;
+                    expense.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                     expense.ModifiedBy = expenseType.ModifiedBy;
                     uow.ExpensesTypeRepository.Update(expense);
                     uow.Save();
@@ -537,7 +537,7 @@ namespace ServiceLayer
                     membershipType.MembershipCode = "Mem-1";
                 }
                 membershipType.MembershipName = membershipType.MembershipName.Trim();
-                membershipType.CreatedDate = DateTime.Now;
+                membershipType.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                 membershipType.CreatedBy = membershipType.CreatedBy;
                 uow.MembershipTypesRepository.Insert(membershipType);
                 uow.Save();
@@ -641,7 +641,7 @@ namespace ServiceLayer
                     membership.IsEnable = membershipType.IsEnable;
                     membership.MonthsPerPackage = membershipType.MonthsPerPackage;
 
-                    membership.ModifiedDate = DateTime.Now;
+                    membership.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                     membership.ModifiedBy = membershipType.ModifiedBy;
                     uow.MembershipTypesRepository.Update(membership);
                     uow.Save();

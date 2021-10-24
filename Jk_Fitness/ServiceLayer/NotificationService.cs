@@ -23,13 +23,13 @@ namespace ServiceLayer
             {
                 var employee = uow.EmployeeRepository.GetByID(EmpId);
                 NotificationVM notificationVM = new NotificationVM();
-                notificationVM.PackageExpirationThisMonth = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate.Date.Month == DateTime.Now.Date.Month && x.PackageExpirationDate.Date.Year == DateTime.Now.Date.Year).ToList();
-                notificationVM.PackageExpirationNextMonth = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate.Date.Month == DateTime.Now.Date.AddMonths(1).Month && x.PackageExpirationDate.Date.Year == DateTime.Now.Date.Year).ToList();
-                notificationVM.PackageExpirationLastMonth = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate.Date.Month == DateTime.Now.Date.AddMonths(-1).Month && x.PackageExpirationDate.Date.Year == DateTime.Now.Date.Year).ToList();
+                notificationVM.PackageExpirationThisMonth = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate.Date.Month == GetDateTimeByLocalZone.GetDateTime().Date.Month && x.PackageExpirationDate.Date.Year == GetDateTimeByLocalZone.GetDateTime().Date.Year).ToList();
+                notificationVM.PackageExpirationNextMonth = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate.Date.Month == GetDateTimeByLocalZone.GetDateTime().Date.AddMonths(1).Month && x.PackageExpirationDate.Date.Year == GetDateTimeByLocalZone.GetDateTime().Date.Year).ToList();
+                notificationVM.PackageExpirationLastMonth = uow.MembershipRepository.GetAll().Where(x => x.PackageExpirationDate.Date.Month == GetDateTimeByLocalZone.GetDateTime().Date.AddMonths(-1).Month && x.PackageExpirationDate.Date.Year == GetDateTimeByLocalZone.GetDateTime().Date.Year).ToList();
 
-                notificationVM.MemberShipExpirationThisMonth = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate.Date.Month == DateTime.Now.Date.Month && x.MembershipExpirationDate.Date.Year == DateTime.Now.Date.Year).ToList();
-                notificationVM.MemberShipExpirationNextMonth = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate.Date.Month == DateTime.Now.AddMonths(1).Month && x.MembershipExpirationDate.Date.Year == DateTime.Now.Date.Year).ToList();
-                notificationVM.MemberShipExpirationLastMonth = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate.Date.Month == DateTime.Now.AddMonths(-1).Month && x.MembershipExpirationDate.Date.Year == DateTime.Now.Date.Year).ToList();
+                notificationVM.MemberShipExpirationThisMonth = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate.Date.Month == GetDateTimeByLocalZone.GetDateTime().Date.Month && x.MembershipExpirationDate.Date.Year == GetDateTimeByLocalZone.GetDateTime().Date.Year).ToList();
+                notificationVM.MemberShipExpirationNextMonth = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate.Date.Month == GetDateTimeByLocalZone.GetDateTime().AddMonths(1).Month && x.MembershipExpirationDate.Date.Year == GetDateTimeByLocalZone.GetDateTime().Date.Year).ToList();
+                notificationVM.MemberShipExpirationLastMonth = uow.MembershipRepository.GetAll().Where(x => x.MembershipExpirationDate.Date.Month == GetDateTimeByLocalZone.GetDateTime().AddMonths(-1).Month && x.MembershipExpirationDate.Date.Year == GetDateTimeByLocalZone.GetDateTime().Date.Year).ToList();
 
                 notificationVM.PackageExpirationThisMonth = employee.UserType == "Admin" ? notificationVM.PackageExpirationThisMonth : notificationVM.PackageExpirationThisMonth.Where(x => x.Branch == employee.Branch).ToList();
                 notificationVM.PackageExpirationNextMonth = employee.UserType == "Admin" ? notificationVM.PackageExpirationNextMonth : notificationVM.PackageExpirationNextMonth.Where(x => x.Branch == employee.Branch).ToList();
