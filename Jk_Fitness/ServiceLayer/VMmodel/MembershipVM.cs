@@ -16,6 +16,7 @@ namespace ServiceLayer.VMmodel
         public bool IsPartialPayment { get; set; }
         public string Branch { get; set; }
         public int PackageId { get; set; }
+        public DateTime PackageExpirationDate { get; set; }
 
         public List<PartialPayments> PartialPayments { get; set; }
         public MembershipPayments PaymentDetails { get; set; }

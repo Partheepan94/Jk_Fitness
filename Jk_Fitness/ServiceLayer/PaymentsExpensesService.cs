@@ -37,12 +37,13 @@ namespace ServiceLayer
                         membershipVM.LastName = memberdetails.LastName;
                         membershipVM.PackageAmount = memberdetails.Payment;
                         membershipVM.PackageId = memberdetails.MemberPackage;
+                        membershipVM.PackageExpirationDate = memberdetails.PackageExpirationDate.Date;
                         membershipVM.PackageType = uow.MembershipTypesRepository.GetByID(memberdetails.MemberPackage).MembershipName;
                         membershipVM.Branch = uow.BranchRepository.GetAll().Where(x => x.BranchCode == memberdetails.Branch).Select(x => x.BranchName).FirstOrDefault();
 
                         var details = uow.MembershipPaymentsRepository.GetAll().Where(x => x.MemberId == memberId & x.IsPartialPay == true).FirstOrDefault();
 
-                        membershipVM.IsPartialPayment = details != null ? details.IsPartialPay : false;
+                        membershipVM.IsPartialPayment = details != null && memberdetails.MembershipExpirationDate >= GetDateTimeByLocalZone.GetDateTime().Date ? details.IsPartialPay : false;
 
                         if (membershipVM.IsPartialPayment == true)
                         {
