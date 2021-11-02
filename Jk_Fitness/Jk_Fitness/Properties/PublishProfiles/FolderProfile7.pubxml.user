@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--
+https://go.microsoft.com/fwlink/?LinkID=208121. 
+-->
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <_PublishTargetUrl>E:\Gym_Project\Payment_Changes\Publish</_PublishTargetUrl>
+    <History>True|2021-10-19T05:32:49.4236223Z;True|2021-10-19T11:02:06.3374064+05:30;False|2021-10-19T10:58:13.0603944+05:30;True|2021-10-19T10:08:02.9853535+05:30;True|2021-10-19T09:27:21.2035491+05:30;</History>
+  </PropertyGroup>
+</Project>

@@ -195,6 +195,25 @@ namespace Jk_Fitness.Controllers
             }
         }
 
+        [HttpGet]
+        public WebResponce GetMembershipDetails(int memberId)
+        {
+            try
+            {
+                webResponce = employee.GetMembershipDetails(memberId);
+                return webResponce;
+            }
+            catch (Exception Ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = Ex.Message
+                };
+                return webResponce;
+            }
+        }
+
         #region SalaryManagement
         public IActionResult Salary()
         {

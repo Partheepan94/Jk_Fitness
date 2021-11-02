@@ -21,7 +21,7 @@ namespace ServiceLayer
             this.uow = uow;
             this.mailService = mailService;
         }
-       
+
         public WebResponce ListBranches()
         {
             try
@@ -36,7 +36,8 @@ namespace ServiceLayer
                         Data = branch
                     };
                 }
-                else {
+                else
+                {
                     webResponce = new WebResponce()
                     {
                         Code = 0,
@@ -118,7 +119,7 @@ namespace ServiceLayer
                     //employee.PhoneNo = employee.PhoneNo.Trim();
                     //employee.Branch = employee.Branch.Trim();
                     //employee.UserType = employee.UserType.Trim();
-                    employee.CreatedDate = DateTime.Now;
+                    employee.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                     employee.CreatedBy = employee.CreatedBy;
                     employee.Password = Crypto.Hash(EmpPwd);
                     employee.IsFirstTime = true;
@@ -148,7 +149,8 @@ namespace ServiceLayer
                         Data = employee
                     };
                 }
-                else {
+                else
+                {
                     webResponce = new WebResponce()
                     {
                         Code = 0,
@@ -156,7 +158,7 @@ namespace ServiceLayer
                     };
                 }
 
-                
+
             }
             catch (Exception ex)
             {
@@ -167,7 +169,7 @@ namespace ServiceLayer
                 };
             }
             return webResponce;
-        }        
+        }
 
         public WebResponce ListEmployeeDetails()
         {
@@ -252,7 +254,7 @@ namespace ServiceLayer
         {
             try
             {
-                var Empl = uow.DbContext.Employees.Where(x => x.EmployeeId==employee.EmployeeId.Trim()).FirstOrDefault();
+                var Empl = uow.DbContext.Employees.Where(x => x.EmployeeId == employee.EmployeeId.Trim()).FirstOrDefault();
                 if (Empl != null)
                 {
                     Empl.Salutation = employee.Salutation.Trim();
@@ -262,7 +264,8 @@ namespace ServiceLayer
                     Empl.Street = employee.Street.Trim();
                     Empl.District = employee.District.Trim();
                     Empl.Province = employee.Province.Trim();
-                    if (employee.Image != null) {
+                    if (employee.Image != null)
+                    {
                         Empl.Image = employee.Image;
                     }
                     Empl.Email = employee.Email.Trim();
@@ -274,7 +277,7 @@ namespace ServiceLayer
                     Empl.MorningOutTime = employee.MorningOutTime;
                     Empl.EveningInTime = employee.EveningInTime;
                     Empl.EveningOutTime = employee.EveningOutTime;
-                    Empl.ModifiedDate = DateTime.Now;
+                    Empl.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                     Empl.ModifiedBy = employee.ModifiedBy;
                     uow.EmployeeRepository.Update(Empl);
                     uow.Save();
@@ -347,13 +350,13 @@ namespace ServiceLayer
             try
             {
                 List<Employee> Empl = uow.DbContext.Employees.Where(x => x.Branch == employee.Branch.Trim() && x.FirstName.Contains(employee.FirstName)).ToList();
-                if (Empl != null && Empl.Count>0)
+                if (Empl != null && Empl.Count > 0)
                 {
                     webResponce = new WebResponce()
                     {
                         Code = 1,
                         Message = "Success",
-                        Data=Empl
+                        Data = Empl
                     };
                 }
                 else
@@ -384,7 +387,7 @@ namespace ServiceLayer
                 if (Empl != null)
                 {
                     Empl.Salary = employee.Salary;
-                    Empl.ModifiedDate = DateTime.Now;
+                    Empl.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                     Empl.ModifiedBy = employee.ModifiedBy;
                     uow.EmployeeRepository.Update(Empl);
                     uow.Save();
@@ -415,6 +418,41 @@ namespace ServiceLayer
                 };
             }
             return webResponce;
+        }
+
+        public WebResponce GetMembershipDetails(int memberId)
+        {
+            try
+            {
+                var memberdetails = uow.MembershipRepository.GetByID(memberId);
+                if (memberdetails != null)
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 1,
+                        Message = "Success",
+                        Data = memberdetails
+                    };
+                }
+                else
+                {
+                    webResponce = new WebResponce()
+                    {
+                        Code = 0,
+                        Message = "Invalid Membership ID"
+                    };
+                }
+                return webResponce;
+            }
+            catch (Exception ex)
+            {
+                webResponce = new WebResponce()
+                {
+                    Code = -1,
+                    Message = ex.Message.ToString()
+                };
+                return webResponce;
+            }
         }
 
 

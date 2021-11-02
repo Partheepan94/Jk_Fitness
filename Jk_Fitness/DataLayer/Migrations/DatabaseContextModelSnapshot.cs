@@ -298,6 +298,9 @@ namespace DataLayer.Migrations
                     b.Property<string>("NIC")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<bool>("NoNic")
+                        .HasColumnType("bit");
+
                     b.Property<DateTime>("PackageExpirationDate")
                         .HasColumnType("datetime2");
 
@@ -488,6 +491,9 @@ namespace DataLayer.Migrations
                         .HasColumnType("real");
 
                     b.Property<int>("Staff")
+                        .HasColumnType("int");
+
+                    b.Property<int>("TemporaryStaff")
                         .HasColumnType("int");
 
                     b.HasKey("Id");

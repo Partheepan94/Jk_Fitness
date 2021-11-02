@@ -18,5 +18,6 @@ namespace DataLayer.Models
         public int Staff { get; set; }
         public int ParentId { get; set; }
         public float SortOrder { get; set; }
+        public int TemporaryStaff { get; set; }
     }
 }

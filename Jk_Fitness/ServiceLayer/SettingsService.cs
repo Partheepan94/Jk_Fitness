@@ -713,8 +713,16 @@ namespace ServiceLayer
         {
             try
             {
-                var MenuRights = uow.DbContext.MenusRights.Select(s => new { ParentId=s.ParentId,Id=s.Id, MenuName=s.MenuName, Staff = s.Staff == 1 ? "checked" : s.Staff == 2 ? "checked disabled" :s.Staff==3 ? "disabled" : " ",
-                    Admin = s.Admin == 1 ? "checked" : s.Admin == 2 ? "checked disabled" :s.Admin==3 ? "disabled" : " " }).ToList();
+                var MenuRights = uow.DbContext.MenusRights.Select(s => new
+                {
+                    ParentId = s.ParentId,
+                    Id = s.Id,
+                    SortOrder = s.SortOrder,
+                    MenuName = s.MenuName,
+                    Staff = s.Staff == 1 ? "checked" : s.Staff == 2 ? "checked disabled" : s.Staff == 3 ? "disabled" : " ",
+                    Admin = s.Admin == 1 ? "checked" : s.Admin == 2 ? "checked disabled" : s.Admin == 3 ? "disabled" : " ",
+                    TemporaryStaff = s.TemporaryStaff == 1 ? "checked" : s.TemporaryStaff == 2 ? "checked disabled" : s.TemporaryStaff == 3 ? "disabled" : " "
+                }).OrderBy(x => x.SortOrder).ToList();
                 if (MenuRights != null)
                 {
                     webResponce = new WebResponce()
@@ -753,6 +761,7 @@ namespace ServiceLayer
                 if (Menu != null)
                 {
                     Menu.Staff = menu.Staff;
+                    //Menu.TemporaryStaff = menu.TemporaryStaff;
                    
                     uow.MenuRightsRepository.Update(Menu);
                     uow.Save();

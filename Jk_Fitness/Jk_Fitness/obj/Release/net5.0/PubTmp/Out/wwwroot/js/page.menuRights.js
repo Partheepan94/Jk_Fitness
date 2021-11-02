@@ -23,6 +23,7 @@ function ListMenuRights() {
                         tr.push("<td>&nbsp;&nbsp;--" + Menu[i].menuName + "</td>");
                     tr.push("<td><input type=\"checkbox\" " + Menu[i].admin + " onclick=\"updateRoles(this,'admin'," + Menu[i].id + ");\"></td>");
                     tr.push("<td><input type=\"checkbox\" " + Menu[i].staff + " onclick=\"updateRoles(this,'Staff'," + Menu[i].id + ");\"></td>");
+                    tr.push("<td><input type=\"checkbox\" " + Menu[i].temporaryStaff + " onclick=\"updateRoles(this,'TemporaryStaff'," + Menu[i].id + ");\"></td>");
                     tr.push('</tr>');
 
 

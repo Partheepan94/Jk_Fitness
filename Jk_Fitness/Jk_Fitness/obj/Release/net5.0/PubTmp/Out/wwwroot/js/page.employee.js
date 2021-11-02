@@ -46,6 +46,7 @@ $('#btnAdd').click(function () {
     $('#MorningOut').val('11:59 AM');
     $('#EveningIn').val('12:00 PM');
     $('#EveningOut').val('11:59 PM');
+    $("#MemFind").css("display", "flex");
 });
 
 function ListEmployeeDetails() {
@@ -342,6 +343,7 @@ function ViewEmployee(Id) {
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $("#wait").css("display", "block");
+    $("#MemFind").css("display", "none");
 
     LoadBranches();
     LoadUserTypes();
@@ -399,6 +401,7 @@ function EditEmployee(Id) {
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $("#wait").css("display", "block");
+    $("#MemFind").css("display", "none");
 
     LoadBranches();
     LoadUserTypes();
@@ -606,7 +609,7 @@ function SearchEmployee() {
 
 function Clear() {
     $('#EmployeeId').val('');
-    $('#Salutation').val('');
+    $('#Salutation').val(0);
     $('#Fname').val('');
     $('#Lname').val('');
     $('#HouseNo').val('');
@@ -615,14 +618,15 @@ function Clear() {
     $('#Province').val('');
     $('#Email').val('');
     $('#ContactNo').val('');
-    $('#Branch').val('');
-    $('#UserType').val('');
-    $('#MorningIn').val('');
-    $('#MorningOut').val('');
-    $('#EveningIn').val('');
-    $('#EveningOut').val('');
+    $('#Branch').val(0);
+    $('#UserType').val(0);
+    $('#MorningIn').val('12:00 AM');
+    $('#MorningOut').val('11:59 AM');
+    $('#EveningIn').val('12:00 PM');
+    $('#EveningOut').val('11:59 PM');
     $('#Status').prop('checked', true);
     $('#targetImg').attr("src", "dist/img/default.jpg");
+    $('#MebershipNo').val('')
 }
 
 function Cancel() {
@@ -694,4 +698,44 @@ function validateEmail(email) {
     return re.test(String(email).toLowerCase());
 }
 
+$("#btnSearch").click(function () {
+    $("#waitform").css("display", "block");
+    $.ajax({
+        type: 'GET',
+        url: $("#GetMemberDetails").val(),
+        dataType: 'json',
+        data: { memberId: parseInt($('#MebershipNo').val()) },
+        headers: {
+            "Authorization": "Bearer " + sessionStorage.getItem('token'),
+        },
+        success: function (response) {
+            var myData = jQuery.parseJSON(JSON.stringify(response));
+            $("#waitform").css("display", "none");
+            if (myData.code == "1") {
+                var Result = myData.data;
+                $("#Fname").val(Result['firstName']);
+                $("#Lname").val(Result['lastName']);
+                $("#HouseNo").val(Result['houseNo']);
+                $("#Street").val(Result['street']);
+                $("#District").val(Result['district']);
+                $("#Province").val(Result['province']);
+                $("#Email").val(Result['email']);
+                $("#ContactNo").val(Result['contactNo']);
+                $("#Branch").val(Result['branch']);
 
+            } else {
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: myData.message,
+                });
+            }
+        },
+        error: function (jqXHR, exception) {
+        }
+    });
+});
+
+$("#btnClear").click(function () {
+    Clear();
+})

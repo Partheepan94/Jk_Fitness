@@ -1,5 +1,6 @@
 ﻿$(document).ready(function () {
     LoadBranchesforSearch();
+    LoadSearchOption();
     var CurDate = new Date();
     $("#AttendDate").val(getFormattedDate(CurDate));
     var MembersAttendanceArray;
@@ -103,7 +104,7 @@ $("#btnAddMemberAttendance").click(function () {
     $("#btnAddMemberAttendance").attr("disabled", true);
     $('.modal').addClass('freeze');
     $('.modal-content').addClass('freeze');
-   
+
 
     if (Id == "0" || Id == "") {
         $.ajax({
@@ -371,21 +372,39 @@ function getFormattedDate(date) {
 
 $("#btnSearch").click(function () {
     LoadAttendance();
-    $('#FName').val("");
+    $('#ValueforSearch').val("");
 });
 
-$("#FName").bind('keyup', function () {
+$("#ValueforSearch").bind('keyup', function () {
     SearchMemberAttendance();
+});
+
+$("#SearchOptions").change(function () {
+    $('#ValueforSearch').val('');
+    SearchMemberAttendance();    
 });
 
 function SearchMemberAttendance() {
     $("#wait").css("display", "block");
-    var Branch = $('#Branch').val();
+    var Result = [];
 
-    var Name = $('#FName').val();
-    var Result = $.grep(MembersAttendanceArray, function (v) {
-        return (v.firstName.search(new RegExp(Name, "i")) != -1);
-    })
+    var searchOpt = $('#SearchOptions').val();
+    var searchVal = $('#ValueforSearch').val();
+
+    if (searchVal == "") {
+        Result = MembersAttendanceArray;
+    } else {
+        if (searchOpt == "1") {
+            Result = $.grep(MembersAttendanceArray, function (v) {
+                return ((v.firstName.search(new RegExp(searchVal, "i")) != -1) || (v.lastName.search(new RegExp(searchVal, "i")) != -1));
+            })
+        }
+        else {
+            Result = $.grep(MembersAttendanceArray, function (v) {
+                return (v.memberId === parseInt(searchVal));
+            })
+        }
+    }
     $("#wait").css("display", "none");
     if (Result.length != 0) {
 
@@ -406,7 +425,7 @@ function SearchMemberAttendance() {
             else
                 tr.push("<td>" + Result[i].eveningInTime + " - " + Result[i].eveningOutTime + "</td>");
 
-            
+
             var td = [];
             td.push('<td>');
             if ($('#edit').val() == 1 || $('#edit').val() == 2)
@@ -497,5 +516,16 @@ function Clear() {
     $('#EveningOut').val("");
     $("#MemberId").val("");
     $("#AttendanceId").val("");
+}
+function LoadSearchOption() {
+    $('#SearchOptions').find('option').remove().end();
+    searchOptions = $('#SearchOptions');
+    var searchOptionsList = [
+        { Id: 1, Name: "Name" },
+        { Id: 2, Name: "Membership Id" }
+    ];
+    $.each(searchOptionsList, function () {
+        searchOptions.append($("<option/>").val(this.Id).text(this.Name));
+    });
 }
 

@@ -20,3 +20,6 @@
 .freeze {
     pointer-events: none;
 }
+.note-insert {
+    display: none
+}

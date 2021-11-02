@@ -44,10 +44,10 @@ namespace ServiceLayer
                 }
 
                 Member.CreatedBy = Member.CreatedBy;
-                Member.CreatedDate = DateTime.Now;
+                Member.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                 if (Member.IsFreeMembership)
                 {
-                    Member.PackageExpirationDate = DateTime.Now.AddYears(100).Date;
+                    Member.PackageExpirationDate = GetDateTimeByLocalZone.GetDateTime().AddYears(100).Date;
                 }
                 else
                 {
@@ -107,7 +107,7 @@ namespace ServiceLayer
             branch.Id = 0;
             branch.MembershipInitialRangeFrom = membershiopLastToId + 1;
             branch.MembershipInitialRangeTo = membershiopLastToId + 1000;
-            branch.CreatedDate = DateTime.Now;
+            branch.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
             branch.IsCurrent = true;
             uow.BranchRepository.Insert(branch);
             uow.Save();
@@ -242,7 +242,7 @@ namespace ServiceLayer
                     var PackageDetails = uow.MembershipTypesRepository.GetByID(member.MemberPackage);
                     if (member.IsFreeMembership)
                     {
-                        Mem.PackageExpirationDate = DateTime.Now.AddYears(100).Date;
+                        Mem.PackageExpirationDate = GetDateTimeByLocalZone.GetDateTime().AddYears(100).Date;
                     }
                     Mem.MembershipExpirationDate = Mem.PackageExpirationDate.AddMonths(1).Date;
                     if (Mem.MemberPackage != member.MemberPackage)
@@ -272,7 +272,7 @@ namespace ServiceLayer
                         mailService.SendEmailAsync(request);
 
                     }
-                    Mem.ModifiedDate = DateTime.Now;
+                    Mem.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                     Mem.ModifiedBy = member.ModifiedBy;
                     uow.MembershipRepository.Update(Mem);
                     uow.Save();
@@ -381,7 +381,7 @@ namespace ServiceLayer
                 var employee = uow.EmployeeRepository.GetByID(EmpId);
                 List<Branch> branch = uow.BranchRepository.GetAll().Where(x => x.IsCurrent == true).OrderBy(x => x.BranchCode).ToList();
 
-                branch = employee.UserType == "Admin" || employee.UserType == "Temporary Staff" ? branch : branch.Where(x => x.BranchCode == employee.Branch).ToList();
+                branch = employee.UserType == "Admin" || employee.UserType == "TemporaryStaff" ? branch : branch.Where(x => x.BranchCode == employee.Branch).ToList();
 
                 if (branch != null && branch.Count > 0)
                 {
@@ -416,7 +416,7 @@ namespace ServiceLayer
         {
             try
             {
-                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == DateTime.Now.Date).ToList();
+                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == GetDateTimeByLocalZone.GetDateTime().Date).ToList();
                 if (MemberAttendances != null && MemberAttendances.Count > 0)
                 {
                     List<MemberShip> Member = uow.MembershipRepository.GetAll().Where(x => x.Active == true).ToList();
@@ -458,7 +458,7 @@ namespace ServiceLayer
             try
             {
                 Attendance.AttendDate = Attendance.AttendDate.Date;
-                Attendance.CreatedDate = DateTime.Now;
+                Attendance.CreatedDate = GetDateTimeByLocalZone.GetDateTime();
                 uow.MembersAttendanceRepository.Insert(Attendance);
                 uow.Save();
                 webResponce = new WebResponce()
@@ -492,8 +492,8 @@ namespace ServiceLayer
                     Attend.EveningInTime = Attendance.EveningInTime.Trim();
                     Attend.EveningOutTime = Attendance.EveningOutTime.Trim();
                     Attend.MembershipId = Attendance.MembershipId;
-                    Attend.AttendDate = DateTime.Now.Date;
-                    Attend.ModifiedDate = DateTime.Now;
+                    Attend.AttendDate = GetDateTimeByLocalZone.GetDateTime().Date;
+                    Attend.ModifiedDate = GetDateTimeByLocalZone.GetDateTime();
                     Attend.ModifiedBy = Attendance.ModifiedBy;
                     uow.MembersAttendanceRepository.Update(Attend);
                     uow.Save();
@@ -564,14 +564,14 @@ namespace ServiceLayer
         {
             try
             {
-                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == DateTime.Now.Date).ToList();
+                List<MembersAttendance> MemberAttendances = uow.MembersAttendanceRepository.GetAll().Where(x => x.AttendDate.Date == GetDateTimeByLocalZone.GetDateTime().Date).ToList();
 
                 List<MemberShip> Member = uow.MembershipRepository.GetAll().Where(x => x.Active == true).ToList();
 
                 var records = (from m in uow.DbContext.MemberShips.Where(x => x.Branch == attendances.Branch.Trim())
                                join b in uow.DbContext.MembersAttendances.Where(x => x.AttendDate.Date == attendances.AttendanceDate.Date) on m.MemberId equals b.MembershipId into lg
                                from x in lg.DefaultIfEmpty()
-                               select new { m.MemberId, m.FirstName, m.LastName, m.Branch, x.MorningInTime, x.MorningOutTime, x.EveningInTime, x.EveningOutTime, AttendDate = x.AttendDate.Date == DateTime.Now.Date ? x.AttendDate.Date : default, Id = x.Id > 0 ? x.Id : 0 }).ToList();
+                               select new { m.MemberId, m.FirstName, m.LastName, m.Branch, x.MorningInTime, x.MorningOutTime, x.EveningInTime, x.EveningOutTime, AttendDate = x.AttendDate.Date == GetDateTimeByLocalZone.GetDateTime().Date ? x.AttendDate.Date : default, Id = x.Id > 0 ? x.Id : 0 }).ToList();
 
                 if (Member != null && Member.Count > 0)
                 {

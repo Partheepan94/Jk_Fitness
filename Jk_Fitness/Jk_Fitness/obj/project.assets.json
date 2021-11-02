@@ -915,6 +915,15 @@
           "lib/netstandard2.0/BouncyCastle.Crypto.dll": {}
         }
       },
+      "QuickMailer/1.0.0.1": {
+        "type": "package",
+        "compile": {
+          "lib/net5.0/QuickMailer.dll": {}
+        },
+        "runtime": {
+          "lib/net5.0/QuickMailer.dll": {}
+        }
+      },
       "runtime.native.System/4.3.0": {
         "type": "package",
         "dependencies": {
@@ -3801,6 +3810,25 @@
         "lib/netstandard2.0/BouncyCastle.Crypto.xml",
         "portable.bouncycastle.1.8.10.nupkg.sha512",
         "portable.bouncycastle.nuspec"
+      ]
+    },
+    "QuickMailer/1.0.0.1": {
+      "sha512": "AMKcB545uqkrC7vUmLap0rOBtma8ozsWEOxv+Q/kVDGySxQah984wkJnADrh2Th1YHoJG9G/EuLVjlmS2tQL3g==",
+      "type": "package",
+      "path": "quickmailer/1.0.0.1",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "bulk-mail-icon-14.jpg",
+        "lib/net45/QuickMailer.dll",
+        "lib/net452/QuickMailer.dll",
+        "lib/net461/QuickMailer.dll",
+        "lib/net5.0/QuickMailer.dll",
+        "lib/netcoreapp3.0/QuickMailer.dll",
+        "lib/netcoreapp3.1/QuickMailer.dll",
+        "lib/netstandard2.0/QuickMailer.dll",
+        "quickmailer.1.0.0.1.nupkg.sha512",
+        "quickmailer.nuspec"
       ]
     },
     "runtime.native.System/4.3.0": {
@@ -7577,6 +7605,7 @@
       "DataLayer >= 1.0.0",
       "Microsoft.EntityFrameworkCore.Tools >= 5.0.6",
       "Microsoft.VisualStudio.Web.CodeGeneration.Design >= 5.0.2",
+      "QuickMailer >= 1.0.0.1",
       "ServiceLayer >= 1.0.0"
     ]
   },
@@ -7586,11 +7615,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "E:\\Gym_Project\\MembershipAttendance\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+      "projectUniqueName": "E:\\Gym_Project\\Payment_Changes(Current)\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
       "projectName": "Jk_Fitness",
-      "projectPath": "E:\\Gym_Project\\MembershipAttendance\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
+      "projectPath": "E:\\Gym_Project\\Payment_Changes(Current)\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness.csproj",
       "packagesPath": "C:\\Users\\UIser\\.nuget\\packages\\",
-      "outputPath": "E:\\Gym_Project\\MembershipAttendance\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\obj\\",
+      "outputPath": "E:\\Gym_Project\\Payment_Changes(Current)\\Jk_Fitness\\Jk_Fitness\\Jk_Fitness\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\UIser\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -7607,11 +7636,11 @@
         "net5.0": {
           "targetAlias": "net5.0",
           "projectReferences": {
-            "E:\\Gym_Project\\MembershipAttendance\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
-              "projectPath": "E:\\Gym_Project\\MembershipAttendance\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
+            "E:\\Gym_Project\\Payment_Changes(Current)\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj": {
+              "projectPath": "E:\\Gym_Project\\Payment_Changes(Current)\\Jk_Fitness\\Jk_Fitness\\DataLayer\\DataLayer.csproj"
             },
-            "E:\\Gym_Project\\MembershipAttendance\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
-              "projectPath": "E:\\Gym_Project\\MembershipAttendance\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
+            "E:\\Gym_Project\\Payment_Changes(Current)\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj": {
+              "projectPath": "E:\\Gym_Project\\Payment_Changes(Current)\\Jk_Fitness\\Jk_Fitness\\ServiceLayer\\ServiceLayer.csproj"
             }
           }
         }
@@ -7635,6 +7664,10 @@
           "Microsoft.VisualStudio.Web.CodeGeneration.Design": {
             "target": "Package",
             "version": "[5.0.2, )"
+          },
+          "QuickMailer": {
+            "target": "Package",
+            "version": "[1.0.0.1, )"
           }
         },
         "imports": [
@@ -7655,7 +7688,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.206\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\5.0.402\\RuntimeIdentifierGraph.json"
       }
     }
   }

@@ -3,7 +3,7 @@
     LoadStatus();
     var BranchArray;
     var MemberShipPackageArray;
-    var EmployeeDetailsArray;
+    var EmployeeDetailsArray = [];
     if ($('#add').val() == "1" || $('#add').val() == "2") {
         $("#btnAdd").attr('hidden', false);
     }
@@ -19,16 +19,19 @@ $('#btnAdd').click(function () {
     $('.modal').removeClass('freeze');
     $('.modal-content').removeClass('freeze');
     $('#MemberModal').modal('show');
+    $('#NoNic').prop('checked', true);
+    $("#Nic").attr("disabled", true);
     LoadBranches();
     LoadMemberShipPackage();
     var CurDate = new Date();
     $("#DOB").val(getFormattedDate(CurDate));
     $("#JoinDate").val(getFormattedDate(CurDate));
-    $('#Status').prop('checked', true);
+    //$('#Status').prop('checked', true);
     $("#Branch").attr("disabled", false);
     $("#Package").attr("disabled", false);
     $("#FreeMembership").attr("disabled", false);
     $("#JoinDate").attr("disabled", false);
+    LoadGender();
 });
 
 $(function () {
@@ -158,9 +161,10 @@ $('#btnAddMember').click(function () {
     data.append("Fitness", $('#Fitness').prop('checked') ? "true" : "false");
     data.append("Athletics", $('#Athletics').prop('checked') ? "true" : "false");
     data.append("IsFreeMembership", $('#FreeMembership').prop('checked') ? "true" : "false");
+    data.append("NoNic", $('#FreeMembership').prop('checked') ? "true" : "false");
 
 
-    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Nic').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Payment').val()) {
+    if (!$('#Fname').val() || !$('#Lname').val() || !$('#Email').val() || !$('#ContactNo').val() || !$('#Height').val() || !$('#Weight').val() || !$('#Payment').val()) {
         Swal.fire({
             icon: 'error',
             title: 'Oops...',
@@ -256,8 +260,6 @@ $('#btnAddMember').click(function () {
 });
 
 function ListMemberDetails() {
-    var Branch = $('#BranchforSearch').val();
-    var Status = $('#StatusforSearch').val();
     $("#wait").css("display", "block");
     var data = new FormData();
     data.append("Branch", $('#BranchforSearch').val());
@@ -281,7 +283,10 @@ function ListMemberDetails() {
                     tr.push("<td>" + Result[i].memberId + "</td>");;
                     tr.push("<td>" + Result[i].firstName + " " + Result[i].lastName + "</td>");
 
-                    tr.push("<td>" + Result[i].nic + "</td>");;
+                    if (Result[i].nic == null)
+                        tr.push("<td> - </td>");
+                    else
+                        tr.push("<td>" + Result[i].nic + "</td>");;
                     
                     tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");;
                     tr.push("<td>" + getFormattedDate(new Date(Result[i].membershipExpirationDate)) + "</td>");;
@@ -314,7 +319,7 @@ function ListMemberDetails() {
             } else if (myData.code == "0") {
                 $("#noRecords").css("display", "block");
                 $("#tblMember").css("display", "none");
-
+                EmployeeDetailsArray = [];
                 var tr = [];
                 $("#tbodyid").empty();
                 $('.tblMember').append($(tr.join('')));
@@ -342,7 +347,7 @@ function EditMember(Id) {
     $("#Branch").attr("disabled", true);
     //$("#FreeMembership").attr("disabled", true);
     //$("#JoinDate").attr("disabled", true);
-
+    LoadGender();
     LoadBranches();
     LoadMemberShipPackage();
 
@@ -357,6 +362,18 @@ function EditMember(Id) {
             $("#Package").attr("disabled", true);
         } else {
             $("#Package").attr("disabled", false);
+        }
+
+        if (Result.noNic) {
+            $("#Nic").attr("disabled", true);
+            $("#Gender").attr("disabled", false);
+            $("#DOB").attr("disabled", false);
+            $("#Age").attr("disabled", false);
+        } else {
+            $("#Nic").attr("disabled", false);
+            $("#Gender").attr("disabled", true);
+            $("#DOB").attr("disabled", true);
+            $("#Age").attr("disabled", true);
         }
         //else {
         //    var today = getFormattedDate(new Date());
@@ -419,6 +436,7 @@ function EditMember(Id) {
         $("#FreeMembership").prop("checked", Result.isFreeMembership)
         $("#DOB").val(getFormattedDate(new Date(Result.dateofBirth)));
         $("#JoinDate").val(getFormattedDate(new Date(Result.joinDate)));
+        $("#NoNic").prop("checked", Result.noNic)
         ShowIdealweight();
         $("#wait").css("display", "none");
         $('#MemberModal').modal('show');
@@ -514,16 +532,39 @@ function LoadBranchesforSearch() {
 
 function SearchMembership() {
     $("#wait").css("display", "block");
-    var FName = $('#NameforSearch').val();
-    if (FName == "") {
-        var Result = EmployeeDetailsArray;
+    var searchVal = $('#ValueforSearch').val();
+
+    var searchOpt = $('#SearchOptions').val();
+
+    var Result = [];
+
+    if (searchVal == "") {
+         Result = EmployeeDetailsArray;
     } else {
-        var Result = $.grep(EmployeeDetailsArray, function (v) {
-            return (v.firstName.search(new RegExp(FName, "i")) != -1);
-        })
+
+        if (searchOpt == "1") {
+            Result = $.grep(EmployeeDetailsArray, function (v) {
+                return ((v.firstName.search(new RegExp(searchVal, "i")) != -1) || (v.lastName.search(new RegExp(searchVal, "i")) != -1));
+            })
+        }
+        else if (searchOpt == "2") {
+             Result = $.grep(EmployeeDetailsArray, function (v) {
+                return (v.nic.search(new RegExp(searchVal, "i")) != -1);
+            })
+        }
+        else if (searchOpt == "3") {
+             Result = $.grep(EmployeeDetailsArray, function (v) {
+                return (v.contactNo.search(new RegExp(searchVal, "i")) != -1);
+            })
+        }
+        else {
+             Result = $.grep(EmployeeDetailsArray, function (v) {
+                return (v.memberId === parseInt(searchVal));
+            })
+        }
+
+       
     }
-
-
 
     $("#wait").css("display", "none");
     if (Result.length != 0) {
@@ -534,9 +575,13 @@ function SearchMembership() {
             tr.push("<td>" + Result[i].memberId + "</td>");;
             tr.push("<td>" + Result[i].firstName + " " + Result[i].lastName + "</td>");
 
-            tr.push("<td>" + Result[i].nic + "</td>");;
-            tr.push("<td>" + Result[i].branch + "</td>");;
-            tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");;
+            if (Result[i].nic == null)
+                tr.push("<td> - </td>");
+            else
+                tr.push("<td>" + Result[i].nic + "</td>");
+
+            tr.push("<td>" + getFormattedDate(new Date(Result[i].packageExpirationDate)) + "</td>");
+            tr.push("<td>" + getFormattedDate(new Date(Result[i].membershipExpirationDate)) + "</td>");
             if (Result[i].active == true)
                 tr.push("<td><strong style=\"color:green\">Active</strong></td>");
             else
@@ -581,13 +626,13 @@ $("#StatusforSearch").change(function () {
     ListMemberDetails();
 });
 
-$("#NameforSearch").bind('keyup', function () {
+$("#SearchOptions").change(function () {
+    $('#ValueforSearch').val('');
     SearchMembership();
 });
 
-
 function Clear() {
-    $('#NameforSearch').val('');
+    $('#ValueforSearch').val('');
     $('#MembershipId').val(0);
     $('#Fname').val('');
     $('#Lname').val('');
@@ -699,6 +744,7 @@ function ViewMember(Id) {
     $("#wait").css("display", "block");
     $("#Branch").attr("disabled", true);
 
+    LoadGender();
     LoadBranches();
     LoadMemberShipPackage();
 
@@ -713,6 +759,18 @@ function ViewMember(Id) {
             $("#Package").attr("disabled", true);
         } else {
             $("#Package").attr("disabled", false);
+        }
+
+        if (Result.noNic) {
+            $("#Nic").attr("disabled", true);
+            $("#Gender").attr("disabled", false);
+            $("#DOB").attr("disabled", false);
+            $("#Age").attr("disabled", false);
+        } else {
+            $("#Nic").attr("disabled", false);
+            $("#Gender").attr("disabled", true);
+            $("#DOB").attr("disabled", true);
+            $("#Age").attr("disabled", true);
         }
       
         if (Result.gender == "Female") {
@@ -766,6 +824,7 @@ function ViewMember(Id) {
         $("#FreeMembership").prop("checked", Result.isFreeMembership)
         $("#DOB").val(getFormattedDate(new Date(Result.dateofBirth)));
         $("#JoinDate").val(getFormattedDate(new Date(Result.joinDate)));
+        $("#NoNic").prop("checked", Result.noNic)
         ShowIdealweight();
         $("#wait").css("display", "none");
         $('#MemberModal').modal('show');
@@ -789,4 +848,55 @@ function LoadStatus() {
         StatusforSearch.append($("<option/>").val(this.Id).text(this.Name));
     });
     LoadBranchesforSearch();
+    LoadSearchOption();
 }
+
+$("#ValueforSearch").bind('keyup', function () {
+    SearchMembership();
+});
+
+function LoadSearchOption() {
+    $('#SearchOptions').find('option').remove().end();
+    searchOptions = $('#SearchOptions');
+    var searchOptionsList = [
+        { Id: 1, Name: "Name" },
+        { Id: 2, Name: "NIC" },
+        { Id: 3, Name: "Phone Number" },
+        { Id: 4, Name: "Membership Id" }
+    ];
+    $.each(searchOptionsList, function () {
+        searchOptions.append($("<option/>").val(this.Id).text(this.Name));
+    });
+}
+
+function LoadGender() {
+    $('#Gender').find('option').remove().end();
+    Gender = $('#Gender');
+    var GenderList = [
+        { Id: 1, Name: "Male" },
+        { Id: 2, Name: "Female" }
+    ];
+    Gender.append($("<option/>").val(0).text("-Select Gender-"))
+    $.each(GenderList, function () {
+        Gender.append($("<option/>").val(this.Name).text(this.Name));
+    });
+}
+
+$("#NoNic").change(function () {
+    var NoNic = $('#NoNic').prop('checked') ? true : false;
+    if (NoNic) {
+        $("#Nic").attr("disabled", true);
+        $("#Gender").attr("disabled", false);
+        $("#DOB").attr("disabled", false);
+        $("#Age").attr("disabled", false);
+    } else {
+        $("#Nic").attr("disabled", false);
+        $("#Gender").attr("disabled", true);
+        $("#DOB").attr("disabled", true);
+        $("#Age").attr("disabled", true);
+    }
+    $("#Nic").val('');
+    $("#Gender").val(0);
+    $("#Age").val('');
+    $("#DOB").val(getFormattedDate(new Date()));
+});

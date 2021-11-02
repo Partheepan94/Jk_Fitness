@@ -77,9 +77,9 @@ function UserRights() {
                     $("#MenuMemebership").attr('hidden', true);
 
                 if (Result[13].role == 1 || Result[13].role == 2)
-                    $("#MenuAttendance").attr('hidden', false);
+                    $("#AddAttendance").attr('hidden', false);
                 else
-                    $("#MenuAttendance").attr('hidden', true);
+                    $("#AddAttendance").attr('hidden', true);
 
                 if (Result[16].role == 1 || Result[16].role == 2)
                     $("#MenuBranch").attr('hidden', false);
@@ -115,6 +115,16 @@ function UserRights() {
                     $("#ViewPayment").attr('hidden', false);
                 else
                     $("#ViewPayment").attr('hidden', true);
+
+                if (Result[35].role == 1 || Result[35].role == 2)
+                    $("#MenuMemebersService").attr('hidden', false);
+                else
+                    $("#MenuMemebersService").attr('hidden', true);
+
+                if (Result[36].role == 1 || Result[36].role == 2)
+                    $("#ViewAttendance").attr('hidden', false);
+                else
+                    $("#ViewAttendance").attr('hidden', true);
             } else {
                 Swal.fire({
                     icon: 'error',
